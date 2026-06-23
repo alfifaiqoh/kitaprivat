@@ -1,0 +1,23 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+}
+
+nav {
+    padding: 15px 30px;
+    border-bottom: 1px solid #ddd;
+}
+
+nav h2 {
+    display: inline;
+}
+
+nav div {
+    float: right;
+}
+
+nav a {
+    margin-left: 15px;
+    text-decoration: none;
+    color: black;
+}
