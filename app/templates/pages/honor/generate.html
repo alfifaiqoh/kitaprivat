@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}Generate Honor - KITA PRIVAT{% endblock %}
+{% block content %}
+<div class="max-w-md mx-auto bg-white rounded-xl shadow p-6">
+    <h1 class="text-2xl font-bold text-edu-blue mb-4">Generate Honor Tutor</h1>
+    <form method="POST">
+        <div class="mb-3">
+            <label class="block text-sm font-semibold mb-1">Tutor <span class="text-red-500">*</span></label>
+            <select name="tutor_id" required class="w-full border rounded-lg px-3 py-2">
+                <option value="">Pilih Tutor</option>
+                {% for t in tutor_list %}
+                <option value="{{ t.id }}">{{ t.user.nama }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-4">
+            <label class="block text-sm font-semibold mb-1">Bulan <span class="text-red-500">*</span></label>
+            <input type="month" name="bulan" required class="w-full border rounded-lg px-3 py-2">
+        </div>
+        <div class="flex gap-3">
+            <button type="submit" class="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700">Generate</button>
+            <a href="{{ url_for('honor.index') }}" class="bg-gray-300 text-gray-700 px-6 py-2 rounded-lg hover:bg-gray-400">Batal</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

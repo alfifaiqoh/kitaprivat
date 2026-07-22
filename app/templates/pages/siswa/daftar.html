@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pendaftaran Siswa - KITA PRIVAT</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="bg-edu-blue min-h-screen flex items-center justify-center">
+    <div class="bg-white rounded-2xl shadow-xl p-8 w-full max-w-lg">
+        <h1 class="text-2xl font-bold text-edu-blue text-center mb-2">Pendaftaran Siswa</h1>
+        <p class="text-gray-500 text-center text-sm mb-6">Daftarkan anak Anda untuk les privat</p>
+        <form method="POST">
+            <div class="mb-3">
+                <label class="block text-sm font-semibold mb-1">Nama Lengkap <span class="text-red-500">*</span></label>
+                <input type="text" name="nama" required class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-edu-blue">
+            </div>
+            <div class="grid grid-cols-2 gap-3 mb-3">
+                <div>
+                    <label class="block text-sm font-semibold mb-1">Kelas</label>
+                    <input type="text" name="kelas" class="w-full border rounded-lg px-3 py-2">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold mb-1">Sekolah</label>
+                    <input type="text" name="sekolah" class="w-full border rounded-lg px-3 py-2">
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="block text-sm font-semibold mb-1">Alamat</label>
+                <textarea name="alamat" rows="2" class="w-full border rounded-lg px-3 py-2"></textarea>
+            </div>
+            <div class="grid grid-cols-2 gap-3 mb-3">
+                <div>
+                    <label class="block text-sm font-semibold mb-1">Telepon</label>
+                    <input type="text" name="telepon" class="w-full border rounded-lg px-3 py-2">
+                </div>
+                <div>
+                    <label class="block text-sm font-semibold mb-1">Email</label>
+                    <input type="email" name="email" class="w-full border rounded-lg px-3 py-2">
+                </div>
+            </div>
+            <div class="mb-4">
+                <label class="block text-sm font-semibold mb-1">Keterangan</label>
+                <textarea name="keterangan" rows="2" class="w-full border rounded-lg px-3 py-2"></textarea>
+            </div>
+            <button type="submit" class="w-full bg-edu-blue text-white py-2 rounded-lg hover:bg-blue-800 font-semibold">Daftar</button>
+        </form>
+    </div>
+</body>
+</html>

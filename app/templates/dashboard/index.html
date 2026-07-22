@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard - KITA PRIVAT{% endblock %}
+{% block content %}
+<div class="mb-6">
+    <h1 class="text-2xl sm:text-3xl font-bold text-edu-blue">Dashboard</h1>
+    <p class="text-gray-500 text-sm sm:text-base">Selamat datang, {{ current_user.nama }}</p>
+</div>
+
+{% if role == 'admin' %}
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-8">
+    <div class="dash-card bg-white rounded-xl shadow p-4 sm:p-6">
+        <p class="text-gray-500 text-xs sm:text-sm">Total Siswa</p>
+        <p class="text-2xl sm:text-3xl font-bold text-edu-blue">{{ total_siswa }}</p>
+    </div>
+    <div class="dash-card bg-white rounded-xl shadow p-4 sm:p-6">
+        <p class="text-gray-500 text-xs sm:text-sm">Total Tutor</p>
+        <p class="text-2xl sm:text-3xl font-bold text-edu-blue">{{ total_tutor }}</p>
+    </div>
+    <div class="dash-card bg-white rounded-xl shadow p-4 sm:p-6">
+        <p class="text-gray-500 text-xs sm:text-sm">Total Penugasan</p>
+        <p class="text-2xl sm:text-3xl font-bold text-edu-blue">{{ total_penugasan }}</p>
+    </div>
+    <div class="dash-card bg-white rounded-xl shadow p-4 sm:p-6">
+        <p class="text-gray-500 text-xs sm:text-sm">Total Pendapatan</p>
+        <p class="text-lg sm:text-2xl font-bold text-green-600 break-all">Rp {{ "{:,.0f}".format(total_pendapatan) }}</p>
+    </div>
+</div>
+
+<div class="bg-white rounded-xl shadow p-4 sm:p-6">
+    <h2 class="text-lg sm:text-xl font-semibold mb-4">Menu Admin</h2>
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3">
+        {% set menu_items = [
+            ('siswa.index', 'Siswa', 'bg-blue-50', 'text-blue-700', 'hover:bg-blue-100'),
+            ('tutor.index', 'Tutor', 'bg-green-50', 'text-green-700', 'hover:bg-green-100'),
+            ('penugasan.index', 'Penugasan', 'bg-purple-50', 'text-purple-700', 'hover:bg-purple-100'),
+            ('jadwal.index', 'Jadwal', 'bg-yellow-50', 'text-yellow-700', 'hover:bg-yellow-100'),
+            ('pembayaran.index', 'Pembayaran', 'bg-indigo-50', 'text-indigo-700', 'hover:bg-indigo-100'),
+            ('laporan.index', 'Laporan', 'bg-pink-50', 'text-pink-700', 'hover:bg-pink-100'),
+            ('absensi.index', 'Absensi', 'bg-orange-50', 'text-orange-700', 'hover:bg-orange-100'),
+            ('honor.index', 'Honor', 'bg-teal-50', 'text-teal-700', 'hover:bg-teal-100'),
+            ('pencairan.index', 'Pencairan', 'bg-red-50', 'text-red-700', 'hover:bg-red-100'),
+            ('penilaian.index', 'Penilaian', 'bg-gray-50', 'text-gray-700', 'hover:bg-gray-100'),
+            ('rekrutmen.index', 'Rekrutmen', 'bg-rose-50', 'text-rose-700', 'hover:bg-rose-100'),
+        ] %}
+        {% for route, label, bg, color, hover in menu_items %}
+        <a href="{{ url_for(route) }}"
+           class="dash-card {{ bg }} {{ color }} {{ hover }} p-3 sm:p-4 rounded-lg text-center text-xs sm:text-sm font-medium">
+            {{ label }}
+        </a>
+        {% endfor %}
+    </div>
+</div>
+
+{% elif role == 'tutor' %}
+<div class="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4 mb-8">
+    {% set tutor_menu = [
+        ('dashboard.index', 'Dashboard', 'bg-blue-50', 'text-blue-700', 'hover:bg-blue-100', '🏠'),
+        ('jadwal.index', 'Jadwal Mengajar', 'bg-yellow-50', 'text-yellow-700', 'hover:bg-yellow-100', '📅'),
+        ('absensi.checkin', 'Absensi', 'bg-orange-50', 'text-orange-700', 'hover:bg-orange-100', '📍'),
+        ('laporan.index', 'Laporan Mengajar', 'bg-pink-50', 'text-pink-700', 'hover:bg-pink-100', '📝'),
+        ('honor.index', 'Honor', 'bg-teal-50', 'text-teal-700', 'hover:bg-teal-100', '💰'),
+        ('tutor.profil', 'Profil', 'bg-purple-50', 'text-purple-700', 'hover:bg-purple-100', '👤'),
+    ] %}
+    {% for route, label, bg, color, hover, icon in tutor_menu %}
+    <a href="{{ url_for(route) }}"
+       class="dash-card {{ bg }} {{ color }} {{ hover }} p-4 sm:p-6 rounded-xl text-center">
+        <div class="text-2xl sm:text-3xl mb-1">{{ icon }}</div>
+        <div class="text-xs sm:text-sm font-medium">{{ label }}</div>
+    </a>
+    {% endfor %}
+</div>
+
+<div class="bg-white rounded-xl shadow p-4 sm:p-6">
+    <h2 class="text-lg sm:text-xl font-semibold mb-4">Penugasan Saya</h2>
+    {% if penugasan_list %}
+    <div class="table-wrap">
+        <table class="w-full text-sm">
+            <thead><tr class="bg-gray-100">
+                <th class="p-2 sm:p-3 text-left whitespace-nowrap">Siswa</th>
+                <th class="p-2 sm:p-3 text-left whitespace-nowrap">Mata Pelajaran</th>
+                <th class="p-2 sm:p-3 text-left whitespace-nowrap">Status</th>
+            </tr></thead>
+            <tbody>
+                {% for p in penugasan_list %}
+                <tr class="border-b">
+                    <td class="p-2 sm:p-3 whitespace-nowrap">{{ p.siswa.nama }}</td>
+                    <td class="p-2 sm:p-3 whitespace-nowrap">{{ p.mata_pelajaran }}</td>
+                    <td class="p-2 sm:p-3 whitespace-nowrap">{{ p.status }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <p class="text-gray-500 text-sm">Belum ada penugasan.</p>
+    {% endif %}
+</div>
+
+{% elif role == 'orang_tua' %}
+<div class="bg-white rounded-xl shadow p-4 sm:p-6">
+    <h2 class="text-lg sm:text-xl font-semibold mb-4">Anak Saya</h2>
+    {% if siswa_list %}
+    <div class="table-wrap">
+        <table class="w-full text-sm">
+            <thead><tr class="bg-gray-100">
+                <th class="p-2 sm:p-3 text-left whitespace-nowrap">Nama</th>
+                <th class="p-2 sm:p-3 text-left whitespace-nowrap">Kelas</th>
+                <th class="p-2 sm:p-3 text-left whitespace-nowrap">Sekolah</th>
+            </tr></thead>
+            <tbody>
+                {% for s in siswa_list %}
+                <tr class="border-b">
+                    <td class="p-2 sm:p-3 whitespace-nowrap">{{ s.nama }}</td>
+                    <td class="p-2 sm:p-3 whitespace-nowrap">{{ s.kelas }}</td>
+                    <td class="p-2 sm:p-3 whitespace-nowrap">{{ s.sekolah }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <p class="text-gray-500 text-sm">Belum ada data siswa.</p>
+    {% endif %}
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block title %}{{ 'Edit' if tutor else 'Tambah' }} Tutor - KITA PRIVAT{% endblock %}
+{% block content %}
+<div class="max-w-lg mx-auto bg-white rounded-xl shadow p-6">
+    <h1 class="text-2xl font-bold text-edu-blue mb-4">{{ 'Edit' if tutor else 'Tambah' }} Tutor</h1>
+    <form method="POST">
+        <div class="mb-3">
+            <label class="block text-sm font-semibold mb-1">Username</label>
+            <input type="text" name="username" value="{{ tutor.user.username if tutor else '' }}" {{ 'readonly' if tutor else 'required' }} class="w-full border rounded-lg px-3 py-2">
+        </div>
+        <div class="mb-3">
+            <label class="block text-sm font-semibold mb-1">Nama <span class="text-red-500">*</span></label>
+            <input type="text" name="nama" value="{{ tutor.user.nama if tutor else '' }}" required class="w-full border rounded-lg px-3 py-2">
+        </div>
+        <div class="mb-3">
+            <label class="block text-sm font-semibold mb-1">Password {{ '(kosongkan jika tidak diubah)' if tutor else '' }}</label>
+            <input type="password" name="password" class="w-full border rounded-lg px-3 py-2">
+        </div>
+        <div class="grid grid-cols-2 gap-3 mb-3">
+            <div>
+                <label class="block text-sm font-semibold mb-1">Email</label>
+                <input type="email" name="email" value="{{ tutor.user.email if tutor else '' }}" class="w-full border rounded-lg px-3 py-2">
+            </div>
+            <div>
+                <label class="block text-sm font-semibold mb-1">Telepon</label>
+                <input type="text" name="telepon" value="{{ tutor.user.telepon if tutor else '' }}" class="w-full border rounded-lg px-3 py-2">
+            </div>
+        </div>
+        <div class="mb-3">
+            <label class="block text-sm font-semibold mb-1">Bidang</label>
+            <input type="text" name="bidang" value="{{ tutor.bidang if tutor else '' }}" class="w-full border rounded-lg px-3 py-2">
+        </div>
+        <div class="mb-3">
+            <label class="block text-sm font-semibold mb-1">Pendidikan</label>
+            <input type="text" name="pendidikan" value="{{ tutor.pendidikan if tutor else '' }}" class="w-full border rounded-lg px-3 py-2">
+        </div>
+        <div class="mb-3">
+            <label class="block text-sm font-semibold mb-1">Pengalaman</label>
+            <textarea name="pengalaman" rows="2" class="w-full border rounded-lg px-3 py-2">{{ tutor.pengalaman if tutor else '' }}</textarea>
+        </div>
+        <div class="mb-4">
+            <label class="block text-sm font-semibold mb-1">Tarif per Sesi (Rp)</label>
+            <input type="number" name="tarif_per_sesi" value="{{ tutor.tarif_per_sesi if tutor else '' }}" step="1000" class="w-full border rounded-lg px-3 py-2">
+        </div>
+        <div class="flex gap-3">
+            <button type="submit" class="bg-edu-blue text-white px-6 py-2 rounded-lg hover:bg-blue-800">Simpan</button>
+            <a href="{{ url_for('tutor.index') }}" class="bg-gray-300 text-gray-700 px-6 py-2 rounded-lg hover:bg-gray-400">Batal</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

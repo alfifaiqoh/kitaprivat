@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}Pencairan - KITA PRIVAT{% endblock %}
+{% block content %}
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-4">
+    <h1 class="text-xl sm:text-2xl font-bold text-edu-blue">Pengajuan Pencairan</h1>
+    <a href="{{ url_for('pencairan.tambah') }}" class="bg-edu-blue text-white px-4 py-2 rounded-lg hover:bg-blue-800 text-sm sm:text-base text-center w-full sm:w-auto">+ Ajukan</a>
+</div>
+<div class="bg-white rounded-xl shadow">
+    <div class="table-wrap">
+        <table class="w-full text-xs sm:text-sm">
+            <thead><tr class="bg-gray-100">
+                <th class="p-2 sm:p-3 text-left whitespace-nowrap">Tutor</th>
+                <th class="p-2 sm:p-3 text-left whitespace-nowrap">Jumlah</th>
+                <th class="p-2 sm:p-3 text-left whitespace-nowrap hidden sm:table-cell">Tanggal</th>
+                <th class="p-2 sm:p-3 text-left whitespace-nowrap">Status</th>
+                <th class="p-2 sm:p-3 text-left whitespace-nowrap">Aksi</th>
+            </tr></thead>
+            <tbody>
+                {% for p in pencairan_list %}
+                <tr class="border-b hover:bg-gray-50">
+                    <td class="p-2 sm:p-3 font-medium">{{ p.tutor.user.nama }}</td>
+                    <td class="p-2 sm:p-3 whitespace-nowrap">Rp {{ "{:,.0f}".format(p.jumlah) }}</td>
+                    <td class="p-2 sm:p-3 hidden sm:table-cell whitespace-nowrap">{{ p.tanggal_diajukan.strftime('%d/%m/%Y') }}</td>
+                    <td class="p-2 sm:p-3">{{ p.status }}</td>
+                    <td class="p-2 sm:p-3 whitespace-nowrap">
+                        <a href="{{ url_for('pencairan.edit', id=p.id) }}" class="text-blue-600 hover:underline text-xs sm:text-sm">Edit</a>
+                    </td>
+                </tr>
+                {% else %}
+                <tr><td colspan="5" class="p-4 text-center text-gray-500 text-sm">Belum ada pengajuan.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

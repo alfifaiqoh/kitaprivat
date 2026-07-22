@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+{% block title %}Absen Masuk - KITA PRIVAT{% endblock %}
+{% block content %}
+<div class="max-w-md mx-auto">
+    <h1 class="text-xl sm:text-2xl font-bold text-edu-blue mb-4">Absen Masuk</h1>
+
+    {% if absensi and absensi.jam_masuk and not absensi.jam_keluar %}
+    <div class="bg-green-50 border border-green-200 rounded-xl p-6 text-center mb-4">
+        <div class="text-4xl mb-2">&#9989;</div>
+        <p class="text-green-700 font-semibold">Anda sudah absen masuk</p>
+        <p class="text-2xl font-bold text-edu-blue mt-2">{{ absensi.jam_masuk }}</p>
+        <p class="text-sm text-gray-500">{{ today }}</p>
+        <div class="mt-4">
+            <a href="{{ url_for('absensi.status', id=absensi.id) }}" class="bg-edu-blue text-white px-6 py-2 rounded-lg hover:bg-blue-800 text-sm">Lihat Status</a>
+        </div>
+    </div>
+    {% else %}
+
+    <div class="bg-white rounded-xl shadow p-5 sm:p-6">
+        <form id="formCheckin" method="POST" class="space-y-4">
+            <div>
+                <label class="block text-xs sm:text-sm font-semibold mb-1">Penugasan <span class="text-red-500">*</span></label>
+                <select name="penugasan_id" required class="w-full border rounded-lg px-3 py-2 text-sm">
+                    <option value="">Pilih jadwal mengajar</option>
+                    {% for p in penugasan_list %}
+                    <option value="{{ p.id }}">{{ p.siswa.nama }} - {{ p.mata_pelajaran }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div>
+                <label class="block text-xs sm:text-sm font-semibold mb-1">Foto Selfie <span class="text-red-500">*</span></label>
+                <div class="border-2 border-dashed border-gray-300 rounded-xl p-4 text-center">
+                    <video id="preview" class="hidden w-full rounded-lg mb-2" autoplay></video>
+                    <canvas id="canvas" class="hidden"></canvas>
+                    <img id="selfiePreview" class="hidden w-full rounded-lg mb-2">
+                    <button type="button" id="btnCamera" class="bg-edu-blue text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-800">Buka Kamera</button>
+                    <button type="button" id="btnCapture" class="hidden bg-green-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-green-700">Ambil Foto</button>
+                    <button type="button" id="btnRetake" class="hidden bg-gray-500 text-white px-4 py-2 rounded-lg text-sm hover:bg-gray-600">Ulangi</button>
+                    <input type="hidden" name="selfie_data" id="selfieData">
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-xs sm:text-sm font-semibold mb-1">Lokasi GPS</label>
+                <div class="flex gap-2">
+                    <input type="number" step="any" name="gps_lat" id="gpsLat" placeholder="Latitude" class="w-1/2 border rounded-lg px-3 py-2 text-sm" readonly>
+                    <input type="number" step="any" name="gps_lng" id="gpsLng" placeholder="Longitude" class="w-1/2 border rounded-lg px-3 py-2 text-sm" readonly>
+                </div>
+                <button type="button" id="btnGps" class="mt-2 text-edu-blue text-sm hover:underline">&#127758; Dapatkan lokasi saya</button>
+                <p id="gpsStatus" class="text-xs text-gray-500 mt-1"></p>
+            </div>
+
+            <div class="bg-gray-50 rounded-lg p-3 text-center">
+                <p class="text-xs text-gray-500">Waktu</p>
+                <p class="text-2xl font-bold text-edu-blue" id="clock">{{ now.strftime('%H:%M') }}</p>
+                <p class="text-xs text-gray-500">{{ today }}</p>
+            </div>
+
+            <button type="submit" id="btnSubmit" class="w-full bg-edu-blue text-white py-3 rounded-lg hover:bg-blue-800 font-semibold text-sm">
+                Absen Masuk
+            </button>
+        </form>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+(function() {
+    // Clock
+    function updateClock() {
+        var now = new Date();
+        var h = String(now.getHours()).padStart(2, '0');
+        var m = String(now.getMinutes()).padStart(2, '0');
+        var el = document.getElementById('clock');
+        if (el) el.textContent = h + ':' + m;
+    }
+    setInterval(updateClock, 10000);
+
+    // GPS
+    var btnGps = document.getElementById('btnGps');
+    var gpsStatus = document.getElementById('gpsStatus');
+    if (btnGps) {
+        btnGps.addEventListener('click', function() {
+            if (!navigator.geolocation) {
+                gpsStatus.textContent = 'GPS tidak didukung browser';
+                return;
+            }
+            gpsStatus.textContent = 'Mendapatkan lokasi...';
+            navigator.geolocation.getCurrentPosition(function(pos) {
+                document.getElementById('gpsLat').value = pos.coords.latitude;
+                document.getElementById('gpsLng').value = pos.coords.longitude;
+                gpsStatus.textContent = 'Lokasi valid';
+                gpsStatus.className = 'text-xs text-green-600 mt-1';
+            }, function() {
+                gpsStatus.textContent = 'Gagal mendapatkan lokasi. Isi manual.';
+            });
+        });
+    }
+
+    // Camera
+    var video = document.getElementById('preview');
+    var canvas = document.getElementById('canvas');
+    var selfiePreview = document.getElementById('selfiePreview');
+    var btnCamera = document.getElementById('btnCamera');
+    var btnCapture = document.getElementById('btnCapture');
+    var btnRetake = document.getElementById('btnRetake');
+    var selfieData = document.getElementById('selfieData');
+    var stream = null;
+
+    if (btnCamera) {
+        btnCamera.addEventListener('click', function() {
+            navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } })
+            .then(function(s) {
+                stream = s;
+                video.srcObject = s;
+                video.classList.remove('hidden');
+                video.classList.add('block');
+                btnCamera.classList.add('hidden');
+                btnCapture.classList.remove('hidden');
+            })
+            .catch(function() {
+                alert('Tidak bisa akses kamera');
+            });
+        });
+
+        btnCapture.addEventListener('click', function() {
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            canvas.getContext('2d').drawImage(video, 0, 0);
+            var data = canvas.toDataURL('image/jpeg', 0.8);
+            selfieData.value = data;
+            selfiePreview.src = data;
+            selfiePreview.classList.remove('hidden');
+            selfiePreview.classList.add('block');
+            video.classList.add('hidden');
+            btnCapture.classList.add('hidden');
+            btnRetake.classList.remove('hidden');
+            if (stream) { stream.getTracks().forEach(function(t) { t.stop(); }); stream = null; }
+        });
+
+        btnRetake.addEventListener('click', function() {
+            selfieData.value = '';
+            selfiePreview.classList.add('hidden');
+            btnRetake.classList.add('hidden');
+            btnCamera.classList.remove('hidden');
+        });
+    }
+})();
+</script>
+{% endblock %}

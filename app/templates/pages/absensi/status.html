@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block title %}Status Absensi - KITA PRIVAT{% endblock %}
+{% block content %}
+<div class="max-w-sm mx-auto">
+    <h1 class="text-xl sm:text-2xl font-bold text-edu-blue mb-4">Status Absensi</h1>
+
+    <div class="bg-white rounded-xl shadow p-6 text-center">
+        <div class="text-5xl mb-3">{{ '✅' if absensi.jam_masuk and not absensi.jam_keluar else '📋' }}</div>
+
+        <div class="space-y-3 mb-6">
+            <div>
+                <p class="text-xs text-gray-500">Siswa</p>
+                <p class="font-semibold">{{ absensi.penugasan.siswa.nama }}</p>
+            </div>
+            <div>
+                <p class="text-xs text-gray-500">Mata Pelajaran</p>
+                <p class="font-semibold">{{ absensi.penugasan.mata_pelajaran }}</p>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <p class="text-xs text-gray-500">Tanggal</p>
+                    <p class="font-semibold">{{ absensi.tanggal }}</p>
+                </div>
+                <div>
+                    <p class="text-xs text-gray-500">Jam Masuk</p>
+                    <p class="text-xl font-bold text-green-600">{{ absensi.jam_masuk or '-' }}</p>
+                </div>
+            </div>
+            {% if absensi.gps_lat and absensi.gps_lng %}
+            <div>
+                <p class="text-xs text-gray-500">Lokasi</p>
+                <p class="text-sm text-green-600">&#127758; Lokasi Valid</p>
+            </div>
+            {% endif %}
+            {% if absensi.jam_keluar %}
+            <div>
+                <p class="text-xs text-gray-500">Jam Keluar</p>
+                <p class="text-xl font-bold text-orange-600">{{ absensi.jam_keluar }}</p>
+            </div>
+            {% endif %}
+        </div>
+
+        {% if absensi.jam_masuk and not absensi.jam_keluar %}
+        <form method="POST" action="{{ url_for('absensi.checkout', id=absensi.id) }}">
+            <button type="submit" class="w-full bg-orange-500 text-white py-3 rounded-lg hover:bg-orange-600 font-semibold text-sm">
+                Absen Pulang
+            </button>
+        </form>
+        <p class="text-xs text-gray-400 mt-2">Klik setelah selesai mengajar</p>
+
+        {% elif absensi.jam_keluar %}
+        <a href="{{ url_for('laporan.tambah', absensi_id=absensi.id, penugasan_id=absensi.penugasan_id) }}"
+           class="block w-full bg-edu-blue text-white py-3 rounded-lg hover:bg-blue-800 font-semibold text-sm text-center">
+            Isi Laporan Mengajar
+        </a>
+        {% endif %}
+
+        <a href="{{ url_for('absensi.index') }}" class="block text-center text-gray-500 hover:underline text-sm mt-3">Riwayat Absensi</a>
+    </div>
+</div>
+{% endblock %}

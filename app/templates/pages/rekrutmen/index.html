@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% block title %}Rekrutmen Tutor - KITA PRIVAT{% endblock %}
+{% block content %}
+<div class="flex justify-between items-center mb-4">
+    <h1 class="text-xl sm:text-2xl font-bold text-edu-blue">Rekrutmen Tutor</h1>
+</div>
+
+<div class="mb-4 border-b border-gray-200 overflow-x-auto">
+    <nav class="flex gap-1 -mb-px min-w-max">
+        {% set tabs = [
+            ('menunggu', 'Lamaran Baru'),
+            ('interview', 'Interview'),
+            ('diterima', 'Lulus'),
+            ('ditolak', 'Ditolak'),
+            ('tutor_aktif', 'Tutor Aktif'),
+            ('all', 'Semua'),
+        ] %}
+        {% for key, label in tabs %}
+        <a href="{{ url_for('rekrutmen.index', tab=key) }}"
+           class="px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium whitespace-nowrap border-b-2 {{ 'border-edu-blue text-edu-blue' if tab == key else 'border-transparent text-gray-500 hover:text-gray-700' }}">
+            {{ label }}
+        </a>
+        {% endfor %}
+    </nav>
+</div>
+
+{% if tab == 'tutor_aktif' %}
+<div class="bg-white rounded-xl shadow">
+    <div class="table-wrap">
+        <table class="w-full text-xs sm:text-sm">
+            <thead><tr class="bg-gray-100">
+                <th class="p-2 sm:p-3 text-left whitespace-nowrap">Nama</th>
+                <th class="p-2 sm:p-3 text-left whitespace-nowrap hidden sm:table-cell">Bidang</th>
+                <th class="p-2 sm:p-3 text-left whitespace-nowrap hidden md:table-cell">Pendidikan</th>
+                <th class="p-2 sm:p-3 text-left whitespace-nowrap">Tarif</th>
+                <th class="p-2 sm:p-3 text-left whitespace-nowrap hidden md:table-cell">Bergabung</th>
+            </tr></thead>
+            <tbody>
+                {% for t in tutor_list %}
+                <tr class="border-b hover:bg-gray-50">
+                    <td class="p-2 sm:p-3 font-medium">{{ t.user.nama }}</td>
+                    <td class="p-2 sm:p-3 hidden sm:table-cell">{{ t.bidang or '-' }}</td>
+                    <td class="p-2 sm:p-3 hidden md:table-cell">{{ t.pendidikan or '-' }}</td>
+                    <td class="p-2 sm:p-3 whitespace-nowrap">Rp {{ "{:,.0f}".format(t.tarif_per_sesi or 0) }}</td>
+                    <td class="p-2 sm:p-3 hidden md:table-cell">{{ t.created_at.strftime('%d/%m/%Y') }}</td>
+                </tr>
+                {% else %}
+                <tr><td colspan="5" class="p-4 text-center text-gray-500 text-sm">Belum ada tutor aktif.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% else %}
+<div class="bg-white rounded-xl shadow">
+    <div class="table-wrap">
+        <table class="w-full text-xs sm:text-sm">
+            <thead><tr class="bg-gray-100">
+                <th class="p-2 sm:p-3 text-left whitespace-nowrap">Nama</th>
+                <th class="p-2 sm:p-3 text-left whitespace-nowrap hidden sm:table-cell">Email</th>
+                <th class="p-2 sm:p-3 text-left whitespace-nowrap hidden md:table-cell">Bidang</th>
+                <th class="p-2 sm:p-3 text-left whitespace-nowrap">Tgl</th>
+                <th class="p-2 sm:p-3 text-left whitespace-nowrap">Status</th>
+                <th class="p-2 sm:p-3 text-left whitespace-nowrap">Aksi</th>
+            </tr></thead>
+            <tbody>
+                {% for r in rekrutmen_list %}
+                <tr class="border-b hover:bg-gray-50">
+                    <td class="p-2 sm:p-3 font-medium">{{ r.nama }}</td>
+                    <td class="p-2 sm:p-3 hidden sm:table-cell">{{ r.email }}</td>
+                    <td class="p-2 sm:p-3 hidden md:table-cell">{{ r.bidang or '-' }}</td>
+                    <td class="p-2 sm:p-3 whitespace-nowrap">{{ r.created_at.strftime('%d/%m') }}</td>
+                    <td class="p-2 sm:p-3">
+                        {% set status_class = {
+                            'menunggu': 'bg-yellow-100 text-yellow-800',
+                            'review': 'bg-blue-100 text-blue-800',
+                            'interview': 'bg-purple-100 text-purple-800',
+                            'diterima': 'bg-green-100 text-green-800',
+                            'ditolak': 'bg-red-100 text-red-800',
+                        } %}
+                        {% set status_label = {
+                            'menunggu': 'Menunggu', 'review': 'Review', 'interview': 'Interview',
+                            'diterima': 'Lulus', 'ditolak': 'Ditolak',
+                        } %}
+                        <span class="px-1.5 sm:px-2 py-0.5 sm:py-1 rounded text-[10px] sm:text-xs font-semibold whitespace-nowrap {{ status_class.get(r.status, 'bg-gray-100') }}">
+                            {{ status_label.get(r.status, r.status) }}
+                        </span>
+                    </td>
+                    <td class="p-2 sm:p-3 whitespace-nowrap">
+                        <a href="{{ url_for('rekrutmen.review', id=r.id) }}" class="bg-edu-blue text-white px-2 sm:px-3 py-1 rounded text-[10px] sm:text-xs hover:bg-blue-800">Review</a>
+                        {% if r.status == 'diterima' %}
+                        <a href="{{ url_for('rekrutmen.terima', id=r.id) }}" class="bg-green-600 text-white px-2 sm:px-3 py-1 rounded text-[10px] sm:text-xs hover:bg-green-700">Akun</a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% else %}
+                <tr><td colspan="6" class="p-4 text-center text-gray-500 text-sm">Tidak ada data di tab ini.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

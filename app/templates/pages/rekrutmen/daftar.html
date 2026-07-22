@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Rekrutmen Tutor - KITA PRIVAT</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="bg-edu-blue min-h-screen flex items-center justify-center p-3 sm:p-4">
+    <div class="bg-white rounded-2xl shadow-xl p-5 sm:p-8 w-full max-w-2xl">
+        <div class="text-center mb-5 sm:mb-6">
+            <h1 class="text-2xl sm:text-3xl font-bold text-edu-blue">Rekrutmen Tutor</h1>
+            <p class="text-gray-500 text-xs sm:text-sm">Isi form di bawah untuk mendaftar sebagai tutor</p>
+        </div>
+
+        <form method="POST" enctype="multipart/form-data" class="space-y-3 sm:space-y-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                <div>
+                    <label class="block text-xs sm:text-sm font-semibold mb-1">Nama Lengkap <span class="text-red-500">*</span></label>
+                    <input type="text" name="nama" required class="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-edu-blue">
+                </div>
+                <div>
+                    <label class="block text-xs sm:text-sm font-semibold mb-1">Email <span class="text-red-500">*</span></label>
+                    <input type="email" name="email" required class="w-full border rounded-lg px-3 py-2 text-sm">
+                </div>
+                <div>
+                    <label class="block text-xs sm:text-sm font-semibold mb-1">Telepon</label>
+                    <input type="text" name="telepon" class="w-full border rounded-lg px-3 py-2 text-sm">
+                </div>
+                <div>
+                    <label class="block text-xs sm:text-sm font-semibold mb-1">Bidang</label>
+                    <input type="text" name="bidang" class="w-full border rounded-lg px-3 py-2 text-sm" placeholder="Matematika, Fisika, ...">
+                </div>
+                <div>
+                    <label class="block text-xs sm:text-sm font-semibold mb-1">Pendidikan</label>
+                    <input type="text" name="pendidikan" class="w-full border rounded-lg px-3 py-2 text-sm" placeholder="S1 Pendidikan Matematika">
+                </div>
+                <div>
+                    <label class="block text-xs sm:text-sm font-semibold mb-1">Pengalaman</label>
+                    <input type="text" name="pengalaman" class="w-full border rounded-lg px-3 py-2 text-sm" placeholder="2 tahun mengajar">
+                </div>
+            </div>
+            <div>
+                <label class="block text-xs sm:text-sm font-semibold mb-1">Alamat</label>
+                <textarea name="alamat" rows="2" class="w-full border rounded-lg px-3 py-2 text-sm"></textarea>
+            </div>
+
+            <div class="border-t pt-3 sm:pt-4">
+                <h2 class="font-semibold text-edu-blue mb-2 sm:mb-3 text-sm sm:text-base">Upload Berkas</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                    <div>
+                        <label class="block text-xs sm:text-sm font-semibold mb-1">KTP <span class="text-red-500">*</span></label>
+                        <input type="file" name="ktp" accept=".pdf,.png,.jpg,.jpeg" required class="w-full text-xs sm:text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs sm:text-sm font-semibold mb-1">CV <span class="text-red-500">*</span></label>
+                        <input type="file" name="cv" accept=".pdf,.png,.jpg,.jpeg,.doc,.docx" required class="w-full text-xs sm:text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs sm:text-sm font-semibold mb-1">Ijazah <span class="text-red-500">*</span></label>
+                        <input type="file" name="ijazah" accept=".pdf,.png,.jpg,.jpeg" required class="w-full text-xs sm:text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs sm:text-sm font-semibold mb-1">Transkrip <span class="text-red-500">*</span></label>
+                        <input type="file" name="transkrip" accept=".pdf,.png,.jpg,.jpeg" required class="w-full text-xs sm:text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs sm:text-sm font-semibold mb-1">Sertifikat <span class="text-gray-400">(opsional)</span></label>
+                        <input type="file" name="sertifikat" accept=".pdf,.png,.jpg,.jpeg" class="w-full text-xs sm:text-sm">
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="w-full bg-edu-blue text-white py-2.5 sm:py-3 rounded-lg hover:bg-blue-800 font-semibold text-sm sm:text-base">
+                Kirim Pendaftaran
+            </button>
+        </form>
+    </div>
+</body>
+</html>

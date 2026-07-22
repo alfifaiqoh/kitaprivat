@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block title %}{{ 'Edit' if jadwal else 'Tambah' }} Jadwal - KITA PRIVAT{% endblock %}
+{% block content %}
+<div class="max-w-lg mx-auto bg-white rounded-xl shadow p-6">
+    <h1 class="text-2xl font-bold text-edu-blue mb-4">{{ 'Edit' if jadwal else 'Tambah' }} Jadwal</h1>
+    <form method="POST">
+        <div class="mb-3">
+            <label class="block text-sm font-semibold mb-1">Penugasan <span class="text-red-500">*</span></label>
+            <select name="penugasan_id" required class="w-full border rounded-lg px-3 py-2">
+                <option value="">Pilih Penugasan</option>
+                {% for p in penugasan_list %}
+                <option value="{{ p.id }}" {{ 'selected' if jadwal and jadwal.penugasan_id == p.id }}>{{ p.siswa.nama }} - {{ p.mata_pelajaran }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-3">
+            <label class="block text-sm font-semibold mb-1">Hari <span class="text-red-500">*</span></label>
+            <select name="hari" required class="w-full border rounded-lg px-3 py-2">
+                {% for hari in ['Senin','Selasa','Rabu','Kamis','Jumat','Sabtu','Minggu'] %}
+                <option value="{{ hari }}" {{ 'selected' if jadwal and jadwal.hari == hari }}>{{ hari }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="grid grid-cols-2 gap-3 mb-4">
+            <div>
+                <label class="block text-sm font-semibold mb-1">Jam Mulai <span class="text-red-500">*</span></label>
+                <input type="time" name="jam_mulai" value="{{ jadwal.jam_mulai if jadwal else '' }}" required class="w-full border rounded-lg px-3 py-2">
+            </div>
+            <div>
+                <label class="block text-sm font-semibold mb-1">Jam Selesai <span class="text-red-500">*</span></label>
+                <input type="time" name="jam_selesai" value="{{ jadwal.jam_selesai if jadwal else '' }}" required class="w-full border rounded-lg px-3 py-2">
+            </div>
+        </div>
+        <div class="flex gap-3">
+            <button type="submit" class="bg-edu-blue text-white px-6 py-2 rounded-lg hover:bg-blue-800">Simpan</button>
+            <a href="{{ url_for('jadwal.index') }}" class="bg-gray-300 text-gray-700 px-6 py-2 rounded-lg hover:bg-gray-400">Batal</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

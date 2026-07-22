@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block title %}{{ 'Edit' if penugasan else 'Tambah' }} Penugasan - KITA PRIVAT{% endblock %}
+{% block content %}
+<div class="max-w-lg mx-auto bg-white rounded-xl shadow p-6">
+    <h1 class="text-2xl font-bold text-edu-blue mb-4">{{ 'Edit' if penugasan else 'Tambah' }} Penugasan</h1>
+    <form method="POST">
+        <div class="mb-3">
+            <label class="block text-sm font-semibold mb-1">Siswa <span class="text-red-500">*</span></label>
+            <select name="siswa_id" required class="w-full border rounded-lg px-3 py-2">
+                <option value="">Pilih Siswa</option>
+                {% for s in siswa_list %}
+                <option value="{{ s.id }}" {{ 'selected' if penugasan and penugasan.siswa_id == s.id }}>{{ s.nama }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-3">
+            <label class="block text-sm font-semibold mb-1">Tutor <span class="text-red-500">*</span></label>
+            <select name="tutor_id" required class="w-full border rounded-lg px-3 py-2">
+                <option value="">Pilih Tutor</option>
+                {% for t in tutor_list %}
+                <option value="{{ t.id }}" {{ 'selected' if penugasan and penugasan.tutor_id == t.id }}>{{ t.user.nama }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-3">
+            <label class="block text-sm font-semibold mb-1">Mata Pelajaran <span class="text-red-500">*</span></label>
+            <input type="text" name="mata_pelajaran" value="{{ penugasan.mata_pelajaran if penugasan else '' }}" required class="w-full border rounded-lg px-3 py-2">
+        </div>
+        <div class="mb-3">
+            <label class="block text-sm font-semibold mb-1">Tarif (Rp)</label>
+            <input type="number" name="tarif" value="{{ penugasan.tarif if penugasan else '' }}" step="1000" class="w-full border rounded-lg px-3 py-2">
+        </div>
+        <div class="mb-4">
+            <label class="block text-sm font-semibold mb-1">Status</label>
+            <select name="status" class="w-full border rounded-lg px-3 py-2">
+                <option value="aktif" {{ 'selected' if penugasan and penugasan.status == 'aktif' }}>Aktif</option>
+                <option value="selesai" {{ 'selected' if penugasan and penugasan.status == 'selesai' }}>Selesai</option>
+                <option value="dibatalkan" {{ 'selected' if penugasan and penugasan.status == 'dibatalkan' }}>Dibatalkan</option>
+            </select>
+        </div>
+        <div class="flex gap-3">
+            <button type="submit" class="bg-edu-blue text-white px-6 py-2 rounded-lg hover:bg-blue-800">Simpan</button>
+            <a href="{{ url_for('penugasan.index') }}" class="bg-gray-300 text-gray-700 px-6 py-2 rounded-lg hover:bg-gray-400">Batal</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

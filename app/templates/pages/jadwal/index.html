@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}Jadwal - KITA PRIVAT{% endblock %}
+{% block content %}
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-4">
+    <h1 class="text-xl sm:text-2xl font-bold text-edu-blue">Jadwal</h1>
+    <a href="{{ url_for('jadwal.tambah') }}" class="bg-edu-blue text-white px-4 py-2 rounded-lg hover:bg-blue-800 text-sm sm:text-base text-center w-full sm:w-auto">+ Tambah</a>
+</div>
+<div class="bg-white rounded-xl shadow">
+    <div class="table-wrap">
+        <table class="w-full text-xs sm:text-sm">
+            <thead><tr class="bg-gray-100">
+                <th class="p-2 sm:p-3 text-left whitespace-nowrap">Siswa</th>
+                <th class="p-2 sm:p-3 text-left whitespace-nowrap hidden sm:table-cell">Tutor</th>
+                <th class="p-2 sm:p-3 text-left whitespace-nowrap">Hari</th>
+                <th class="p-2 sm:p-3 text-left whitespace-nowrap">Jam</th>
+                <th class="p-2 sm:p-3 text-left whitespace-nowrap">Aksi</th>
+            </tr></thead>
+            <tbody>
+                {% for j in jadwal_list %}
+                <tr class="border-b hover:bg-gray-50">
+                    <td class="p-2 sm:p-3 font-medium">{{ j.penugasan.siswa.nama }}</td>
+                    <td class="p-2 sm:p-3 hidden sm:table-cell">{{ j.penugasan.tutor.user.nama }}</td>
+                    <td class="p-2 sm:p-3">{{ j.hari }}</td>
+                    <td class="p-2 sm:p-3 whitespace-nowrap">{{ j.jam_mulai }} - {{ j.jam_selesai }}</td>
+                    <td class="p-2 sm:p-3 whitespace-nowrap">
+                        <a href="{{ url_for('jadwal.edit', id=j.id) }}" class="text-blue-600 hover:underline text-xs sm:text-sm mr-2">Edit</a>
+                        <a href="{{ url_for('jadwal.hapus', id=j.id) }}" class="text-red-600 hover:underline text-xs sm:text-sm" onclick="return confirm('Yakin hapus?')">Hapus</a>
+                    </td>
+                </tr>
+                {% else %}
+                <tr><td colspan="5" class="p-4 text-center text-gray-500 text-sm">Belum ada jadwal.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

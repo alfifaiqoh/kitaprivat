@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KITA PRIVAT</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="landing">
+    <main class="container">
+        <nav>
+            <div class="logo">
+                <a href="/">
+                    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Kita Privat">
+                </a>
+            </div>
+            <div class="menu">
+                <a href="#">Tentang Kami</a>
+                <a href="#">Pengajar</a>
+                <a href="#">Blog</a>
+            </div>
+            <div class="action">
+                <a href="{{ url_for('auth.login') }}"><button>Masuk</button></a>
+            </div>
+            <div class="md:hidden">
+                <a href="{{ url_for('auth.login') }}" class="text-edu-gold font-bold text-sm">Masuk</a>
+            </div>
+        </nav>
+        <section class="hero">
+            <div class="hero-content">
+                <span class="badge text-sm font-semibold text-edu-blue">#1 Les Privat Terpercaya</span>
+                <h1>TEMUKAN<br>GURU PRIVAT<br>TERBAIK</h1>
+                <p>Belajar lebih mudah bersama pengajar profesional sesuai kebutuhan dan jadwal Anda.</p>
+                <div class="hero-buttons">
+                    <a href="{{ url_for('siswa.daftar') }}"><button class="btn-primary">Daftar Sekarang</button></a>
+                    <a href="{{ url_for('tutor.daftar') }}"><button class="btn-secondary">Daftar Jadi Tutor</button></a>
+                </div>
+            </div>
+            <div class="phone-mockup">
+                <div class="phone-notch"></div>
+                <div class="phone-screen">
+                    <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@kitaprivat_pwt/video/7636672557344623890" data-video-id="7636672557344623890"></blockquote>
+                </div>
+            </div>
+            <script async src="https://www.tiktok.com/embed.js"></script>
+        </section>
+    </main>
+</body>
+</html>
