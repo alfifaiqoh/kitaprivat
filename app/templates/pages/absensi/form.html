@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% block title %}{{ 'Edit' if absensi else 'Tambah' }} Absensi - KITA PRIVAT{% endblock %}
+{% block content %}
+<div class="max-w-lg mx-auto bg-white rounded-xl shadow p-6">
+    <h1 class="text-2xl font-bold text-edu-blue mb-4">{{ 'Edit' if absensi else 'Tambah' }} Absensi</h1>
+    <form method="POST">
+        <div class="mb-3">
+            <label class="block text-sm font-semibold mb-1">Penugasan</label>
+            <select name="penugasan_id" required class="w-full border rounded-lg px-3 py-2">
+                <option value="">Pilih</option>
+                {% for p in penugasan_list %}
+                <option value="{{ p.id }}" {{ 'selected' if absensi and absensi.penugasan_id == p.id }}>{{ p.siswa.nama }} - {{ p.mata_pelajaran }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-3">
+            <label class="block text-sm font-semibold mb-1">Tutor</label>
+            <select name="tutor_id" required class="w-full border rounded-lg px-3 py-2">
+                <option value="">Pilih</option>
+                {% for t in tutor_list %}
+                <option value="{{ t.id }}" {{ 'selected' if absensi and absensi.tutor_id == t.id }}>{{ t.user.nama }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="grid grid-cols-2 gap-3 mb-3">
+            <div>
+                <label class="block text-sm font-semibold mb-1">Tanggal</label>
+                <input type="date" name="tanggal" value="{{ absensi.tanggal if absensi else '' }}" required class="w-full border rounded-lg px-3 py-2">
+            </div>
+            <div>
+                <label class="block text-sm font-semibold mb-1">Status</label>
+                <select name="status" class="w-full border rounded-lg px-3 py-2">
+                    <option value="hadir" {{ 'selected' if absensi and absensi.status == 'hadir' }}>Hadir</option>
+                    <option value="izin" {{ 'selected' if absensi and absensi.status == 'izin' }}>Izin</option>
+                    <option value="sakit" {{ 'selected' if absensi and absensi.status == 'sakit' }}>Sakit</option>
+                    <option value="alpha" {{ 'selected' if absensi and absensi.status == 'alpha' }}>Alpha</option>
+                </select>
+            </div>
+        </div>
+        <div class="grid grid-cols-2 gap-3 mb-3">
+            <div>
+                <label class="block text-sm font-semibold mb-1">Jam Masuk</label>
+                <input type="time" name="jam_masuk" value="{{ absensi.jam_masuk if absensi else '' }}" class="w-full border rounded-lg px-3 py-2">
+            </div>
+            <div>
+                <label class="block text-sm font-semibold mb-1">Jam Keluar</label>
+                <input type="time" name="jam_keluar" value="{{ absensi.jam_keluar if absensi else '' }}" class="w-full border rounded-lg px-3 py-2">
+            </div>
+        </div>
+        <div class="grid grid-cols-2 gap-3 mb-3">
+            <div>
+                <label class="block text-sm font-semibold mb-1">GPS Lat</label>
+                <input type="number" step="any" name="gps_lat" value="{{ absensi.gps_lat if absensi else '' }}" class="w-full border rounded-lg px-3 py-2">
+            </div>
+            <div>
+                <label class="block text-sm font-semibold mb-1">GPS Lng</label>
+                <input type="number" step="any" name="gps_lng" value="{{ absensi.gps_lng if absensi else '' }}" class="w-full border rounded-lg px-3 py-2">
+            </div>
+        </div>
+        <div class="mb-3">
+            <label class="block text-sm font-semibold mb-1">Foto Selfie (base64)</label>
+            <textarea name="selfie_data" rows="2" class="w-full border rounded-lg px-3 py-2" placeholder="data:image/png;base64,..."></textarea>
+        </div>
+        <div class="mb-4">
+            <label class="block text-sm font-semibold mb-1">Keterangan</label>
+            <textarea name="keterangan" rows="2" class="w-full border rounded-lg px-3 py-2">{{ absensi.keterangan if absensi else '' }}</textarea>
+        </div>
+        <div class="flex gap-3">
+            <button type="submit" class="btn btn-primary">Simpan</button>
+            <a href="{{ url_for('absensi.index') }}" class="bg-gray-300 text-gray-700 px-6 py-2 rounded-lg hover:bg-gray-400">Batal</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

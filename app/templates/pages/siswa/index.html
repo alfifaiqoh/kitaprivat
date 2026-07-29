@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% block title %}Siswa - KITA PRIVAT{% endblock %}
+{% block content %}
+<div class="page-header">
+  <div>
+    <h2>Data Siswa</h2>
+    <p>Kelola data siswa dan pendaftaran baru</p>
+  </div>
+  <a href="{{ url_for('siswa.tambah') }}" class="btn btn-primary">+ Tambah</a>
+</div>
+
+<div class="mb-4" style="border-bottom:1px solid #e2e8f0">
+  <nav style="display:flex;gap:0;overflow-x:auto">
+    {% set tabs = [
+      ('aktif', 'Aktif'),
+      ('baru', 'Pendaftaran Baru'),
+      ('nonaktif', 'Nonaktif'),
+    ] %}
+    {% for key, label in tabs %}
+    <a href="{{ url_for('siswa.index', tab=key) }}"
+       style="padding:10px 20px;font-size:13px;font-weight:600;white-space:nowrap;text-decoration:none;border-bottom:2px solid {{ 'var(--blue,#2563eb)' if tab == key else 'transparent' }};color:{{ '#1e293b' if tab == key else '#94a3b8' }}">
+      {{ label }}
+    </a>
+    {% endfor %}
+  </nav>
+</div>
+
+<div class="card" style="padding:0;overflow:hidden">
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Nama</th>
+          <th class="hidden sm:table-cell">Kelas</th>
+          <th class="hidden sm:table-cell">Sekolah</th>
+          <th class="hidden md:table-cell">Telepon</th>
+          <th>Status</th>
+          <th>Aksi</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for s in siswa_list %}
+        <tr>
+          <td style="font-weight:600">{{ s.nama }}</td>
+          <td class="hidden sm:table-cell">{{ s.kelas or '-' }}</td>
+          <td class="hidden sm:table-cell">{{ s.sekolah or '-' }}</td>
+          <td class="hidden md:table-cell">{{ s.telepon or '-' }}</td>
+          <td>
+            {% if s.status == 'baru' %}
+              <span class="badge" style="background:#fef9c3;color:#854d0e">Baru</span>
+            {% elif s.status == 'nonaktif' %}
+              <span class="badge" style="background:#f1f5f9;color:#64748b">Nonaktif</span>
+            {% else %}
+              <span class="badge badge-green">Aktif</span>
+            {% endif %}
+          </td>
+          <td style="white-space:nowrap">
+            <a href="{{ url_for('siswa.edit', id=s.id) }}" class="btn btn-sm btn-ghost">Edit</a>
+            {% if s.status == 'baru' and current_user.role == 'admin' %}
+            <a href="{{ url_for('siswa.detail', id=s.id) }}" class="btn btn-sm btn-ghost">Detail</a>
+            <a href="{{ url_for('siswa.terima', id=s.id) }}" class="btn btn-sm btn-success">Terima</a>
+            {% endif %}
+            <a href="{{ url_for('siswa.hapus', id=s.id) }}" class="btn btn-sm btn-danger" onclick="return confirm('Yakin hapus?')">Hapus</a>
+          </td>
+        </tr>
+        {% else %}
+        <tr>
+          <td colspan="6" class="empty">Belum ada data siswa.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

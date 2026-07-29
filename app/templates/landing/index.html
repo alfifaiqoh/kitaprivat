@@ -1,0 +1,552 @@
+{% extends 'landing/base.html' %}
+{% block title %}KITA PRIVAT - Les Privat Terpercaya{% endblock %}
+{% block content %}
+<style>
+  /* ─── HERO ─── */
+  .hero {
+    position: relative;
+    min-height: 92vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 48px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #1e40af 100%);
+  }
+  .hero-bg-shapes {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .hero-bg-shapes .circle {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.07;
+  }
+  .hero-bg-shapes .c1 {
+    width: 600px; height: 600px;
+    background: #3b82f6;
+    top: -200px; right: -150px;
+  }
+  .hero-bg-shapes .c2 {
+    width: 400px; height: 400px;
+    background: #60a5fa;
+    bottom: -100px; left: -100px;
+  }
+  .hero-bg-shapes .c3 {
+    width: 200px; height: 200px;
+    background: #fff;
+    top: 50%; left: 60%;
+    opacity: 0.03;
+  }
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 760px;
+    width: 100%;
+    margin: 0 auto;
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 16px;
+    border-radius: 50px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: #93c5fd;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    margin-bottom: 24px;
+  }
+  .hero-badge svg { width: 14px; height: 14px; }
+  .hero h1 {
+    font-size: clamp(36px, 5.5vw, 64px);
+    font-weight: 900;
+    line-height: 1.08;
+    color: #fff;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  .hero h1 .gradient-text {
+    background: linear-gradient(135deg, #60a5fa, #a78bfa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero p {
+    font-size: 17px;
+    line-height: 1.7;
+    color: #94a3b8;
+    max-width: 580px;
+    margin: 0 auto 36px;
+    text-align: center;
+  }
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    justify-content: center;
+  }
+  .hero-actions .btn-primary {
+    padding: 14px 32px;
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+    background: linear-gradient(135deg, #2563eb, #7c3aed);
+    border-radius: 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.25s;
+  }
+  .hero-actions .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(37,99,235,0.4);
+  }
+  .hero-actions .btn-secondary {
+    padding: 14px 32px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #e2e8f0;
+    border: 1.5px solid rgba(255,255,255,0.2);
+    border-radius: 12px;
+    transition: all 0.25s;
+  }
+  .hero-actions .btn-secondary:hover {
+    background: rgba(255,255,255,0.06);
+    border-color: rgba(255,255,255,0.35);
+  }
+  .hero-stats {
+    display: flex;
+    gap: 56px;
+    margin-top: 56px;
+    padding-top: 32px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    justify-content: center;
+  }
+  .hero-stat h3 {
+    font-size: 28px;
+    font-weight: 800;
+    color: #fff;
+  }
+  .hero-stat h3 span { color: #60a5fa; }
+  .hero-stat p {
+    font-size: 13px;
+    color: #64748b;
+    margin: 2px 0 0;
+  }
+
+  /* ─── SECTION ─── */
+  .section {
+    padding: 100px 48px;
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+  .section-label {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #2563eb;
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-size: clamp(28px, 3.5vw, 40px);
+    font-weight: 800;
+    color: #0f172a;
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+  .section-desc {
+    font-size: 16px;
+    color: #64748b;
+    max-width: 560px;
+    line-height: 1.7;
+    margin-bottom: 48px;
+  }
+
+  /* ─── FEATURES ─── */
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+  .feature-card {
+    padding: 40px 36px;
+    border-radius: 16px;
+    border: 1px solid #f1f5f9;
+    transition: all 0.3s;
+    background: #fff;
+  }
+  .feature-card:hover {
+    border-color: #e2e8f0;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+    transform: translateY(-3px);
+  }
+  .feature-icon {
+    width: 54px;
+    height: 54px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+  }
+  .feature-card h3 {
+    font-size: 17px;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 8px;
+  }
+  .feature-card p {
+    font-size: 13px;
+    color: #64748b;
+    line-height: 1.7;
+  }
+
+  /* ─── PROGRAMS ─── */
+  .programs-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+  .program-card {
+    padding: 44px 36px;
+    border-radius: 16px;
+    background: #fff;
+    border: 1px solid #f1f5f9;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .program-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    border-radius: 16px 16px 0 0;
+  }
+  .program-card:nth-child(1)::before { background: linear-gradient(90deg, #3b82f6, #60a5fa); }
+  .program-card:nth-child(2)::before { background: linear-gradient(90deg, #8b5cf6, #a78bfa); }
+  .program-card:nth-child(3)::before { background: linear-gradient(90deg, #10b981, #34d399); }
+  .program-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+  }
+  .program-card .emoji {
+    font-size: 36px;
+    margin-bottom: 16px;
+    display: block;
+  }
+  .program-card h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 10px;
+  }
+  .program-card p {
+    font-size: 13px;
+    color: #64748b;
+    line-height: 1.7;
+    margin-bottom: 20px;
+  }
+  .program-card a {
+    font-size: 13px;
+    font-weight: 600;
+    color: #2563eb;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    transition: gap 0.2s;
+  }
+  .program-card a:hover { gap: 8px; }
+
+  /* ─── TESTIMONIALS ─── */
+  .testi-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+  .testi-card {
+    padding: 36px 32px;
+    border-radius: 14px;
+    background: #f8fafc;
+    border: 1px solid #f1f5f9;
+  }
+  .testi-stars {
+    color: #f59e0b;
+    font-size: 14px;
+    margin-bottom: 12px;
+  }
+  .testi-card p {
+    font-size: 13px;
+    color: #475569;
+    line-height: 1.7;
+    margin-bottom: 16px;
+    font-style: italic;
+  }
+  .testi-author {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .testi-avatar {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+  }
+  .testi-author .name {
+    font-size: 13px;
+    font-weight: 600;
+    color: #0f172a;
+  }
+  .testi-author .role {
+    font-size: 11px;
+    color: #94a3b8;
+  }
+
+  /* ─── CTA ─── */
+  .cta-section {
+    background: linear-gradient(135deg, #0f172a, #1e3a5f);
+    border-radius: 24px;
+    padding: 80px 48px;
+    text-align: center;
+    margin: 100px auto;
+    max-width: 1100px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-section .cta-shapes {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+  .cta-section .cta-shapes div {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.05;
+    background: #60a5fa;
+  }
+  .cta-section .cta-shapes .cs1 {
+    width: 300px; height: 300px;
+    top: -100px; right: -50px;
+  }
+  .cta-section .cta-shapes .cs2 {
+    width: 200px; height: 200px;
+    bottom: -80px; left: -60px;
+  }
+  .cta-section h2 {
+    font-size: clamp(24px, 3vw, 36px);
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 16px;
+    position: relative;
+    z-index: 1;
+  }
+  .cta-section p {
+    font-size: 15px;
+    color: #94a3b8;
+    max-width: 500px;
+    margin: 0 auto 32px;
+    position: relative;
+    z-index: 1;
+  }
+  .cta-section .btn-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 16px 40px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    background: linear-gradient(135deg, #2563eb, #7c3aed);
+    border-radius: 14px;
+    transition: all 0.25s;
+    position: relative;
+    z-index: 1;
+  }
+  .cta-section .btn-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(37,99,235,0.4);
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    .features-grid,
+    .programs-grid,
+    .testi-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 600px) {
+    .hero { padding: 0 20px; min-height: 80vh; }
+    .hero-stats { gap: 24px; flex-wrap: wrap; }
+    .section { padding: 60px 20px; }
+    .features-grid,
+    .programs-grid,
+    .testi-grid { grid-template-columns: 1fr; }
+    .cta-section { margin: 40px 20px; padding: 40px 24px; }
+  }
+</style>
+
+<!-- ─── HERO ─── -->
+<section class="hero">
+  <div class="hero-bg-shapes">
+    <div class="circle c1"></div>
+    <div class="circle c2"></div>
+    <div class="circle c3"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      #1 Les Privat Terpercaya 2026
+    </div>
+    <h1>
+      Temukan Guru<br>
+      Privat <span class="gradient-text">Terbaik</span>
+    </h1>
+    <p>Belajar lebih mudah bersama pengajar profesional yang diseleksi ketat. Fleksibel sesuai jadwal dan kebutuhan belajar Anda.</p>
+    <div class="hero-actions">
+      <a href="{{ url_for('siswa.daftar') }}" class="btn-primary">
+        <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/></svg>
+        Daftar Les Sekarang
+      </a>
+      <a href="{{ url_for('rekrutmen.daftar') }}" class="btn-secondary">Daftar Jadi Tutor</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><h3>150<span>+</span></h3><p>Tutor Aktif</p></div>
+      <div class="hero-stat"><h3>500<span>+</span></h3><p>Siswa Terdaftar</p></div>
+      <div class="hero-stat"><h3>98<span>%</span></h3><p>Kepuasan Siswa</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FITUR ─── -->
+<section class="section">
+  <div style="text-align:center">
+    <span class="section-label">Mengapa Kami</span>
+    <h2 class="section-title">Kenapa Pilih KITA PRIVAT?</h2>
+    <p class="section-desc" style="margin:0 auto 48px">Kami memberikan pengalaman belajar terbaik dengan tutor profesional yang sudah terseleksi.</p>
+  </div>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon" style="background:#eff6ff;color:#2563eb">🎓</div>
+      <h3>Tutor Profesional</h3>
+      <p>Semua tutor kami lulus seleksi ketat, berpendidikan S1 dan berpengalaman mengajar.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="background:#f0fdf4;color:#16a34a">📅</div>
+      <h3>Jadwal Fleksibel</h3>
+      <p>Atur jadwal belajar sesuai keinginan. Bisa dipilih hari dan jam yang paling nyaman.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="background:#faf5ff;color:#9333ea">📍</div>
+      <h3>Belajar di Rumah</h3>
+      <p>Tutor datang ke rumah Anda. Belajar jadi lebih nyaman dan efektif tanpa perlu bepergian.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="background:#fffbeb;color:#d97706">📊</div>
+      <h3>Laporan Belajar</h3>
+      <p>Pantau perkembangan belajar anak secara berkala melalui laporan dari tutor.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="background:#fef2f2;color:#dc2626">🔒</div>
+      <h3>Garansi Puas</h3>
+      <p>Jika tidak cocok dengan tutor, kami siap mengganti tanpa biaya tambahan.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="background:#ecfeff;color:#0891b2">💰</div>
+      <h3>Harga Terjangkau</h3>
+      <p>Biaya les privat mulai dari Rp 50.000/sesi. Dapatkan paket hemat untuk pembelajaran rutin.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PROGRAM ─── -->
+<section style="background:#f8fafc;padding:100px 48px">
+  <div class="section" style="padding:0">
+    <div style="text-align:center">
+      <span class="section-label">Program</span>
+      <h2 class="section-title">Program Les Privat</h2>
+      <p class="section-desc" style="margin:0 auto 48px">Berbagai program les privat yang bisa disesuaikan dengan kebutuhan belajar.</p>
+    </div>
+    <div class="programs-grid">
+      <div class="program-card">
+        <span class="emoji">📚</span>
+        <h3>Privat SD</h3>
+        <p>Bimbingan belajar untuk siswa SD. Matematika, IPA, Bahasa Inggris, dan mata pelajaran lainnya.</p>
+        <a href="{{ url_for('landing.program') }}">Lihat Detail →</a>
+      </div>
+      <div class="program-card">
+        <span class="emoji">📖</span>
+        <h3>Privat SMP</h3>
+        <p>Persiapan Ujian Sekolah dan kenaikan kelas. Tutor berpengalaman untuk semua mapel.</p>
+        <a href="{{ url_for('landing.program') }}">Lihat Detail →</a>
+      </div>
+      <div class="program-card">
+        <span class="emoji">🎯</span>
+        <h3>Privat SMA</h3>
+        <p>Persiapan UTBK, Ujian Sekolah, dan pendalaman materi untuk siswa SMA/SMK.</p>
+        <a href="{{ url_for('landing.program') }}">Lihat Detail →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── TESTIMONIAL ─── -->
+<section class="section">
+  <div style="text-align:center">
+    <span class="section-label">Testimonial</span>
+    <h2 class="section-title">Apa Kata Mereka?</h2>
+    <p class="section-desc" style="margin:0 auto 48px">Kepercayaan dan kepuasan siswa serta orang tua adalah prioritas utama kami.</p>
+  </div>
+  <div class="testi-grid">
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p>"Anak saya sangat terbantu dengan les di KITA PRIVAT. Nilai Matematikanya naik dari 65 menjadi 90. Tutornya sabar dan profesional."</p>
+      <div class="testi-author">
+        <div class="testi-avatar" style="background:#2563eb">S</div>
+        <div><div class="name">Sari Wulandari</div><div class="role">Orang Tua Siswa</div></div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p>"Saya suka belajar dengan tutor dari KITA PRIVAT. Cara mengajarnya asyik dan gak bikin bosan. Sekarang saya jadi suka Fisika!"</p>
+      <div class="testi-author">
+        <div class="testi-avatar" style="background:#7c3aed">A</div>
+        <div><div class="name">Andi Pratama</div><div class="role">Siswa SMA</div></div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p>"Sebagai tutor, saya merasa dihargai dan didukung penuh oleh tim KITA PRIVAT. Sistemnya rapi dan pembayaran tepat waktu."</p>
+      <div class="testi-author">
+        <div class="testi-avatar" style="background:#059669">R</div>
+        <div><div class="name">Rina Wijaya</div><div class="role">Tutor</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CTA ─── -->
+<section class="cta-section">
+  <div class="cta-shapes">
+    <div class="cs1"></div>
+    <div class="cs2"></div>
+  </div>
+  <h2>Siap Tingkatkan Prestasi Belajar?</h2>
+  <p>Daftar sekarang dan dapatkan tutor privat terbaik untuk Anda. Konsultasi gratis tanpa biaya apapun.</p>
+  <a href="{{ url_for('siswa.daftar') }}" class="btn-cta">
+    Daftar Sekarang
+    <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+  </a>
+</section>
+{% endblock %}

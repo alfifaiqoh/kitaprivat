@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}Pengumuman - KITA PRIVAT{% endblock %}
+{% block content %}
+<div class="mb-6">
+    <h1 class="text-2xl font-bold text-edu-blue">Pengumuman</h1>
+</div>
+
+{% set pengumuman = get_pengumuman() %}
+{% if pengumuman %}
+<div class="space-y-4">
+    {% for p in pengumuman %}
+    <div class="bg-white rounded-xl shadow p-4 sm:p-6">
+        <h3 class="font-semibold text-lg">{{ p.judul }}</h3>
+        <p class="text-gray-500 text-xs">{{ p.created_at.strftime('%d %b %Y') }}</p>
+        <p class="text-gray-700 mt-2">{{ p.isi }}</p>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<div class="bg-white rounded-xl shadow p-6 text-center">
+    <p class="text-gray-500">Belum ada pengumuman.</p>
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}Progress Belajar - KITA PRIVAT{% endblock %}
+{% block content %}
+<div class="mb-6">
+    <h1 class="text-2xl font-bold text-edu-blue">Progress Belajar</h1>
+</div>
+
+{% if laporan_list %}
+<div class="bg-white rounded-xl shadow p-4 sm:p-6">
+    <div class="table-wrap">
+        <table class="w-full text-sm">
+            <thead><tr class="bg-gray-100">
+                <th class="p-2 sm:p-3 text-left">Tanggal</th>
+                <th class="p-2 sm:p-3 text-left">Mata Pelajaran</th>
+                <th class="p-2 sm:p-3 text-left">Materi</th>
+                <th class="p-2 sm:p-3 text-left">Kehadiran</th>
+                <th class="p-2 sm:p-3 text-left">Catatan</th>
+            </tr></thead>
+            <tbody>
+                {% for l in laporan_list %}
+                <tr class="border-b">
+                    <td class="p-2 sm:p-3">{{ l.tanggal }}</td>
+                    <td class="p-2 sm:p-3">{{ l.penugasan.mata_pelajaran }}</td>
+                    <td class="p-2 sm:p-3">{{ l.materi|truncate(50) }}</td>
+                    <td class="p-2 sm:p-3">{{ 'Hadir' if l.hadir else 'Tidak Hadir' }}</td>
+                    <td class="p-2 sm:p-3">{{ l.catatan|truncate(50) or '-' }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% else %}
+<div class="bg-white rounded-xl shadow p-6 text-center">
+    <p class="text-gray-500">Belum ada laporan belajar.</p>
+</div>
+{% endif %}
+{% endblock %}

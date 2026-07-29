@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% block title %}Review Pendaftar - KITA PRIVAT{% endblock %}
+{% block content %}
+<div class="max-w-3xl mx-auto">
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 mb-4">
+        <h1 class="text-xl sm:text-2xl font-bold text-edu-blue">Review Pendaftar</h1>
+        <a href="{{ url_for('rekrutmen.index') }}" class="text-gray-600 hover:underline text-sm">&larr; Kembali</a>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mb-6">
+        <div class="bg-white rounded-xl shadow p-4 sm:p-5">
+            <h2 class="font-semibold text-edu-blue mb-3 text-sm sm:text-base">Data Diri</h2>
+            <div class="text-xs sm:text-sm space-y-1.5">
+                <p><span class="text-gray-500">Nama</span><br>{{ r.nama }}</p>
+                <p><span class="text-gray-500">Email</span><br>{{ r.email }}</p>
+                <p><span class="text-gray-500">Telepon</span><br>{{ r.telepon or '-' }}</p>
+                <p><span class="text-gray-500">Alamat</span><br>{{ r.alamat or '-' }}</p>
+            </div>
+        </div>
+        <div class="bg-white rounded-xl shadow p-4 sm:p-5">
+            <h2 class="font-semibold text-edu-blue mb-3 text-sm sm:text-base">Kualifikasi</h2>
+            <div class="text-xs sm:text-sm space-y-1.5">
+                <p><span class="text-gray-500">Bidang</span><br>{{ r.bidang or '-' }}</p>
+                <p><span class="text-gray-500">Pendidikan</span><br>{{ r.pendidikan or '-' }}</p>
+                <p><span class="text-gray-500">Pengalaman</span><br>{{ r.pengalaman or '-' }}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-white rounded-xl shadow p-4 sm:p-5 mb-6">
+        <h2 class="font-semibold text-edu-blue mb-3 text-sm sm:text-base">Berkas</h2>
+        <div class="grid grid-cols-2 sm:grid-cols-5 gap-2 sm:gap-3">
+            {% for label, field in [('KTP','ktp'),('CV','cv'),('Ijazah','ijazah'),('Transkrip','transkrip'),('Sertifikat','sertifikat')] %}
+            <div class="border rounded-lg p-3 text-center">
+                <p class="text-[10px] sm:text-xs text-gray-500 mb-1">{{ label }}</p>
+                {% set file = r[field] %}
+                {% if file %}
+                <a href="{{ url_for('static', filename='../uploads/rekrutmen/' + file) }}" target="_blank" class="text-edu-blue text-xs sm:text-sm hover:underline">Lihat</a>
+                {% else %}
+                <span class="text-gray-400 text-xs sm:text-sm">-</span>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="bg-white rounded-xl shadow p-4 sm:p-5">
+        <h2 class="font-semibold text-edu-blue mb-3 text-sm sm:text-base">Aksi Review</h2>
+        <form method="POST" class="space-y-3 sm:space-y-4">
+            <div>
+                <label class="block text-xs sm:text-sm font-semibold mb-1">Status</label>
+                <select name="status" class="w-full border rounded-lg px-3 py-2 text-sm">
+                    <option value="menunggu" {{ 'selected' if r.status == 'menunggu' }}>Menunggu</option>
+                    <option value="review" {{ 'selected' if r.status == 'review' }}>Sedang Direview</option>
+                    <option value="interview" {{ 'selected' if r.status == 'interview' }}>Interview</option>
+                    <option value="diterima" {{ 'selected' if r.status == 'diterima' }}>Diterima</option>
+                    <option value="ditolak" {{ 'selected' if r.status == 'ditolak' }}>Ditolak</option>
+                </select>
+            </div>
+            <div>
+                <label class="block text-xs sm:text-sm font-semibold mb-1">Jadwal Interview</label>
+                <input type="datetime-local" name="tanggal_interview" value="{{ r.tanggal_interview.strftime('%Y-%m-%dT%H:%M') if r.tanggal_interview else '' }}" class="w-full border rounded-lg px-3 py-2 text-sm">
+            </div>
+            <div>
+                <label class="block text-xs sm:text-sm font-semibold mb-1">Catatan Admin</label>
+                <textarea name="catatan_admin" rows="3" class="w-full border rounded-lg px-3 py-2 text-sm">{{ r.catatan_admin or '' }}</textarea>
+            </div>
+            <div class="flex flex-col sm:flex-row gap-2 sm:gap-3">
+                <button type="submit" class="btn btn-primary">Simpan</button>
+                {% if r.status == 'diterima' %}
+                <a href="{{ url_for('rekrutmen.terima', id=r.id) }}" class="btn btn-success">Buat Akun Tutor</a>
+                {% endif %}
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

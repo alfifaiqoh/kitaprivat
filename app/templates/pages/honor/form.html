@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}Edit Honor - KITA PRIVAT{% endblock %}
+{% block content %}
+<div class="max-w-lg mx-auto bg-white rounded-xl shadow p-6">
+    <h1 class="text-2xl font-bold text-edu-blue mb-4">Edit Honor</h1>
+    <form method="POST">
+        <div class="mb-4">
+            <label class="block text-sm font-semibold mb-1">Status</label>
+            <select name="status" class="w-full border rounded-lg px-3 py-2">
+                <option value="belum_diajukan" {{ 'selected' if honor and honor.status == 'belum_diajukan' }}>Belum Diajukan</option>
+                <option value="diajukan" {{ 'selected' if honor and honor.status == 'diajukan' }}>Diajukan</option>
+                <option value="dicairkan" {{ 'selected' if honor and honor.status == 'dicairkan' }}>Dicairkan</option>
+                <option value="dibatalkan" {{ 'selected' if honor and honor.status == 'dibatalkan' }}>Dibatalkan</option>
+            </select>
+        </div>
+        <div class="mb-4">
+            <label class="block text-sm font-semibold mb-1">Catatan</label>
+            <textarea name="catatan" rows="3" class="w-full border rounded-lg px-3 py-2">{{ honor.catatan if honor else '' }}</textarea>
+        </div>
+        <div class="flex gap-3">
+            <button type="submit" class="btn btn-primary">Simpan</button>
+            <a href="{{ url_for('honor.index') }}" class="bg-gray-300 text-gray-700 px-6 py-2 rounded-lg hover:bg-gray-400">Batal</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

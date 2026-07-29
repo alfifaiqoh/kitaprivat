@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block title %}{{ 'Edit' if laporan else 'Tambah' }} Laporan - KITA PRIVAT{% endblock %}
+{% block content %}
+<div class="max-w-lg mx-auto">
+    <h1 class="text-xl sm:text-2xl font-bold text-edu-blue mb-4">{{ 'Edit' if laporan else 'Laporan Mengajar' }}</h1>
+    <div class="bg-white rounded-xl shadow p-4 sm:p-6">
+        <form method="POST" class="space-y-3 sm:space-y-4">
+            {% if absensi_id %}
+            <input type="hidden" name="absensi_id" value="{{ absensi_id }}">
+            {% endif %}
+
+            <div>
+                <label class="block text-xs sm:text-sm font-semibold mb-1">Penugasan</label>
+                <select name="penugasan_id" required class="w-full border rounded-lg px-3 py-2 text-sm">
+                    <option value="">Pilih</option>
+                    {% for p in penugasan_list %}
+                    <option value="{{ p.id }}" {{ 'selected' if preselected_penugasan == p.id or (laporan and laporan.penugasan_id == p.id) }}>{{ p.siswa.nama }} - {{ p.mata_pelajaran }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <label class="block text-xs sm:text-sm font-semibold mb-1">Tutor</label>
+                <select name="tutor_id" required class="w-full border rounded-lg px-3 py-2 text-sm">
+                    {% for t in tutor_list %}
+                    <option value="{{ t.id }}" {{ 'selected' if laporan and laporan.tutor_id == t.id }}>{{ t.user.nama }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div>
+                <label class="block text-xs sm:text-sm font-semibold mb-1">Tanggal</label>
+                <input type="date" name="tanggal" value="{{ laporan.tanggal if laporan else '' }}" required class="w-full border rounded-lg px-3 py-2 text-sm">
+            </div>
+            <div>
+                <label class="block text-xs sm:text-sm font-semibold mb-1">Materi <span class="text-red-500">*</span></label>
+                <textarea name="materi" rows="3" required class="w-full border rounded-lg px-3 py-2 text-sm" placeholder="Contoh: Persamaan Linear">{{ laporan.materi if laporan else '' }}</textarea>
+            </div>
+            <div>
+                <label class="block text-xs sm:text-sm font-semibold mb-1">PR / Pekerjaan Rumah</label>
+                <textarea name="pr" rows="2" class="w-full border rounded-lg px-3 py-2 text-sm" placeholder="Contoh: Halaman 35 nomor 1-10">{{ laporan.pr if laporan else '' }}</textarea>
+            </div>
+            <div>
+                <label class="block text-xs sm:text-sm font-semibold mb-1">Catatan</label>
+                <textarea name="catatan" rows="2" class="w-full border rounded-lg px-3 py-2 text-sm" placeholder="Contoh: Anak sudah memahami materi">{{ laporan.catatan if laporan else '' }}</textarea>
+            </div>
+            <div>
+                <label class="flex items-center gap-2">
+                    <input type="checkbox" name="hadir" {{ 'checked' if not laporan or laporan.hadir }}>
+                    <span class="text-sm">Hadir</span>
+                </label>
+            </div>
+            <div class="flex flex-col sm:flex-row gap-2 sm:gap-3 pt-2">
+                <button type="submit" class="btn btn-primary">Simpan Laporan</button>
+                <a href="{{ url_for('laporan.index') }}" class="bg-gray-300 text-gray-700 px-6 py-2 rounded-lg hover:bg-gray-400 text-sm text-center w-full sm:w-auto">Kembali</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

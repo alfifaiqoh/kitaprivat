@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% block title %}Detail Siswa - KITA PRIVAT{% endblock %}
+{% block content %}
+<div class="page-header">
+  <div>
+    <h2>Detail Siswa</h2>
+    <p>Informasi lengkap pendaftaran siswa</p>
+  </div>
+  <div style="display:flex;gap:8px">
+    {% if s.status == 'baru' and current_user.role == 'admin' %}
+    <a href="{{ url_for('siswa.terima', id=s.id) }}" class="btn btn-success">Terima</a>
+    {% endif %}
+    <a href="{{ url_for('siswa.index', tab='baru') }}" class="btn btn-ghost">Kembali</a>
+  </div>
+</div>
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
+  <div class="card">
+    <h3 style="font-size:15px;font-weight:700;color:#0f172a;margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid #e2e8f0">Data Pribadi</h3>
+    <dl style="display:grid;grid-template-columns:100px 1fr;gap:10px 16px;font-size:14px">
+      <dt style="color:#64748b">Nama</dt>
+      <dd style="color:#1e293b;font-weight:600">{{ s.nama }}</dd>
+      <dt style="color:#64748b">JK</dt>
+      <dd style="color:#1e293b">{{ 'Laki-laki' if s.jenis_kelamin == 'L' else 'Perempuan' if s.jenis_kelamin == 'P' else '-' }}</dd>
+      <dt style="color:#64748b">Tgl Lahir</dt>
+      <dd style="color:#1e293b">{{ s.tanggal_lahir.strftime('%d/%m/%Y') if s.tanggal_lahir else '-' }}</dd>
+      <dt style="color:#64748b">Kelas</dt>
+      <dd style="color:#1e293b">{{ s.kelas or '-' }}</dd>
+      <dt style="color:#64748b">Sekolah</dt>
+      <dd style="color:#1e293b">{{ s.sekolah or '-' }}</dd>
+    </dl>
+  </div>
+
+  <div class="card">
+    <h3 style="font-size:15px;font-weight:700;color:#0f172a;margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid #e2e8f0">Kontak & Akademik</h3>
+    <dl style="display:grid;grid-template-columns:100px 1fr;gap:10px 16px;font-size:14px">
+      <dt style="color:#64748b">Telepon</dt>
+      <dd style="color:#1e293b">{{ s.telepon or '-' }}</dd>
+      <dt style="color:#64748b">Email</dt>
+      <dd style="color:#1e293b">{{ s.email or '-' }}</dd>
+      <dt style="color:#64748b">Mata Pelajaran</dt>
+      <dd style="color:#1e293b">{{ s.mata_pelajaran or '-' }}</dd>
+      <dt style="color:#64748b">Status</dt>
+      <dd>
+        {% if s.status == 'baru' %}
+          <span class="badge" style="background:#fef9c3;color:#854d0e">Baru</span>
+        {% elif s.status == 'nonaktif' %}
+          <span class="badge" style="background:#f1f5f9;color:#64748b">Nonaktif</span>
+        {% else %}
+          <span class="badge badge-green">Aktif</span>
+        {% endif %}
+      </dd>
+      <dt style="color:#64748b">Tgl Daftar</dt>
+      <dd style="color:#1e293b">{{ s.created_at.strftime('%d/%m/%Y %H:%M') if s.created_at else '-' }}</dd>
+    </dl>
+  </div>
+</div>
+
+<div class="card" style="margin-top:24px">
+  <h3 style="font-size:15px;font-weight:700;color:#0f172a;margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid #e2e8f0">Alamat</h3>
+  <p style="font-size:14px;color:#334155;line-height:1.7;margin-bottom:16px">{{ s.alamat or 'Tidak diisi' }}</p>
+  {% if s.alamat %}
+  <a href="https://www.google.com/maps/dir/?api=1&destination={{ s.alamat | urlencode }}"
+     target="_blank" rel="noopener"
+     class="btn btn-sm btn-ghost" style="display:inline-flex;align-items:center;gap:6px">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+    Lihat di Google Maps
+  </a>
+  {% endif %}
+</div>
+
+{% if s.keterangan %}
+<div class="card" style="margin-top:24px">
+  <h3 style="font-size:15px;font-weight:700;color:#0f172a;margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid #e2e8f0">Keterangan</h3>
+  <p style="font-size:14px;color:#334155;line-height:1.7">{{ s.keterangan }}</p>
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}Honor - KITA PRIVAT{% endblock %}
+{% block content %}
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-4">
+    <h1 class="text-xl sm:text-2xl font-bold text-edu-blue">Honor Tutor</h1>
+    <a href="{{ url_for('honor.generate') }}" class="btn btn-success">Generate</a>
+</div>
+<div class="bg-white rounded-xl shadow">
+    <div class="table-wrap">
+        <table class="w-full text-xs sm:text-sm">
+            <thead><tr class="bg-gray-100">
+                <th class="p-2 sm:p-3 text-left whitespace-nowrap">Tutor</th>
+                <th class="p-2 sm:p-3 text-left whitespace-nowrap hidden sm:table-cell">Bulan</th>
+                <th class="p-2 sm:p-3 text-left whitespace-nowrap">Sesi</th>
+                <th class="p-2 sm:p-3 text-left whitespace-nowrap hidden md:table-cell">Tarif</th>
+                <th class="p-2 sm:p-3 text-left whitespace-nowrap">Honor</th>
+                <th class="p-2 sm:p-3 text-left whitespace-nowrap hidden sm:table-cell">Status</th>
+                <th class="p-2 sm:p-3 text-left whitespace-nowrap">Aksi</th>
+            </tr></thead>
+            <tbody>
+                {% for h in honor_list %}
+                <tr class="border-b hover:bg-gray-50">
+                    <td class="p-2 sm:p-3 font-medium">{{ h.tutor.user.nama }}</td>
+                    <td class="p-2 sm:p-3 hidden sm:table-cell">{{ h.bulan }}</td>
+                    <td class="p-2 sm:p-3">{{ h.total_sesi }}</td>
+                    <td class="p-2 sm:p-3 hidden md:table-cell whitespace-nowrap">Rp {{ "{:,.0f}".format(h.tarif_per_sesi or 0) }}</td>
+                    <td class="p-2 sm:p-3 whitespace-nowrap font-semibold">Rp {{ "{:,.0f}".format(h.total_honor or 0) }}</td>
+                    <td class="p-2 sm:p-3 hidden sm:table-cell">{{ h.status }}</td>
+                    <td class="p-2 sm:p-3 whitespace-nowrap">
+                        <a href="{{ url_for('honor.edit', id=h.id) }}" class="btn btn-sm btn-ghost">Edit</a>
+                        <a href="{{ url_for('honor.hapus', id=h.id) }}" class="btn btn-sm btn-danger" onclick="return confirm('Yakin hapus?')">Hapus</a>
+                    </td>
+                </tr>
+                {% else %}
+                <tr><td colspan="7" class="p-4 text-center text-gray-500 text-sm">Belum ada honor.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

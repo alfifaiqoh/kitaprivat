@@ -1,0 +1,16 @@
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="topbar-left">
+      <button id="sidebarToggle" class="hamburger" aria-label="Toggle sidebar">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+      <h1 class="topbar-title">{% block title_inner %}Dashboard{% endblock %}</h1>
+    </div>
+    <div class="topbar-right">
+      <a href="{{ url_for('auth.logout') }}" class="btn-logout">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+        Keluar
+      </a>
+    </div>
+  </div>
+</header>

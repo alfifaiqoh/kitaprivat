@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block title %}Tagihan - KITA PRIVAT{% endblock %}
+{% block content %}
+<div class="mb-6">
+    <h1 class="text-2xl font-bold text-edu-blue">Tagihan</h1>
+</div>
+
+{% if invoice_list %}
+<div class="bg-white rounded-xl shadow p-4 sm:p-6">
+    <div class="table-wrap">
+        <table class="w-full text-sm">
+            <thead><tr class="bg-gray-100">
+                <th class="p-2 sm:p-3 text-left">Invoice</th>
+                <th class="p-2 sm:p-3 text-left">Anak</th>
+                <th class="p-2 sm:p-3 text-left">Tipe</th>
+                <th class="p-2 sm:p-3 text-left">Jumlah</th>
+                <th class="p-2 sm:p-3 text-left">Status</th>
+            </tr></thead>
+            <tbody>
+                {% for inv in invoice_list %}
+                <tr class="border-b">
+                    <td class="p-2 sm:p-3 font-mono">{{ inv.nomor_invoice }}</td>
+                    <td class="p-2 sm:p-3">{{ inv.siswa.nama }}</td>
+                    <td class="p-2 sm:p-3">{{ inv.tipe }}</td>
+                    <td class="p-2 sm:p-3">Rp {{ "{:,.0f}".format(inv.jumlah) }}</td>
+                    <td class="p-2 sm:p-3">
+                        <span class="px-2 py-1 rounded text-xs font-semibold
+                            {% if inv.status == 'paid' %}bg-green-100 text-green-800
+                            {% elif inv.status == 'pending' %}bg-yellow-100 text-yellow-800
+                            {% else %}bg-gray-100 text-gray-600{% endif %}">
+                            {{ inv.status }}
+                        </span>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% else %}
+<div class="bg-white rounded-xl shadow p-6 text-center">
+    <p class="text-gray-500">Tidak ada tagihan.</p>
+</div>
+{% endif %}
+{% endblock %}

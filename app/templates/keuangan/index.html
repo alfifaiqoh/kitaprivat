@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}Keuangan - KITA PRIVAT{% endblock %}
+{% block content %}
+<div class="mb-6">
+    <h1 class="text-2xl font-bold text-edu-blue">Keuangan</h1>
+</div>
+
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+    <div class="bg-white rounded-xl shadow p-6">
+        <p class="text-gray-500 text-sm">Pendapatan</p>
+        <p class="text-2xl font-bold text-green-600">Rp {{ "{:,.0f}".format(total_pendapatan) }}</p>
+    </div>
+    <div class="bg-white rounded-xl shadow p-6">
+        <p class="text-gray-500 text-sm">Honor Tutor</p>
+        <p class="text-2xl font-bold text-orange-600">Rp {{ "{:,.0f}".format(total_honor) }}</p>
+    </div>
+    <div class="bg-white rounded-xl shadow p-6">
+        <p class="text-gray-500 text-sm">Pencairan</p>
+        <p class="text-2xl font-bold text-red-600">Rp {{ "{:,.0f}".format(total_pencairan) }}</p>
+    </div>
+    <div class="bg-white rounded-xl shadow p-6">
+        <p class="text-gray-500 text-sm">Komisi</p>
+        <p class="text-2xl font-bold text-blue-600">Rp {{ "{:,.0f}".format(total_komisi) }}</p>
+    </div>
+</div>
+{% endblock %}

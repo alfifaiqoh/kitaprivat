@@ -1,0 +1,14 @@
+{
+  "scripts": {
+    "build": "tailwindcss --input src/input.css --output app/static/css/style.css",
+    "watch": "tailwindcss --input src/input.css --output app/static/css/style.css --watch",
+    "serve": "browser-sync start --proxy \"localhost:8000\" --files \"app/templates/**/*.html\" \"app/static/css/*.css\" --no-notify --no-open",
+    "dev": "concurrently --names \"CSS,FLASK,BS\" --prefix-colors \"cyan,green,yellow\" \"npm run watch\" \".\\venv\\Scripts\\python.exe main.py\" \"ping -n 5 127.0.0.1 >nul && npm run serve\""
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.3.2",
+    "browser-sync": "^3.0.4",
+    "concurrently": "^9.1.2",
+    "tailwindcss": "^4.3.2"
+  }
+}

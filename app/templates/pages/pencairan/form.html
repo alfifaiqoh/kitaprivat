@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block title %}{{ 'Edit' if pencairan else 'Tambah' }} Pencairan - KITA PRIVAT{% endblock %}
+{% block content %}
+<div class="max-w-lg mx-auto bg-white rounded-xl shadow p-6">
+    <h1 class="text-2xl font-bold text-edu-blue mb-4">{{ 'Edit' if pencairan else 'Ajukan' }} Pencairan</h1>
+    <form method="POST">
+        {% if not pencairan %}
+        <div class="mb-3">
+            <label class="block text-sm font-semibold mb-1">Tutor <span class="text-red-500">*</span></label>
+            <select name="tutor_id" required class="w-full border rounded-lg px-3 py-2">
+                <option value="">Pilih</option>
+                {% for t in tutor_list %}
+                <option value="{{ t.id }}">{{ t.user.nama }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-3">
+            <label class="block text-sm font-semibold mb-1">Honor</label>
+            <select name="honor_tutor_id" class="w-full border rounded-lg px-3 py-2">
+                <option value="">Pilih (opsional)</option>
+                {% for h in honor_list %}
+                <option value="{{ h.id }}">Rp {{ "{:,.0f}".format(h.total_honor or 0) }} - {{ h.bulan }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-4">
+            <label class="block text-sm font-semibold mb-1">Jumlah <span class="text-red-500">*</span></label>
+            <input type="number" name="jumlah" step="1000" required class="w-full border rounded-lg px-3 py-2">
+        </div>
+        {% else %}
+        <div class="mb-4">
+            <label class="block text-sm font-semibold mb-1">Status</label>
+            <select name="status" class="w-full border rounded-lg px-3 py-2">
+                <option value="diajukan" {{ 'selected' if pencairan.status == 'diajukan' }}>Diajukan</option>
+                <option value="disetujui" {{ 'selected' if pencairan.status == 'disetujui' }}>Disetujui</option>
+                <option value="ditolak" {{ 'selected' if pencairan.status == 'ditolak' }}>Ditolak</option>
+                <option value="dicairkan" {{ 'selected' if pencairan.status == 'dicairkan' }}>Dicairkan</option>
+            </select>
+        </div>
+        <div class="mb-4">
+            <label class="block text-sm font-semibold mb-1">Catatan Admin</label>
+            <textarea name="catatan_admin" rows="3" class="w-full border rounded-lg px-3 py-2">{{ pencairan.catatan_admin if pencairan else '' }}</textarea>
+        </div>
+        {% endif %}
+        <div class="flex gap-3">
+            <button type="submit" class="btn btn-primary">Simpan</button>
+            <a href="{{ url_for('pencairan.index') }}" class="bg-gray-300 text-gray-700 px-6 py-2 rounded-lg hover:bg-gray-400">Batal</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

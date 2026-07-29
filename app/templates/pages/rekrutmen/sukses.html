@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pendaftaran Terkirim - KITA PRIVAT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #1e40af 100%);
+    }
+    .card {
+      width: 100%;
+      max-width: 460px;
+      background: #fff;
+      border-radius: 24px;
+      padding: 56px 40px 40px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+    .check {
+      width: 72px; height: 72px;
+      border-radius: 50%;
+      background: #f0fdf4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+    }
+    .check svg { width: 36px; height: 36px; stroke: #16a34a; }
+    h1 {
+      font-size: 22px;
+      font-weight: 800;
+      color: #0f172a;
+      margin-bottom: 8px;
+    }
+    p {
+      font-size: 14px;
+      color: #64748b;
+      line-height: 1.7;
+      margin-bottom: 8px;
+    }
+    .info-box {
+      background: #f8fafc;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 24px 0;
+      text-align: left;
+    }
+    .info-box h4 {
+      font-size: 13px;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 8px;
+    }
+    .info-box ul {
+      list-style: none;
+      padding: 0;
+    }
+    .info-box ul li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 13px;
+      color: #475569;
+      padding: 5px 0;
+    }
+    .info-box ul li svg {
+      width: 16px; height: 16px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .btn-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 13px 32px;
+      font-size: 15px;
+      font-weight: 700;
+      color: #fff;
+      background: linear-gradient(135deg, #2563eb, #7c3aed);
+      border-radius: 12px;
+      text-decoration: none;
+      transition: all 0.25s;
+      margin-top: 8px;
+    }
+    .btn-back:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(37,99,235,0.35);
+    }
+    @media (max-width: 480px) {
+      .card { padding: 40px 24px 32px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="check">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+      </svg>
+    </div>
+    <h1>Pendaftaran Terkirim!</h1>
+    <p>Terima kasih, data Anda sudah kami terima.</p>
+
+    <div class="info-box">
+      <h4>Langkah Selanjutnya</h4>
+      <ul>
+        <li>
+          <svg fill="none" stroke="#2563eb" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          Tim kami akan mereview data dan berkas Anda
+        </li>
+        <li>
+          <svg fill="none" stroke="#2563eb" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          Kami akan menghubungi via email untuk jadwal interview
+        </li>
+        <li>
+          <svg fill="none" stroke="#2563eb" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          Jika lulus, Anda akan mendapatkan akun tutor
+        </li>
+      </ul>
+    </div>
+
+    <a href="/" class="btn-back">Kembali ke Beranda</a>
+  </div>
+</body>
+</html>

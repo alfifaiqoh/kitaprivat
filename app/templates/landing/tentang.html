@@ -1,0 +1,301 @@
+{% extends 'landing/base.html' %}
+{% block title %}Tentang Kami - KITA PRIVAT{% endblock %}
+{% block content %}
+<style>
+  .page-hero {
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 60%, #1e40af 100%);
+    padding: 100px 48px 80px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .page-hero .shapes div {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.05;
+    background: #60a5fa;
+  }
+  .page-hero .s1 { width: 400px; height: 400px; top: -150px; left: -100px; }
+  .page-hero .s2 { width: 250px; height: 250px; bottom: -80px; right: -60px; }
+  .page-hero h1 {
+    font-size: clamp(32px, 4vw, 48px);
+    font-weight: 900;
+    color: #fff;
+    margin-bottom: 16px;
+    position: relative;
+    z-index: 1;
+  }
+  .page-hero p {
+    font-size: 16px;
+    color: #94a3b8;
+    max-width: 540px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .about-section {
+    padding: 100px 48px;
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
+  /* ─── STORY ─── */
+  .story-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+    margin-bottom: 100px;
+  }
+  .story-visual {
+    position: relative;
+  }
+  .story-visual .placeholder {
+    width: 100%;
+    aspect-ratio: 4/3;
+    border-radius: 20px;
+    background: linear-gradient(135deg, #eff6ff, #dbeafe);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 80px;
+  }
+  .story-visual .exp-badge {
+    position: absolute;
+    bottom: -20px;
+    right: -20px;
+    background: linear-gradient(135deg, #2563eb, #7c3aed);
+    color: #fff;
+    padding: 20px 28px;
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: 0 8px 30px rgba(37,99,235,0.3);
+  }
+  .story-visual .exp-badge h3 { font-size: 28px; font-weight: 800; margin: 0; }
+  .story-visual .exp-badge p { font-size: 11px; opacity: 0.8; margin: 0; }
+  .story-text h2 {
+    font-size: clamp(24px, 3vw, 36px);
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 20px;
+  }
+  .story-text h2 span {
+    background: linear-gradient(135deg, #2563eb, #7c3aed);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .story-text p {
+    font-size: 15px;
+    color: #475569;
+    line-height: 1.8;
+    margin-bottom: 16px;
+  }
+
+  /* ─── STATS ─── */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin-bottom: 100px;
+    padding: 48px 32px;
+    background: #f8fafc;
+    border-radius: 24px;
+  }
+  .stats-row .stat {
+    text-align: center;
+  }
+  .stats-row .stat h3 {
+    font-size: 32px;
+    font-weight: 800;
+    background: linear-gradient(135deg, #2563eb, #7c3aed);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .stats-row .stat p {
+    font-size: 13px;
+    color: #64748b;
+    margin: 4px 0 0;
+  }
+
+  /* ─── VISI MISI ─── */
+  .vm-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    margin-bottom: 100px;
+  }
+  .vm-card {
+    padding: 40px 36px;
+    border-radius: 20px;
+    border: 1px solid #f1f5f9;
+    transition: all 0.3s;
+  }
+  .vm-card:hover {
+    box-shadow: 0 12px 40px rgba(0,0,0,0.06);
+    transform: translateY(-3px);
+  }
+  .vm-card .icon {
+    width: 52px; height: 52px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  .vm-card h3 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 12px;
+  }
+  .vm-card p {
+    font-size: 14px;
+    color: #475569;
+    line-height: 1.7;
+  }
+  .vm-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 16px 0 0;
+  }
+  .vm-card ul li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 14px;
+    color: #475569;
+    padding: 8px 0;
+    border-bottom: 1px solid #f8fafc;
+  }
+  .vm-card ul li:last-child { border-bottom: none; }
+  .vm-card ul li svg { width: 18px; height: 18px; flex-shrink: 0; margin-top: 1px; }
+
+  /* ─── VALUES ─── */
+  .values-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+  .value-card {
+    text-align: center;
+    padding: 36px 24px;
+    border-radius: 16px;
+    background: #fff;
+    border: 1px solid #f1f5f9;
+    transition: all 0.3s;
+  }
+  .value-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+  }
+  .value-card .emoji {
+    font-size: 40px;
+    margin-bottom: 16px;
+    display: block;
+  }
+  .value-card h4 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 8px;
+  }
+  .value-card p {
+    font-size: 13px;
+    color: #64748b;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 900px) {
+    .story-wrap { grid-template-columns: 1fr; gap: 40px; }
+    .stats-row { grid-template-columns: 1fr 1fr; }
+    .vm-grid { grid-template-columns: 1fr; }
+    .values-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 600px) {
+    .page-hero { padding: 80px 20px 60px; }
+    .about-section { padding: 60px 20px; }
+    .stats-row { grid-template-columns: 1fr 1fr; padding: 32px 16px; }
+    .values-grid { grid-template-columns: 1fr; }
+  }
+</style>
+
+<div class="page-hero">
+  <div class="shapes"><div class="s1"></div><div class="s2"></div></div>
+  <h1>Tentang KITA PRIVAT</h1>
+  <p>Mitra pendidikan terpercaya yang menghubungkan siswa dengan tutor profesional sejak 2022.</p>
+</div>
+
+<section class="about-section">
+  <div class="story-wrap">
+    <div class="story-visual">
+      <div class="placeholder">📖</div>
+      <div class="exp-badge">
+        <h3>4+</h3>
+        <p>Tahun Pengalaman</p>
+      </div>
+    </div>
+    <div class="story-text">
+      <h2>Cerita <span>Kami</span></h2>
+      <p>KITA PRIVAT lahir dari keprihatinan terhadap sistem pendidikan yang kurang personal. Kami percaya setiap siswa memiliki cara belajar yang unik dan membutuhkan pendekatan yang berbeda.</p>
+      <p>Berawal dari sekelompok tutor yang ingin berbagi ilmu, kini KITA PRIVAT telah berkembang menjadi platform les privat terpercaya dengan ratusan tutor profesional yang telah membantu ribuan siswa meraih prestasi terbaik mereka.</p>
+      <p>Kami berkomitmen untuk terus memberikan layanan pendidikan berkualitas dengan tutor yang terseleksi ketat, metode belajar yang efektif, dan harga yang terjangkau.</p>
+    </div>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat"><h3>150+</h3><p>Tutor Aktif</p></div>
+    <div class="stat"><h3>500+</h3><p>Siswa Terdaftar</p></div>
+    <div class="stat"><h3>1.200+</h3><p>Sesi per Bulan</p></div>
+    <div class="stat"><h3>4.8★</h3><p>Rating Tutor</p></div>
+  </div>
+
+  <div class="vm-grid">
+    <div class="vm-card">
+      <div class="icon" style="background:#eff6ff;color:#2563eb">🔭</div>
+      <h3>Visi</h3>
+      <p>Menjadi mitra pendidikan terpercaya yang membantu setiap siswa di Indonesia meraih prestasi gemilang melalui pembelajaran personal yang berkualitas.</p>
+    </div>
+    <div class="vm-card">
+      <div class="icon" style="background:#faf5ff;color:#7c3aed">🎯</div>
+      <h3>Misi</h3>
+      <ul>
+        <li><svg fill="none" stroke="#7c3aed" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>Menyediakan tutor berkualitas melalui seleksi ketat</li>
+        <li><svg fill="none" stroke="#7c3aed" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>Memberikan pembelajaran personal sesuai kebutuhan siswa</li>
+        <li><svg fill="none" stroke="#7c3aed" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>Mendukung perkembangan akademik dan karakter siswa</li>
+        <li><svg fill="none" stroke="#7c3aed" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>Menggunakan teknologi untuk memantau progres belajar</li>
+      </ul>
+    </div>
+  </div>
+
+  <div style="text-align:center;margin-bottom:48px">
+    <span style="display:inline-block;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#2563eb;margin-bottom:12px">Nilai Kami</span>
+    <h2 style="font-size:clamp(24px,3vw,36px);font-weight:800;color:#0f172a">Nilai-Nilai Perusahaan</h2>
+  </div>
+  <div class="values-grid">
+    <div class="value-card">
+      <span class="emoji">💎</span>
+      <h4>Integritas</h4>
+      <p>Kami menjunjung tinggi kejujuran dan transparansi dalam setiap layanan.</p>
+    </div>
+    <div class="value-card">
+      <span class="emoji">❤️</span>
+      <h4>Peduli</h4>
+      <p>Setiap siswa diperlakukan dengan perhatian dan pendekatan personal.</p>
+    </div>
+    <div class="value-card">
+      <span class="emoji">📈</span>
+      <h4>Berkualitas</h4>
+      <p>Kami tidak pernah kompromi dengan kualitas tutor dan layanan.</p>
+    </div>
+    <div class="value-card">
+      <span class="emoji">🤝</span>
+      <h4>Kolaborasi</h4>
+      <p>Bekerja sama dengan orang tua untuk hasil belajar terbaik.</p>
+    </div>
+  </div>
+</section>
+{% endblock %}

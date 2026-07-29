@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pendaftaran Siswa - KITA PRIVAT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #1e40af 100%);
+      position: relative;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      background: #3b82f6;
+      opacity: 0.05;
+      top: -150px; right: -100px;
+      pointer-events: none;
+    }
+    body::after {
+      content: '';
+      position: fixed;
+      width: 350px; height: 350px;
+      border-radius: 50%;
+      background: #60a5fa;
+      opacity: 0.04;
+      bottom: -100px; left: -80px;
+      pointer-events: none;
+    }
+    .form-card {
+      width: 100%;
+      max-width: 640px;
+      background: #fff;
+      border-radius: 24px;
+      padding: 48px 40px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+      position: relative;
+      z-index: 1;
+    }
+    .form-header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    .form-header .logo-box {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 56px; height: 56px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #1e3a5f, #2563eb);
+      font-size: 24px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+    .form-header h1 {
+      font-size: 22px;
+      font-weight: 800;
+      color: #0f172a;
+      margin-bottom: 6px;
+    }
+    .form-header p {
+      font-size: 14px;
+      color: #64748b;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .form-group {
+      margin-bottom: 18px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: #334155;
+      margin-bottom: 6px;
+    }
+    .form-group label .req { color: #dc2626; }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 10px;
+      font-size: 14px;
+      font-family: inherit;
+      color: #1e293b;
+      background: #fff;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+      box-sizing: border-box;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+    }
+    .form-group textarea { resize: vertical; min-height: 80px; }
+    .map-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1.5px solid #e2e8f0;
+      margin-bottom: 12px;
+      height: 280px;
+    }
+    .map-wrap .search-bar {
+      display: flex;
+      gap: 8px;
+      padding: 10px 12px;
+      background: #fff;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .map-wrap .search-bar input {
+      flex: 1;
+      padding: 8px 12px;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 13px;
+      font-family: inherit;
+      outline: none;
+    }
+    .map-wrap .search-bar input:focus {
+      border-color: #2563eb;
+    }
+    .map-wrap .search-bar button {
+      padding: 8px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #fff;
+      background: #2563eb;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .map-wrap .search-bar button:hover { background: #1d4ed8; }
+    #map { height: 200px; }
+    .map-hint {
+      font-size: 12px;
+      color: #94a3b8;
+      text-align: center;
+      padding: 8px;
+      background: #f8fafc;
+    }
+    .btn-submit {
+      width: 100%;
+      padding: 13px;
+      font-size: 15px;
+      font-weight: 700;
+      color: #fff;
+      background: linear-gradient(135deg, #2563eb, #7c3aed);
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.25s;
+      margin-top: 4px;
+    }
+    .btn-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(37,99,235,0.35);
+    }
+    .form-footer {
+      text-align: center;
+      margin-top: 24px;
+      font-size: 12px;
+      color: #94a3b8;
+    }
+    .form-footer a {
+      color: #2563eb;
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .form-footer a:hover { text-decoration: underline; }
+    @media (max-width: 480px) {
+      .form-card { padding: 32px 20px; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="form-card">
+    <div class="form-header">
+      <div class="logo-box">K</div>
+      <h1>Pendaftaran Siswa</h1>
+      <p>Daftarkan putra/putri Anda untuk les privat</p>
+    </div>
+
+    <form method="POST" id="formDaftar">
+      <div class="form-group">
+        <label>Nama Lengkap <span class="req">*</span></label>
+        <input type="text" name="nama" required placeholder="Nama lengkap siswa">
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Jenis Kelamin</label>
+          <select name="jenis_kelamin">
+            <option value="">Pilih</option>
+            <option value="L">Laki-laki</option>
+            <option value="P">Perempuan</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Tanggal Lahir</label>
+          <input type="date" name="tanggal_lahir">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Kelas</label>
+          <input type="text" name="kelas" placeholder="SD/SMP/SMA">
+        </div>
+        <div class="form-group">
+          <label>Sekolah</label>
+          <input type="text" name="sekolah" placeholder="Nama sekolah">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Alamat <span class="req">*</span></label>
+        <div class="map-wrap">
+          <div class="search-bar">
+            <input type="text" id="searchMap" placeholder="Cari lokasi..." />
+            <button type="button" id="btnSearch">Cari</button>
+          </div>
+          <div id="map"></div>
+          <div class="map-hint">Klik peta untuk memilih lokasi & Isi alamat otomatis</div>
+        </div>
+        <textarea name="alamat" id="alamat" rows="2" placeholder="Alamat lengkap" required></textarea>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Telepon</label>
+          <input type="text" name="telepon" placeholder="0812-xxxx-xxxx">
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" name="email" placeholder="email@contoh.com">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Mata Pelajaran</label>
+        <input type="text" name="mata_pelajaran" placeholder="Matematika, IPA, Bahasa Inggris, dll">
+      </div>
+
+      <div class="form-group">
+        <label>Keterangan</label>
+        <textarea name="keterangan" rows="2" placeholder="Jadwal diinginkan atau catatan lain"></textarea>
+      </div>
+
+      <button type="submit" class="btn-submit">Daftar Sekarang</button>
+    </form>
+
+    <div class="form-footer">
+      Sudah punya akun? <a href="{{ url_for('auth.login') }}">Masuk</a>
+      <br>
+      <a href="/">← Kembali ke Beranda</a>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    const map = L.map('map').setView([-7.420, 109.345], 13);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap'
+    }).addTo(map);
+
+    let marker = null;
+
+    function reverseGeocode(lat, lng) {
+      fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&accept-language=id`)
+        .then(r => r.json())
+        .then(data => {
+          const addr = data.display_name || '';
+          document.getElementById('alamat').value = addr;
+        })
+        .catch(() => {});
+    }
+
+    function setMarker(lat, lng) {
+      if (marker) map.removeLayer(marker);
+      marker = L.marker([lat, lng]).addTo(map);
+      map.setView([lat, lng], 14);
+      reverseGeocode(lat, lng);
+    }
+
+    map.on('click', function(e) {
+      setMarker(e.latlng.lat, e.latlng.lng);
+    });
+
+    document.getElementById('btnSearch').addEventListener('click', function() {
+      const q = document.getElementById('searchMap').value.trim();
+      if (!q) return;
+      fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(q)}&limit=1`)
+        .then(r => r.json())
+        .then(data => {
+          if (data.length > 0) {
+            setMarker(parseFloat(data[0].lat), parseFloat(data[0].lon));
+          }
+        })
+        .catch(() => {});
+    });
+
+    document.getElementById('searchMap').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        document.getElementById('btnSearch').click();
+      }
+    });
+
+    // Try to get user location
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        pos => map.setView([pos.coords.latitude, pos.coords.longitude], 14),
+        () => {}
+      );
+    }
+  </script>
+</body>
+</html>

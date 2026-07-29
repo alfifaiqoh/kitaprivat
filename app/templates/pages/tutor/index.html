@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}Tutor - KITA PRIVAT{% endblock %}
+{% block content %}
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-4">
+    <h1 class="text-xl sm:text-2xl font-bold text-edu-blue">Data Tutor</h1>
+    <a href="{{ url_for('tutor.tambah') }}" class="btn btn-primary">+ Tambah</a>
+</div>
+<div class="bg-white rounded-xl shadow">
+    <div class="table-wrap">
+        <table class="w-full text-xs sm:text-sm">
+            <thead><tr class="bg-gray-100">
+                <th class="p-2 sm:p-3 text-left whitespace-nowrap">Nama</th>
+                <th class="p-2 sm:p-3 text-left whitespace-nowrap hidden sm:table-cell">Bidang</th>
+                <th class="p-2 sm:p-3 text-left whitespace-nowrap hidden md:table-cell">Pendidikan</th>
+                <th class="p-2 sm:p-3 text-left whitespace-nowrap">Tarif</th>
+                <th class="p-2 sm:p-3 text-left whitespace-nowrap">Aksi</th>
+            </tr></thead>
+            <tbody>
+                {% for t in tutor_list %}
+                <tr class="border-b hover:bg-gray-50">
+                    <td class="p-2 sm:p-3 font-medium">{{ t.user.nama }}</td>
+                    <td class="p-2 sm:p-3 hidden sm:table-cell">{{ t.bidang or '-' }}</td>
+                    <td class="p-2 sm:p-3 hidden md:table-cell">{{ t.pendidikan or '-' }}</td>
+                    <td class="p-2 sm:p-3 whitespace-nowrap">Rp {{ "{:,.0f}".format(t.tarif_per_sesi or 0) }}</td>
+                    <td class="p-2 sm:p-3 whitespace-nowrap">
+                        <a href="{{ url_for('tutor.edit', id=t.id) }}" class="btn btn-sm btn-ghost">Edit</a>
+                        <a href="{{ url_for('tutor.hapus', id=t.id) }}" class="btn btn-sm btn-danger" onclick="return confirm('Yakin hapus?')">Hapus</a>
+                    </td>
+                </tr>
+                {% else %}
+                <tr><td colspan="5" class="p-4 text-center text-gray-500 text-sm">Belum ada data tutor.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

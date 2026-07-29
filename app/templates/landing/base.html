@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}KITA PRIVAT{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      color: #1e293b;
+      background: #fff;
+      overflow-x: hidden;
+    }
+    a { text-decoration: none; color: inherit; }
+
+    /* ─── NAVBAR ─── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 40px;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0,0,0,0.04);
+      transition: box-shadow 0.3s;
+    }
+    nav.scrolled { box-shadow: 0 1px 10px rgba(0,0,0,0.06); }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .nav-logo .logo-icon {
+      width: 38px; height: 38px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #1e3a5f, #2563eb);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 800;
+      color: #fff;
+    }
+    .nav-logo-text {
+      font-size: 18px;
+      font-weight: 800;
+      color: #1e293b;
+    }
+    .nav-logo-text span { color: #2563eb; }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 14px;
+      font-weight: 500;
+      color: #475569;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: #2563eb; }
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .nav-actions a {
+      font-size: 14px;
+      font-weight: 600;
+      padding: 9px 22px;
+      border-radius: 10px;
+      transition: all 0.2s;
+    }
+    .btn-outline {
+      color: #2563eb;
+      border: 1.5px solid #2563eb;
+    }
+    .btn-outline:hover {
+      background: #2563eb;
+      color: #fff;
+    }
+    .btn-solid {
+      background: linear-gradient(135deg, #1e3a5f, #2563eb);
+      color: #fff;
+    }
+    .btn-solid:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 15px rgba(37,99,235,0.35);
+    }
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: #1e293b;
+      border-radius: 2px;
+      transition: 0.3s;
+    }
+
+    /* ─── MAIN ─── */
+    main { padding-top: 76px; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: #0f172a;
+      color: #94a3b8;
+      padding: 48px 40px 24px;
+    }
+    .footer-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 40px;
+    }
+    .footer-brand h3 {
+      font-size: 20px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+    .footer-brand h3 span { color: #3b82f6; }
+    .footer-brand p {
+      font-size: 13px;
+      line-height: 1.7;
+    }
+    .footer-col h4 {
+      font-size: 13px;
+      font-weight: 700;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 16px;
+    }
+    .footer-col a {
+      display: block;
+      font-size: 13px;
+      color: #64748b;
+      margin-bottom: 10px;
+      transition: color 0.2s;
+    }
+    .footer-col a:hover { color: #fff; }
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 32px auto 0;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      text-align: center;
+      font-size: 12px;
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 768px) {
+      nav { padding: 14px 20px; }
+      .nav-links {
+        position: fixed;
+        top: 70px; left: 0; right: 0;
+        background: #fff;
+        flex-direction: column;
+        padding: 20px;
+        gap: 16px;
+        border-bottom: 1px solid #e2e8f0;
+        transform: translateY(-120%);
+        transition: transform 0.3s;
+      }
+      .nav-links.open { transform: translateY(0); }
+      .hamburger { display: flex; }
+      .nav-actions .btn-outline { display: none; }
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 32px;
+      }
+    }
+    @media (max-width: 480px) {
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav id="navbar">
+  <a href="/" class="nav-logo">
+    <div class="logo-icon">K</div>
+    <div class="nav-logo-text">KITA<span>PRIVAT</span></div>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="/">Beranda</a></li>
+    <li><a href="{{ url_for('landing.program') }}">Program</a></li>
+    <li><a href="{{ url_for('landing.tentang') }}">Tentang</a></li>
+    <li><a href="{{ url_for('landing.kontak') }}">Kontak</a></li>
+  </ul>
+  <div class="nav-actions">
+    <a href="{{ url_for('auth.login') }}" class="btn-outline">Masuk</a>
+    <a href="{{ url_for('siswa.daftar') }}" class="btn-solid">Daftar Les</a>
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<main>
+  {% block content %}{% endblock %}
+</main>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <h3>KITA<span>PRIVAT</span></h3>
+      <p>Platform les privat terpercaya yang menghubungkan siswa dengan tutor profesional. Belajar jadi lebih mudah, fleksibel, dan menyenangkan.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Layanan</h4>
+      <a href="{{ url_for('landing.program') }}">Program</a>
+      <a href="{{ url_for('landing.cara_daftar') }}">Cara Daftar</a>
+      <a href="{{ url_for('landing.jenjang') }}">Jenjang</a>
+      <a href="{{ url_for('landing.rekrutmen') }}">Jadi Tutor</a>
+    </div>
+    <div class="footer-col">
+      <h4>Perusahaan</h4>
+      <a href="{{ url_for('landing.tentang') }}">Tentang</a>
+      <a href="{{ url_for('landing.kontak') }}">Kontak</a>
+      <a href="{{ url_for('landing.faq') }}">FAQ</a>
+    </div>
+    <div class="footer-col">
+      <h4>Kontak</h4>
+      <a>info@kitaprivat.id</a>
+      <a>+62 812-3456-7890</a>
+      <a>Jakarta, Indonesia</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    &copy; 2026 KITA PRIVAT. All rights reserved.
+  </div>
+</footer>
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+  if (hamburger) {
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+    });
+  }
+  // Close menu on link click
+  document.querySelectorAll('.nav-links a').forEach(a => {
+    a.addEventListener('click', () => navLinks.classList.remove('open'));
+  });
+  // Navbar scroll shadow
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 20);
+  });
+</script>
+</body>
+</html>
