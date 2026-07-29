@@ -3,7 +3,7 @@
 {% block content %}
 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-4">
     <h1 class="text-xl sm:text-2xl font-bold text-edu-blue">Pengajuan Pencairan</h1>
-    <a href="{{ url_for('pencairan.tambah') }}" class="bg-edu-blue text-white px-4 py-2 rounded-lg hover:bg-blue-800 text-sm sm:text-base text-center w-full sm:w-auto">+ Ajukan</a>
+    <a href="{{ url_for('pencairan.tambah') }}" class="btn btn-primary">+ Ajukan</a>
 </div>
 <div class="bg-white rounded-xl shadow">
     <div class="table-wrap">
@@ -23,7 +23,7 @@
                     <td class="p-2 sm:p-3 hidden sm:table-cell whitespace-nowrap">{{ p.tanggal_diajukan.strftime('%d/%m/%Y') }}</td>
                     <td class="p-2 sm:p-3">{{ p.status }}</td>
                     <td class="p-2 sm:p-3 whitespace-nowrap">
-                        <a href="{{ url_for('pencairan.edit', id=p.id) }}" class="text-blue-600 hover:underline text-xs sm:text-sm">Edit</a>
+                        <a href="{{ url_for('pencairan.edit', id=p.id) }}" class="btn btn-sm btn-ghost">Edit</a>
                     </td>
                 </tr>
                 {% else %}

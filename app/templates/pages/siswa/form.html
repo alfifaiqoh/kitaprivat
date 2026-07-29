@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block title %}{{ 'Edit' if siswa else 'Tambah' }} Siswa - KITA PRIVAT{% endblock %}
 {% block content %}
-<div class="max-w-lg mx-auto">
+<div class="max-w-2xl mx-auto">
     <h1 class="text-xl sm:text-2xl font-bold text-edu-blue mb-4">{{ 'Edit' if siswa else 'Tambah' }} Siswa</h1>
     <div class="bg-white rounded-xl shadow p-4 sm:p-6">
         <form method="POST" class="space-y-3 sm:space-y-4">
@@ -9,13 +9,29 @@
                 <label class="block text-xs sm:text-sm font-semibold mb-1">Nama <span class="text-red-500">*</span></label>
                 <input type="text" name="nama" value="{{ siswa.nama if siswa else '' }}" required class="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-edu-blue">
             </div>
-            <div>
-                <label class="block text-xs sm:text-sm font-semibold mb-1">Kelas</label>
-                <input type="text" name="kelas" value="{{ siswa.kelas if siswa else '' }}" class="w-full border rounded-lg px-3 py-2 text-sm">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                    <label class="block text-xs sm:text-sm font-semibold mb-1">Jenis Kelamin</label>
+                    <select name="jenis_kelamin" class="w-full border rounded-lg px-3 py-2 text-sm">
+                        <option value="">Pilih</option>
+                        <option value="L" {% if siswa and siswa.jenis_kelamin == 'L' %}selected{% endif %}>Laki-laki</option>
+                        <option value="P" {% if siswa and siswa.jenis_kelamin == 'P' %}selected{% endif %}>Perempuan</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs sm:text-sm font-semibold mb-1">Tanggal Lahir</label>
+                    <input type="date" name="tanggal_lahir" value="{{ siswa.tanggal_lahir.strftime('%Y-%m-%d') if siswa and siswa.tanggal_lahir else '' }}" class="w-full border rounded-lg px-3 py-2 text-sm">
+                </div>
             </div>
-            <div>
-                <label class="block text-xs sm:text-sm font-semibold mb-1">Sekolah</label>
-                <input type="text" name="sekolah" value="{{ siswa.sekolah if siswa else '' }}" class="w-full border rounded-lg px-3 py-2 text-sm">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                    <label class="block text-xs sm:text-sm font-semibold mb-1">Kelas</label>
+                    <input type="text" name="kelas" value="{{ siswa.kelas if siswa else '' }}" class="w-full border rounded-lg px-3 py-2 text-sm">
+                </div>
+                <div>
+                    <label class="block text-xs sm:text-sm font-semibold mb-1">Sekolah</label>
+                    <input type="text" name="sekolah" value="{{ siswa.sekolah if siswa else '' }}" class="w-full border rounded-lg px-3 py-2 text-sm">
+                </div>
             </div>
             <div>
                 <label class="block text-xs sm:text-sm font-semibold mb-1">Alamat</label>
@@ -32,11 +48,19 @@
                 </div>
             </div>
             <div>
+                <label class="block text-xs sm:text-sm font-semibold mb-1">Mata Pelajaran</label>
+                <input type="text" name="mata_pelajaran" value="{{ siswa.mata_pelajaran if siswa else '' }}" placeholder="Matematika, IPA, dll" class="w-full border rounded-lg px-3 py-2 text-sm">
+            </div>
+            <div>
+                <label class="block text-xs sm:text-sm font-semibold mb-1">Jadwal Diinginkan</label>
+                <input type="text" name="jadwal_diinginkan" value="{{ siswa.jadwal_diinginkan if siswa else '' }}" placeholder="Senin 16.00, Rabu 14.00" class="w-full border rounded-lg px-3 py-2 text-sm">
+            </div>
+            <div>
                 <label class="block text-xs sm:text-sm font-semibold mb-1">Keterangan</label>
                 <textarea name="keterangan" rows="2" class="w-full border rounded-lg px-3 py-2 text-sm">{{ siswa.keterangan if siswa else '' }}</textarea>
             </div>
             <div class="flex flex-col sm:flex-row gap-2 sm:gap-3 pt-2">
-                <button type="submit" class="bg-edu-blue text-white px-6 py-2 rounded-lg hover:bg-blue-800 text-sm w-full sm:w-auto">Simpan</button>
+                <button type="submit" class="btn btn-primary">Simpan</button>
                 <a href="{{ url_for('siswa.index') }}" class="bg-gray-300 text-gray-700 px-6 py-2 rounded-lg hover:bg-gray-400 text-sm text-center w-full sm:w-auto">Batal</a>
             </div>
         </form>

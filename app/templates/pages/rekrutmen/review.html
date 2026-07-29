@@ -66,9 +66,9 @@
                 <textarea name="catatan_admin" rows="3" class="w-full border rounded-lg px-3 py-2 text-sm">{{ r.catatan_admin or '' }}</textarea>
             </div>
             <div class="flex flex-col sm:flex-row gap-2 sm:gap-3">
-                <button type="submit" class="bg-edu-blue text-white px-6 py-2 rounded-lg hover:bg-blue-800 text-sm w-full sm:w-auto">Simpan</button>
+                <button type="submit" class="btn btn-primary">Simpan</button>
                 {% if r.status == 'diterima' %}
-                <a href="{{ url_for('rekrutmen.terima', id=r.id) }}" class="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 text-sm text-center w-full sm:w-auto">Buat Akun Tutor</a>
+                <a href="{{ url_for('rekrutmen.terima', id=r.id) }}" class="btn btn-success">Buat Akun Tutor</a>
                 {% endif %}
             </div>
         </form>

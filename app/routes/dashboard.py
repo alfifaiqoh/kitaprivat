@@ -1,3 +1,4 @@
+from datetime import datetime
 from flask import Blueprint, render_template
 from flask_login import login_required, current_user
 from app import db
@@ -5,6 +6,7 @@ from app.models.penugasan import Penugasan
 from app.models.siswa import Siswa
 from app.models.tutor import Tutor
 from app.models.pembayaran import Pembayaran
+from app.models.invoice import Invoice
 
 dashboard_bp = Blueprint('dashboard', __name__, url_prefix='/dashboard')
 
@@ -28,6 +30,10 @@ def index():
             context['penugasan_list'] = Penugasan.query.filter_by(tutor_id=tutor.id).all()
 
     elif role == 'orang_tua':
+        siswa_ids = [s.id for s in Siswa.query.filter_by(orang_tua_id=current_user.id).all()]
         context['siswa_list'] = Siswa.query.filter_by(orang_tua_id=current_user.id).all()
+        context['invoice_list'] = Invoice.query.filter(Invoice.siswa_id.in_(siswa_ids)).filter_by(status='pending').all() if siswa_ids else []
+        context['penugasan_list'] = Penugasan.query.filter(Penugasan.siswa_id.in_(siswa_ids)).filter_by(status='aktif').all() if siswa_ids else []
 
+    context['now'] = datetime.now
     return render_template('dashboard/index.html', **context)

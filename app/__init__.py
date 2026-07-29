@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from config import Config
@@ -32,7 +32,13 @@ def create_app(config_class=Config):
     from app.routes.pencairan import pencairan_bp
     from app.routes.penilaian import penilaian_bp
     from app.routes.rekrutmen import rekrutmen_bp
+    from app.routes.landing import landing_bp
+    from app.routes.parent import parent_bp
+    from app.routes.master import master_bp
+    from app.routes.keuangan import keuangan_bp
+    from app.routes.pengumuman import pengumuman_bp
 
+    app.register_blueprint(landing_bp)
     app.register_blueprint(auth_bp)
     app.register_blueprint(dashboard_bp)
     app.register_blueprint(siswa_bp)
@@ -46,16 +52,17 @@ def create_app(config_class=Config):
     app.register_blueprint(pencairan_bp)
     app.register_blueprint(penilaian_bp)
     app.register_blueprint(rekrutmen_bp)
+    app.register_blueprint(parent_bp)
+    app.register_blueprint(master_bp)
+    app.register_blueprint(keuangan_bp)
+    app.register_blueprint(pengumuman_bp)
 
     with app.app_context():
         from app.models import user, siswa, tutor, penugasan, jadwal
         from app.models import pembayaran, laporan, absensi, honor, pencairan, penilaian
-        from app.models import rekrutmen
+        from app.models import rekrutmen, jenjang, program, paket, mapel, wilayah
+        from app.models import invoice, dompet, request_les, pengumuman
         db.create_all()
         user.seed_admin()
-
-    @app.route('/')
-    def landing():
-        return render_template('landing.html')
 
     return app

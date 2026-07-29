@@ -36,8 +36,20 @@
                 <label class="block text-xs sm:text-sm font-semibold mb-1">Pengalaman</label>
                 <textarea name="pengalaman" rows="3" class="w-full border rounded-lg px-3 py-2 text-sm">{{ tutor.pengalaman or '' }}</textarea>
             </div>
+            <hr class="border-gray-200">
+            <h3 class="text-sm font-semibold text-edu-blue">Data Bank</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                    <label class="block text-xs sm:text-sm font-semibold mb-1">Nama Bank</label>
+                    <input type="text" name="bank_nama" value="{{ tutor.bank_nama or '' }}" class="w-full border rounded-lg px-3 py-2 text-sm">
+                </div>
+                <div>
+                    <label class="block text-xs sm:text-sm font-semibold mb-1">No. Rekening</label>
+                    <input type="text" name="bank_akun" value="{{ tutor.bank_akun or '' }}" class="w-full border rounded-lg px-3 py-2 text-sm">
+                </div>
+            </div>
             <div class="flex flex-col sm:flex-row gap-2 sm:gap-3 pt-2">
-                <button type="submit" class="bg-edu-blue text-white px-6 py-2 rounded-lg hover:bg-blue-800 text-sm w-full sm:w-auto">Simpan</button>
+                <button type="submit" class="btn btn-primary">Simpan</button>
                 <a href="{{ url_for('dashboard.index') }}" class="bg-gray-300 text-gray-700 px-6 py-2 rounded-lg hover:bg-gray-400 text-sm text-center w-full sm:w-auto">Kembali</a>
             </div>
         </form>

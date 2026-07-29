@@ -10,9 +10,10 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String(80), unique=True, nullable=False)
     password = db.Column(db.String(255), nullable=False)
     nama = db.Column(db.String(100), nullable=False)
-    role = db.Column(db.String(20), nullable=False)  # admin, tutor, orang_tua
+    role = db.Column(db.String(20), nullable=False)
     email = db.Column(db.String(120))
     telepon = db.Column(db.String(20))
+    alamat = db.Column(db.Text)
     aktif = db.Column(db.Boolean, default=True)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
 

@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %}Master Program - KITA PRIVAT{% endblock %}
+{% block content %}
+<div class="mb-6 flex justify-between items-center">
+    <h1 class="text-2xl font-bold text-edu-blue">Master Program</h1>
+    <a href="{{ url_for('master.index') }}" class="text-sm text-gray-500 hover:underline">Kembali</a>
+</div>
+
+<div class="bg-white rounded-xl shadow p-4 sm:p-6 mb-6">
+    <form method="POST" action="{{ url_for('master.program_tambah') }}" class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <input type="text" name="nama" placeholder="Nama Program" required class="px-3 py-2 border rounded-lg text-sm">
+        <select name="jenjang_id" class="px-3 py-2 border rounded-lg text-sm">
+            <option value="">Pilih Jenjang</option>
+            {% for j in jenjang_list %}
+            <option value="{{ j.id }}">{{ j.nama }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit" class="btn btn-primary">Tambah</button>
+    </form>
+</div>
+
+<div class="bg-white rounded-xl shadow p-4 sm:p-6">
+    <div class="table-wrap">
+        <table class="w-full text-sm">
+            <thead><tr class="bg-gray-100">
+                <th class="p-2 sm:p-3 text-left">#</th>
+                <th class="p-2 sm:p-3 text-left">Nama</th>
+                <th class="p-2 sm:p-3 text-left">Jenjang</th>
+                <th class="p-2 sm:p-3 text-left">Aksi</th>
+            </tr></thead>
+            <tbody>
+                {% for d in data %}
+                <tr class="border-b">
+                    <td class="p-2 sm:p-3">{{ d.id }}</td>
+                    <td class="p-2 sm:p-3">{{ d.nama }}</td>
+                    <td class="p-2 sm:p-3">{{ d.jenjang.nama if d.jenjang else '-' }}</td>
+                    <td class="p-2 sm:p-3"><a href="{{ url_for('master.program_hapus', id=d.id) }}" class="text-red-600 hover:underline text-xs" onclick="return confirm('Hapus?')">Hapus</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

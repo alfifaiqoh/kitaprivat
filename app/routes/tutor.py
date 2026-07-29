@@ -40,6 +40,8 @@ def tambah():
             pengalaman=request.form.get('pengalaman'),
             pendidikan=request.form.get('pendidikan'),
             tarif_per_sesi=request.form.get('tarif_per_sesi', type=float),
+            bank_nama=request.form.get('bank_nama'),
+            bank_akun=request.form.get('bank_akun'),
         )
         db.session.add(t)
         db.session.commit()
@@ -61,6 +63,8 @@ def edit(id):
         t.pengalaman = request.form.get('pengalaman')
         t.pendidikan = request.form.get('pendidikan')
         t.tarif_per_sesi = request.form.get('tarif_per_sesi', type=float)
+        t.bank_nama = request.form.get('bank_nama')
+        t.bank_akun = request.form.get('bank_akun')
         if request.form.get('password'):
             t.user.set_password(request.form['password'])
         db.session.commit()
@@ -99,6 +103,8 @@ def daftar():
             pengalaman=request.form.get('pengalaman'),
             pendidikan=request.form.get('pendidikan'),
             tarif_per_sesi=request.form.get('tarif_per_sesi', type=float),
+            bank_nama=request.form.get('bank_nama'),
+            bank_akun=request.form.get('bank_akun'),
         )
         db.session.add(t)
         db.session.commit()
@@ -117,6 +123,8 @@ def profil():
         t.bidang = request.form.get('bidang')
         t.pengalaman = request.form.get('pengalaman')
         t.pendidikan = request.form.get('pendidikan')
+        t.bank_nama = request.form.get('bank_nama')
+        t.bank_akun = request.form.get('bank_akun')
         if request.form.get('password'):
             t.user.set_password(request.form['password'])
         db.session.commit()

@@ -87,9 +87,9 @@
                         </span>
                     </td>
                     <td class="p-2 sm:p-3 whitespace-nowrap">
-                        <a href="{{ url_for('rekrutmen.review', id=r.id) }}" class="bg-edu-blue text-white px-2 sm:px-3 py-1 rounded text-[10px] sm:text-xs hover:bg-blue-800">Review</a>
+                        <a href="{{ url_for('rekrutmen.review', id=r.id) }}" class="btn btn-sm btn-primary">Review</a>
                         {% if r.status == 'diterima' %}
-                        <a href="{{ url_for('rekrutmen.terima', id=r.id) }}" class="bg-green-600 text-white px-2 sm:px-3 py-1 rounded text-[10px] sm:text-xs hover:bg-green-700">Akun</a>
+                        <a href="{{ url_for('rekrutmen.terima', id=r.id) }}" class="btn btn-sm btn-success">Akun</a>
                         {% endif %}
                     </td>
                 </tr>

@@ -1,0 +1,308 @@
+{% extends 'landing/base.html' %}
+{% block title %}Kontak - KITA PRIVAT{% endblock %}
+{% block content %}
+<style>
+  .page-hero {
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 60%, #1e40af 100%);
+    padding: 100px 48px 80px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .page-hero .shapes div {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.05;
+    background: #60a5fa;
+  }
+  .page-hero .s1 { width: 400px; height: 400px; top: -150px; left: -100px; }
+  .page-hero .s2 { width: 250px; height: 250px; bottom: -80px; right: -60px; }
+  .page-hero h1 {
+    font-size: clamp(32px, 4vw, 48px);
+    font-weight: 900;
+    color: #fff;
+    margin-bottom: 16px;
+    position: relative;
+    z-index: 1;
+  }
+  .page-hero p {
+    font-size: 16px;
+    color: #94a3b8;
+    max-width: 540px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .kontak-section {
+    padding: 100px 48px;
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
+  /* ─── INFO CARDS ─── */
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    margin-bottom: 80px;
+  }
+  .info-card {
+    padding: 36px 28px;
+    border-radius: 16px;
+    border: 1px solid #f1f5f9;
+    text-align: center;
+    transition: all 0.3s;
+    background: #fff;
+  }
+  .info-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.06);
+  }
+  .info-card .icon {
+    width: 56px; height: 56px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 18px;
+    font-size: 24px;
+  }
+  .info-card h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 8px;
+  }
+  .info-card p {
+    font-size: 14px;
+    color: #475569;
+    line-height: 1.6;
+  }
+  .info-card a {
+    color: #475569;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .info-card a:hover { color: #2563eb; }
+
+  /* ─── FORM ─── */
+  .contact-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+  .form-wrap h2 {
+    font-size: 24px;
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 8px;
+  }
+  .form-wrap > p {
+    font-size: 14px;
+    color: #64748b;
+    margin-bottom: 28px;
+  }
+  .form-group {
+    margin-bottom: 18px;
+  }
+  .form-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #334155;
+    margin-bottom: 6px;
+  }
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    width: 100%;
+    padding: 11px 14px;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 10px;
+    font-size: 14px;
+    font-family: inherit;
+    color: #1e293b;
+    background: #fff;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    box-sizing: border-box;
+  }
+  .form-group input:focus,
+  .form-group textarea:focus,
+  .form-group select:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+  }
+  .form-group textarea { resize: vertical; min-height: 120px; }
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+  .btn-submit {
+    padding: 13px 32px;
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+    background: linear-gradient(135deg, #2563eb, #7c3aed);
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.25s;
+  }
+  .btn-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(37,99,235,0.35);
+  }
+
+  /* ─── SOCIAL ─── */
+  .social-wrap {
+    padding: 36px 32px;
+    background: #f8fafc;
+    border-radius: 20px;
+    border: 1px solid #f1f5f9;
+  }
+  .social-wrap h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 6px;
+  }
+  .social-wrap > p {
+    font-size: 13px;
+    color: #64748b;
+    margin-bottom: 24px;
+  }
+  .social-links {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .social-links a {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 18px;
+    border-radius: 12px;
+    background: #fff;
+    border: 1px solid #f1f5f9;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .social-links a:hover {
+    border-color: #e2e8f0;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+    transform: translateX(4px);
+  }
+  .social-links a .soc-icon {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .social-links a .soc-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #0f172a;
+  }
+  .social-links a .soc-handle {
+    font-size: 12px;
+    color: #94a3b8;
+  }
+
+  @media (max-width: 900px) {
+    .info-grid { grid-template-columns: 1fr 1fr; }
+    .contact-row { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 600px) {
+    .page-hero { padding: 80px 20px 60px; }
+    .kontak-section { padding: 60px 20px; }
+    .info-grid { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+  }
+</style>
+
+<div class="page-hero">
+  <div class="shapes"><div class="s1"></div><div class="s2"></div></div>
+  <h1>Hubungi Kami</h1>
+  <p>Ada pertanyaan atau ingin konsultasi? Tim kami siap membantu Anda.</p>
+</div>
+
+<section class="kontak-section">
+  <div class="info-grid">
+    <div class="info-card">
+      <div class="icon" style="background:#eff6ff;color:#2563eb">📞</div>
+      <h3>Telepon</h3>
+      <p><a href="tel:+6281234567890">+62 812-3456-7890</a></p>
+      <p style="font-size:12px;color:#94a3b8">Sen–Sab, 08:00–18:00</p>
+    </div>
+    <div class="info-card">
+      <div class="icon" style="background:#f0fdf4;color:#16a34a">✉️</div>
+      <h3>Email</h3>
+      <p><a href="mailto:info@kitaprivat.id">info@kitaprivat.id</a></p>
+      <p style="font-size:12px;color:#94a3b8">Kami balas dalam 1×24 jam</p>
+    </div>
+    <div class="info-card">
+      <div class="icon" style="background:#faf5ff;color:#7c3aed">📍</div>
+      <h3>Alamat</h3>
+      <p>Jl. Contoh No. 123<br>Purwokerto, Jawa Tengah 53111</p>
+    </div>
+  </div>
+
+  <div class="contact-row">
+    <div class="form-wrap">
+      <h2>Kirim Pesan</h2>
+      <p>Isi form di bawah dan tim kami akan menghubungi Anda segera.</p>
+      <form method="POST" action="{{ url_for('landing.kontak') }}">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="nama">Nama Lengkap <span style="color:#dc2626">*</span></label>
+            <input type="text" id="nama" name="nama" required placeholder="Nama Anda">
+          </div>
+          <div class="form-group">
+            <label for="email">Email <span style="color:#dc2626">*</span></label>
+            <input type="email" id="email" name="email" required placeholder="email@anda.com">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="telepon">Telepon</label>
+          <input type="text" id="telepon" name="telepon" placeholder="0812-xxxx-xxxx">
+        </div>
+        <div class="form-group">
+          <label for="pesan">Pesan <span style="color:#dc2626">*</span></label>
+          <textarea id="pesan" name="pesan" required placeholder="Tulis pesan Anda di sini..."></textarea>
+        </div>
+        <button type="submit" class="btn-submit">Kirim Pesan</button>
+      </form>
+    </div>
+
+    <div class="social-wrap">
+      <h3>Ikuti Kami</h3>
+      <p>Dapatkan informasi terbaru dan tips belajar dari kami.</p>
+      <div class="social-links">
+        <a href="#">
+          <div class="soc-icon" style="background:#f0fdf4;color:#16a34a">📱</div>
+          <div><div class="soc-label">WhatsApp</div><div class="soc-handle">+62 812-3456-7890</div></div>
+        </a>
+        <a href="#">
+          <div class="soc-icon" style="background:#e4e4e7;color:#18181b">📷</div>
+          <div><div class="soc-label">Instagram</div><div class="soc-handle">@kitaprivat</div></div>
+        </a>
+        <a href="#">
+          <div class="soc-icon" style="background:#eff6ff;color:#2563eb">💬</div>
+          <div><div class="soc-label">Telegram</div><div class="soc-handle">@kitaprivat</div></div>
+        </a>
+        <a href="#">
+          <div class="soc-icon" style="background:#fef2f2;color:#dc2626">▶️</div>
+          <div><div class="soc-label">YouTube</div><div class="soc-handle">KITA PRIVAT</div></div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

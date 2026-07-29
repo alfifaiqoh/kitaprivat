@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}Master Data - KITA PRIVAT{% endblock %}
+{% block content %}
+<div class="mb-6">
+    <h1 class="text-2xl font-bold text-edu-blue">Master Data</h1>
+</div>
+
+<div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+    {% set items = [
+        ('master.jenjang_index', 'Jenjang', '🏫'),
+        ('master.program_index', 'Program', '📋'),
+        ('master.paket_index', 'Paket', '📦'),
+        ('master.mapel_index', 'Mata Pelajaran', '📚'),
+        ('master.wilayah_index', 'Wilayah', '📍'),
+    ] %}
+    {% for route, label, icon in items %}
+    <a href="{{ url_for(route) }}" class="card" style="text-align:center;text-decoration:none;padding:32px 20px">
+        <div class="text-3xl mb-2">{{ icon }}</div>
+        <div class="font-semibold">{{ label }}</div>
+    </a>
+    {% endfor %}
+</div>
+{% endblock %}

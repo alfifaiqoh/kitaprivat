@@ -11,7 +11,7 @@
         <p class="text-2xl font-bold text-edu-blue mt-2">{{ absensi.jam_masuk }}</p>
         <p class="text-sm text-gray-500">{{ today }}</p>
         <div class="mt-4">
-            <a href="{{ url_for('absensi.status', id=absensi.id) }}" class="bg-edu-blue text-white px-6 py-2 rounded-lg hover:bg-blue-800 text-sm">Lihat Status</a>
+            <a href="{{ url_for('absensi.status', id=absensi.id) }}" class="btn btn-primary">Lihat Status</a>
         </div>
     </div>
     {% else %}
@@ -34,9 +34,9 @@
                     <video id="preview" class="hidden w-full rounded-lg mb-2" autoplay></video>
                     <canvas id="canvas" class="hidden"></canvas>
                     <img id="selfiePreview" class="hidden w-full rounded-lg mb-2">
-                    <button type="button" id="btnCamera" class="bg-edu-blue text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-800">Buka Kamera</button>
-                    <button type="button" id="btnCapture" class="hidden bg-green-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-green-700">Ambil Foto</button>
-                    <button type="button" id="btnRetake" class="hidden bg-gray-500 text-white px-4 py-2 rounded-lg text-sm hover:bg-gray-600">Ulangi</button>
+                    <button type="button" id="btnCamera" class="btn btn-primary">Buka Kamera</button>
+                    <button type="button" id="btnCapture" class="hidden btn btn-success">Ambil Foto</button>
+                    <button type="button" id="btnRetake" class="hidden btn btn-sm" style="background:#64748b;color:#fff">Ulangi</button>
                     <input type="hidden" name="selfie_data" id="selfieData">
                 </div>
             </div>

@@ -1,0 +1,271 @@
+{% extends 'landing/base.html' %}
+{% block title %}Program Les - KITA PRIVAT{% endblock %}
+{% block content %}
+<style>
+  .page-hero {
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 60%, #1e40af 100%);
+    padding: 100px 48px 80px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .page-hero .shapes div {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.05;
+    background: #60a5fa;
+  }
+  .page-hero .s1 { width: 400px; height: 400px; top: -150px; left: -100px; }
+  .page-hero .s2 { width: 250px; height: 250px; bottom: -80px; right: -60px; }
+  .page-hero h1 {
+    font-size: clamp(32px, 4vw, 48px);
+    font-weight: 900;
+    color: #fff;
+    margin-bottom: 16px;
+    position: relative;
+    z-index: 1;
+  }
+  .page-hero p {
+    font-size: 16px;
+    color: #94a3b8;
+    max-width: 540px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .prog-section {
+    padding: 100px 48px;
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+  .prog-header {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+  .prog-header h2 {
+    font-size: clamp(24px, 3vw, 36px);
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 12px;
+  }
+  .prog-header p {
+    font-size: 15px;
+    color: #64748b;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .prog-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+  .prog-card {
+    border-radius: 20px;
+    background: #fff;
+    border: 1px solid #f1f5f9;
+    overflow: hidden;
+    transition: all 0.3s;
+  }
+  .prog-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 16px 48px rgba(0,0,0,0.08);
+  }
+  .prog-card-top {
+    padding: 40px 32px 24px;
+    text-align: center;
+    position: relative;
+  }
+  .prog-card-top .emoji-bg {
+    width: 72px; height: 72px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    margin: 0 auto 20px;
+  }
+  .prog-card-top h3 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 8px;
+  }
+  .prog-card-top p {
+    font-size: 13px;
+    color: #64748b;
+    line-height: 1.7;
+  }
+  .prog-card-body {
+    padding: 0 32px 32px;
+  }
+  .prog-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 24px;
+  }
+  .prog-features li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    color: #475569;
+    padding: 7px 0;
+    border-bottom: 1px solid #f8fafc;
+  }
+  .prog-features li:last-child { border-bottom: none; }
+  .prog-features li svg { width: 16px; height: 16px; flex-shrink: 0; }
+  .prog-card .prog-price {
+    font-size: 24px;
+    font-weight: 800;
+    color: #0f172a;
+  }
+  .prog-card .prog-price sub {
+    font-size: 12px;
+    font-weight: 500;
+    color: #94a3b8;
+  }
+  .prog-card .btn-prog {
+    display: block;
+    text-align: center;
+    padding: 12px;
+    font-size: 14px;
+    font-weight: 700;
+    border-radius: 12px;
+    margin-top: 16px;
+    transition: all 0.25s;
+  }
+
+  /* ─── BANNER ─── */
+  .prog-banner {
+    margin: 80px 48px;
+    padding: 64px 48px;
+    border-radius: 24px;
+    background: linear-gradient(135deg, #f8fafc, #eff6ff);
+    border: 1px solid #e2e8f0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .prog-banner h3 {
+    font-size: 22px;
+    font-weight: 800;
+    color: #0f172a;
+    margin-bottom: 8px;
+  }
+  .prog-banner p {
+    font-size: 14px;
+    color: #64748b;
+    max-width: 480px;
+  }
+  .prog-banner a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 32px;
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+    background: linear-gradient(135deg, #2563eb, #7c3aed);
+    border-radius: 12px;
+    transition: all 0.25s;
+    white-space: nowrap;
+  }
+  .prog-banner a:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(37,99,235,0.35);
+  }
+
+  @media (max-width: 900px) {
+    .prog-grid { grid-template-columns: 1fr 1fr; }
+    .prog-banner { flex-direction: column; text-align: center; padding: 40px 24px; }
+  }
+  @media (max-width: 600px) {
+    .page-hero { padding: 80px 20px 60px; }
+    .prog-section { padding: 60px 20px; }
+    .prog-grid { grid-template-columns: 1fr; }
+    .prog-banner { margin: 40px 20px; padding: 32px 20px; }
+  }
+</style>
+
+<div class="page-hero">
+  <div class="shapes"><div class="s1"></div><div class="s2"></div></div>
+  <h1>Program Les Privat</h1>
+  <p>Pilih program yang sesuai dengan kebutuhan belajar. Fleksibel, terjangkau, dan tutor profesional.</p>
+</div>
+
+<section class="prog-section">
+  <div class="prog-header">
+    <h2>Pilihan Program</h2>
+    <p>Kami menyediakan program untuk semua jenjang pendidikan dengan metode belajar yang personal.</p>
+  </div>
+  <div class="prog-grid">
+    <div class="prog-card">
+      <div class="prog-card-top">
+        <div class="emoji-bg" style="background:#eff6ff">📚</div>
+        <h3>Privat SD</h3>
+        <p>Bimbingan belajar untuk siswa SD. Metode menyenangkan dengan fokus pada pemahaman dasar.</p>
+      </div>
+      <div class="prog-card-body">
+        <ul class="prog-features">
+          <li><svg fill="none" stroke="#16a34a" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>Matematika, IPA, Bahasa</li>
+          <li><svg fill="none" stroke="#16a34a" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>Belajar di rumah / online</li>
+          <li><svg fill="none" stroke="#16a34a" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>Tutor ramah & sabar</li>
+          <li><svg fill="none" stroke="#16a34a" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>Laporan perkembangan</li>
+        </ul>
+        <div class="prog-price">Rp 60K <sub>/ sesi</sub></div>
+        <a href="{{ url_for('siswa.daftar') }}" class="btn-prog" style="background:#eff6ff;color:#2563eb">Daftar Sekarang</a>
+      </div>
+    </div>
+
+    <div class="prog-card">
+      <div class="prog-card-top">
+        <div class="emoji-bg" style="background:#faf5ff">📖</div>
+        <h3>Privat SMP</h3>
+        <p>Persiapan ujian sekolah dan kenaikan kelas. Bimbingan intensif untuk semua mata pelajaran.</p>
+      </div>
+      <div class="prog-card-body">
+        <ul class="prog-features">
+          <li><svg fill="none" stroke="#16a34a" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>Semua mapel SMP</li>
+          <li><svg fill="none" stroke="#16a34a" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>Tryout & latihan soal</li>
+          <li><svg fill="none" stroke="#16a34a" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>Les privat 1on1</li>
+          <li><svg fill="none" stroke="#16a34a" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>Pantau nilai & progres</li>
+        </ul>
+        <div class="prog-price">Rp 75K <sub>/ sesi</sub></div>
+        <a href="{{ url_for('siswa.daftar') }}" class="btn-prog" style="background:#faf5ff;color:#7c3aed">Daftar Sekarang</a>
+      </div>
+    </div>
+
+    <div class="prog-card">
+      <div class="prog-card-top">
+        <div class="emoji-bg" style="background:#f0fdf4">🎯</div>
+        <h3>Privat SMA</h3>
+        <p>Persiapan UTBK, ujian sekolah, dan pendalaman materi untuk siswa SMA/SMK.</p>
+      </div>
+      <div class="prog-card-body">
+        <ul class="prog-features">
+          <li><svg fill="none" stroke="#16a34a" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>Matematika, Fisika, Kimia, Biologi</li>
+          <li><svg fill="none" stroke="#16a34a" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>Bimbel UTBK intensif</li>
+          <li><svg fill="none" stroke="#16a34a" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>Tutor lulusan PTN favorit</li>
+          <li><svg fill="none" stroke="#16a34a" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>Paket tryout & prediksi</li>
+        </ul>
+        <div class="prog-price">Rp 90K <sub>/ sesi</sub></div>
+        <a href="{{ url_for('siswa.daftar') }}" class="btn-prog" style="background:#f0fdf4;color:#16a34a">Daftar Sekarang</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="prog-banner">
+  <div>
+    <h3>Program Bahasa & Keterampilan</h3>
+    <p>Selain akademik, kami juga menyediakan les Bahasa Inggris, Bahasa Jepang, Komputer, dan program keterampilan lainnya.</p>
+  </div>
+  <a href="{{ url_for('siswa.daftar') }}">Konsultasi Gratis →</a>
+</section>
+{% endblock %}

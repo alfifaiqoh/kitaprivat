@@ -1,80 +1,266 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Rekrutmen Tutor - KITA PRIVAT</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rekrutmen Tutor - KITA PRIVAT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #1e40af 100%);
+      position: relative;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      background: #3b82f6;
+      opacity: 0.05;
+      top: -150px; right: -100px;
+      pointer-events: none;
+    }
+    body::after {
+      content: '';
+      position: fixed;
+      width: 350px; height: 350px;
+      border-radius: 50%;
+      background: #60a5fa;
+      opacity: 0.04;
+      bottom: -100px; left: -80px;
+      pointer-events: none;
+    }
+    .form-card {
+      width: 100%;
+      max-width: 640px;
+      background: #fff;
+      border-radius: 24px;
+      padding: 48px 40px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+      position: relative;
+      z-index: 1;
+    }
+    .form-header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    .form-header .logo-box {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 56px; height: 56px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #1e3a5f, #2563eb);
+      font-size: 24px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+    .form-header h1 {
+      font-size: 22px;
+      font-weight: 800;
+      color: #0f172a;
+      margin-bottom: 6px;
+    }
+    .form-header p {
+      font-size: 14px;
+      color: #64748b;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .form-group {
+      margin-bottom: 18px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: #334155;
+      margin-bottom: 6px;
+    }
+    .form-group label .req { color: #dc2626; }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 10px;
+      font-size: 14px;
+      font-family: inherit;
+      color: #1e293b;
+      background: #fff;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+      box-sizing: border-box;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+    }
+    .form-group textarea { resize: vertical; min-height: 70px; }
+    .section-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #0f172a;
+      margin: 24px 0 16px;
+      padding-top: 20px;
+      border-top: 1px solid #f1f5f9;
+    }
+    .file-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: #334155;
+      margin-bottom: 6px;
+    }
+    .file-group input[type="file"] {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1.5px dashed #e2e8f0;
+      border-radius: 10px;
+      font-size: 13px;
+      font-family: inherit;
+      color: #64748b;
+      background: #f8fafc;
+      transition: border-color 0.2s;
+      box-sizing: border-box;
+    }
+    .file-group input[type="file"]:hover {
+      border-color: #2563eb;
+    }
+    .btn-submit {
+      width: 100%;
+      padding: 13px;
+      font-size: 15px;
+      font-weight: 700;
+      color: #fff;
+      background: linear-gradient(135deg, #2563eb, #7c3aed);
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.25s;
+      margin-top: 8px;
+    }
+    .btn-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(37,99,235,0.35);
+    }
+    .form-footer {
+      text-align: center;
+      margin-top: 24px;
+      font-size: 12px;
+      color: #94a3b8;
+    }
+    .form-footer a {
+      color: #2563eb;
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .form-footer a:hover { text-decoration: underline; }
+    @media (max-width: 480px) {
+      .form-card { padding: 32px 20px; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
-<body class="bg-edu-blue min-h-screen flex items-center justify-center p-3 sm:p-4">
-    <div class="bg-white rounded-2xl shadow-xl p-5 sm:p-8 w-full max-w-2xl">
-        <div class="text-center mb-5 sm:mb-6">
-            <h1 class="text-2xl sm:text-3xl font-bold text-edu-blue">Rekrutmen Tutor</h1>
-            <p class="text-gray-500 text-xs sm:text-sm">Isi form di bawah untuk mendaftar sebagai tutor</p>
-        </div>
-
-        <form method="POST" enctype="multipart/form-data" class="space-y-3 sm:space-y-4">
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-                <div>
-                    <label class="block text-xs sm:text-sm font-semibold mb-1">Nama Lengkap <span class="text-red-500">*</span></label>
-                    <input type="text" name="nama" required class="w-full border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-edu-blue">
-                </div>
-                <div>
-                    <label class="block text-xs sm:text-sm font-semibold mb-1">Email <span class="text-red-500">*</span></label>
-                    <input type="email" name="email" required class="w-full border rounded-lg px-3 py-2 text-sm">
-                </div>
-                <div>
-                    <label class="block text-xs sm:text-sm font-semibold mb-1">Telepon</label>
-                    <input type="text" name="telepon" class="w-full border rounded-lg px-3 py-2 text-sm">
-                </div>
-                <div>
-                    <label class="block text-xs sm:text-sm font-semibold mb-1">Bidang</label>
-                    <input type="text" name="bidang" class="w-full border rounded-lg px-3 py-2 text-sm" placeholder="Matematika, Fisika, ...">
-                </div>
-                <div>
-                    <label class="block text-xs sm:text-sm font-semibold mb-1">Pendidikan</label>
-                    <input type="text" name="pendidikan" class="w-full border rounded-lg px-3 py-2 text-sm" placeholder="S1 Pendidikan Matematika">
-                </div>
-                <div>
-                    <label class="block text-xs sm:text-sm font-semibold mb-1">Pengalaman</label>
-                    <input type="text" name="pengalaman" class="w-full border rounded-lg px-3 py-2 text-sm" placeholder="2 tahun mengajar">
-                </div>
-            </div>
-            <div>
-                <label class="block text-xs sm:text-sm font-semibold mb-1">Alamat</label>
-                <textarea name="alamat" rows="2" class="w-full border rounded-lg px-3 py-2 text-sm"></textarea>
-            </div>
-
-            <div class="border-t pt-3 sm:pt-4">
-                <h2 class="font-semibold text-edu-blue mb-2 sm:mb-3 text-sm sm:text-base">Upload Berkas</h2>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-                    <div>
-                        <label class="block text-xs sm:text-sm font-semibold mb-1">KTP <span class="text-red-500">*</span></label>
-                        <input type="file" name="ktp" accept=".pdf,.png,.jpg,.jpeg" required class="w-full text-xs sm:text-sm">
-                    </div>
-                    <div>
-                        <label class="block text-xs sm:text-sm font-semibold mb-1">CV <span class="text-red-500">*</span></label>
-                        <input type="file" name="cv" accept=".pdf,.png,.jpg,.jpeg,.doc,.docx" required class="w-full text-xs sm:text-sm">
-                    </div>
-                    <div>
-                        <label class="block text-xs sm:text-sm font-semibold mb-1">Ijazah <span class="text-red-500">*</span></label>
-                        <input type="file" name="ijazah" accept=".pdf,.png,.jpg,.jpeg" required class="w-full text-xs sm:text-sm">
-                    </div>
-                    <div>
-                        <label class="block text-xs sm:text-sm font-semibold mb-1">Transkrip <span class="text-red-500">*</span></label>
-                        <input type="file" name="transkrip" accept=".pdf,.png,.jpg,.jpeg" required class="w-full text-xs sm:text-sm">
-                    </div>
-                    <div>
-                        <label class="block text-xs sm:text-sm font-semibold mb-1">Sertifikat <span class="text-gray-400">(opsional)</span></label>
-                        <input type="file" name="sertifikat" accept=".pdf,.png,.jpg,.jpeg" class="w-full text-xs sm:text-sm">
-                    </div>
-                </div>
-            </div>
-
-            <button type="submit" class="w-full bg-edu-blue text-white py-2.5 sm:py-3 rounded-lg hover:bg-blue-800 font-semibold text-sm sm:text-base">
-                Kirim Pendaftaran
-            </button>
-        </form>
+<body>
+  <div class="form-card">
+    <div class="form-header">
+      <div class="logo-box">K</div>
+      <h1>Rekrutmen Tutor</h1>
+      <p>Bergabunglah bersama kami sebagai tutor profesional</p>
     </div>
+
+    <form method="POST" enctype="multipart/form-data">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Nama Lengkap <span class="req">*</span></label>
+          <input type="text" name="nama" required placeholder="Nama lengkap">
+        </div>
+        <div class="form-group">
+          <label>Email <span class="req">*</span></label>
+          <input type="email" name="email" required placeholder="email@contoh.com">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Telepon</label>
+          <input type="text" name="telepon" placeholder="0812-xxxx-xxxx">
+        </div>
+        <div class="form-group">
+          <label>Bidang</label>
+          <input type="text" name="bidang" placeholder="Matematika, Fisika, ...">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Pendidikan</label>
+          <input type="text" name="pendidikan" placeholder="S1 Pendidikan Matematika">
+        </div>
+        <div class="form-group">
+          <label>Pengalaman</label>
+          <input type="text" name="pengalaman" placeholder="2 tahun mengajar">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Alamat</label>
+        <textarea name="alamat" rows="2" placeholder="Alamat lengkap"></textarea>
+      </div>
+
+      <div class="section-title">Upload Berkas</div>
+
+      <div class="form-row">
+        <div class="file-group">
+          <label>KTP <span class="req">*</span></label>
+          <input type="file" name="ktp" accept=".pdf,.png,.jpg,.jpeg" required>
+        </div>
+        <div class="file-group">
+          <label>CV <span class="req">*</span></label>
+          <input type="file" name="cv" accept=".pdf,.png,.jpg,.jpeg,.doc,.docx" required>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="file-group">
+          <label>Ijazah <span class="req">*</span></label>
+          <input type="file" name="ijazah" accept=".pdf,.png,.jpg,.jpeg" required>
+        </div>
+        <div class="file-group">
+          <label>Transkrip <span class="req">*</span></label>
+          <input type="file" name="transkrip" accept=".pdf,.png,.jpg,.jpeg" required>
+        </div>
+      </div>
+
+      <div class="file-group" style="margin-bottom:8px">
+        <label>Sertifikat <span style="color:#94a3b8;font-weight:400">(opsional)</span></label>
+        <input type="file" name="sertifikat" accept=".pdf,.png,.jpg,.jpeg">
+      </div>
+
+      <button type="submit" class="btn-submit">Kirim Pendaftaran</button>
+    </form>
+
+    <div class="form-footer">
+      <a href="/">← Kembali ke Beranda</a>
+    </div>
+  </div>
 </body>
 </html>
