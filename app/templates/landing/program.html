@@ -3,7 +3,7 @@
 {% block content %}
 <style>
   .page-hero {
-    background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 60%, #1e40af 100%);
+    background: linear-gradient(135deg, #3C2420 0%, #0D3A81 60%, #0A2C61 100%);
     padding: 100px 48px 80px;
     text-align: center;
     position: relative;
@@ -13,7 +13,7 @@
     position: absolute;
     border-radius: 50%;
     opacity: 0.05;
-    background: #60a5fa;
+    background: #F8C216;
   }
   .page-hero .s1 { width: 400px; height: 400px; top: -150px; left: -100px; }
   .page-hero .s2 { width: 250px; height: 250px; bottom: -80px; right: -60px; }
@@ -46,7 +46,7 @@
   .prog-header h2 {
     font-size: clamp(24px, 3vw, 36px);
     font-weight: 800;
-    color: #0f172a;
+    color: #3C2420;
     margin-bottom: 12px;
   }
   .prog-header p {
@@ -89,7 +89,7 @@
   .prog-card-top h3 {
     font-size: 20px;
     font-weight: 700;
-    color: #0f172a;
+    color: #3C2420;
     margin-bottom: 8px;
   }
   .prog-card-top p {
@@ -119,7 +119,7 @@
   .prog-card .prog-price {
     font-size: 24px;
     font-weight: 800;
-    color: #0f172a;
+    color: #3C2420;
   }
   .prog-card .prog-price sub {
     font-size: 12px;
@@ -142,7 +142,7 @@
     margin: 80px 48px;
     padding: 64px 48px;
     border-radius: 24px;
-    background: linear-gradient(135deg, #f8fafc, #eff6ff);
+    background: linear-gradient(135deg, #F1F0F1, #E8EDF8);
     border: 1px solid #e2e8f0;
     display: flex;
     align-items: center;
@@ -155,7 +155,7 @@
   .prog-banner h3 {
     font-size: 22px;
     font-weight: 800;
-    color: #0f172a;
+    color: #3C2420;
     margin-bottom: 8px;
   }
   .prog-banner p {
@@ -171,14 +171,14 @@
     font-size: 15px;
     font-weight: 700;
     color: #fff;
-    background: linear-gradient(135deg, #2563eb, #7c3aed);
+    background: linear-gradient(135deg, #0D3A81, #0A2C61);
     border-radius: 12px;
     transition: all 0.25s;
     white-space: nowrap;
   }
   .prog-banner a:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(37,99,235,0.35);
+    box-shadow: 0 8px 30px rgba(13,58,129,0.35);
   }
 
   @media (max-width: 900px) {
@@ -207,7 +207,7 @@
   <div class="prog-grid">
     <div class="prog-card">
       <div class="prog-card-top">
-        <div class="emoji-bg" style="background:#eff6ff">📚</div>
+        <div class="emoji-bg" style="background:#E8EDF8">📚</div>
         <h3>Privat SD</h3>
         <p>Bimbingan belajar untuk siswa SD. Metode menyenangkan dengan fokus pada pemahaman dasar.</p>
       </div>
@@ -219,13 +219,13 @@
           <li><svg fill="none" stroke="#16a34a" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>Laporan perkembangan</li>
         </ul>
         <div class="prog-price">Rp 60K <sub>/ sesi</sub></div>
-        <a href="{{ url_for('siswa.daftar') }}" class="btn-prog" style="background:#eff6ff;color:#2563eb">Daftar Sekarang</a>
+        <a href="{{ url_for('siswa.daftar') }}" class="btn-prog" style="background:#E8EDF8;color:#0D3A81">Daftar Sekarang</a>
       </div>
     </div>
 
     <div class="prog-card">
       <div class="prog-card-top">
-        <div class="emoji-bg" style="background:#faf5ff">📖</div>
+        <div class="emoji-bg" style="background:#FDF6D8">📖</div>
         <h3>Privat SMP</h3>
         <p>Persiapan ujian sekolah dan kenaikan kelas. Bimbingan intensif untuk semua mata pelajaran.</p>
       </div>
@@ -237,7 +237,7 @@
           <li><svg fill="none" stroke="#16a34a" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>Pantau nilai & progres</li>
         </ul>
         <div class="prog-price">Rp 75K <sub>/ sesi</sub></div>
-        <a href="{{ url_for('siswa.daftar') }}" class="btn-prog" style="background:#faf5ff;color:#7c3aed">Daftar Sekarang</a>
+        <a href="{{ url_for('siswa.daftar') }}" class="btn-prog" style="background:#FDF6D8;color:#A86635">Daftar Sekarang</a>
       </div>
     </div>
 

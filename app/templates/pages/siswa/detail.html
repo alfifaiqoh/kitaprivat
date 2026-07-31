@@ -16,7 +16,7 @@
 
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
   <div class="card">
-    <h3 style="font-size:15px;font-weight:700;color:#0f172a;margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid #e2e8f0">Data Pribadi</h3>
+    <h3 style="font-size:15px;font-weight:700;color:#3C2420;margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid #e2e8f0">Data Pribadi</h3>
     <dl style="display:grid;grid-template-columns:100px 1fr;gap:10px 16px;font-size:14px">
       <dt style="color:#64748b">Nama</dt>
       <dd style="color:#1e293b;font-weight:600">{{ s.nama }}</dd>
@@ -32,7 +32,7 @@
   </div>
 
   <div class="card">
-    <h3 style="font-size:15px;font-weight:700;color:#0f172a;margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid #e2e8f0">Kontak & Akademik</h3>
+    <h3 style="font-size:15px;font-weight:700;color:#3C2420;margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid #e2e8f0">Kontak & Akademik</h3>
     <dl style="display:grid;grid-template-columns:100px 1fr;gap:10px 16px;font-size:14px">
       <dt style="color:#64748b">Telepon</dt>
       <dd style="color:#1e293b">{{ s.telepon or '-' }}</dd>
@@ -57,7 +57,7 @@
 </div>
 
 <div class="card" style="margin-top:24px">
-  <h3 style="font-size:15px;font-weight:700;color:#0f172a;margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid #e2e8f0">Alamat</h3>
+  <h3 style="font-size:15px;font-weight:700;color:#3C2420;margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid #e2e8f0">Alamat</h3>
   <p style="font-size:14px;color:#334155;line-height:1.7;margin-bottom:16px">{{ s.alamat or 'Tidak diisi' }}</p>
   {% if s.alamat %}
   <a href="https://www.google.com/maps/dir/?api=1&destination={{ s.alamat | urlencode }}"
@@ -71,7 +71,7 @@
 
 {% if s.keterangan %}
 <div class="card" style="margin-top:24px">
-  <h3 style="font-size:15px;font-weight:700;color:#0f172a;margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid #e2e8f0">Keterangan</h3>
+  <h3 style="font-size:15px;font-weight:700;color:#3C2420;margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid #e2e8f0">Keterangan</h3>
   <p style="font-size:14px;color:#334155;line-height:1.7">{{ s.keterangan }}</p>
 </div>
 {% endif %}

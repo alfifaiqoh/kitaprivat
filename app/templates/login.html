@@ -16,7 +16,7 @@
       align-items: center;
       justify-content: center;
       font-family: 'Inter', sans-serif;
-      background: linear-gradient(135deg, #0f172a, #1e3a5f);
+      background: linear-gradient(135deg, #3C2420, #0D3A81);
       padding: 20px;
     }
     .login-card {
@@ -35,21 +35,23 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 56px;
-      height: 56px;
+      width: 64px;
+      height: 64px;
       border-radius: 16px;
-      background: linear-gradient(135deg, #1e3a5f, #2563eb);
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      overflow: hidden;
       margin-bottom: 16px;
     }
-    .login-logo .logo-box span {
-      font-size: 28px;
-      font-weight: 800;
-      color: #fff;
+    .login-logo .logo-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
     }
     .login-logo h1 {
       font-size: 22px;
       font-weight: 700;
-      color: #1e293b;
+      color: #3C2420;
       margin: 0 0 4px 0;
     }
     .login-logo p {
@@ -87,8 +89,8 @@
       transition: border-color 0.2s;
     }
     .form-group input:focus {
-      border-color: #2563eb;
-      box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+      border-color: #0D3A81;
+      box-shadow: 0 0 0 3px rgba(13,58,129,0.1);
     }
     .btn-login {
       width: 100%;
@@ -96,14 +98,14 @@
       font-size: 14px;
       font-weight: 600;
       color: #fff;
-      background: #1e3a5f;
+      background: #0D3A81;
       border: none;
       border-radius: 10px;
       cursor: pointer;
       transition: background 0.2s;
     }
     .btn-login:hover {
-      background: #0f172a;
+      background: #0A2C61;
     }
     .login-footer {
       text-align: center;
@@ -116,7 +118,7 @@
 <body>
   <div class="login-card">
     <div class="login-logo">
-      <div class="logo-box"><span>K</span></div>
+      <div class="logo-box"><img src="{{ url_for('static', filename='images/logo.png') }}" alt="KITA PRIVAT"></div>
       <h1>KITA PRIVAT</h1>
       <p>Sistem Manajemen Les Privat</p>
     </div>

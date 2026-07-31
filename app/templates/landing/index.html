@@ -11,132 +11,178 @@
     justify-content: center;
     padding: 0 48px;
     overflow: hidden;
-    background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #b45309 100%);
+    background:
+      radial-gradient(1000px 520px at 88% -10%, rgba(248,194,22,0.25), transparent 62%),
+      radial-gradient(820px 520px at -8% 115%, rgba(237,174,116,0.18), transparent 60%),
+      radial-gradient(600px 400px at 50% 120%, rgba(248,194,22,0.06), transparent 70%),
+      linear-gradient(150deg, #0D3A81 0%, #14439F 52%, #3C2420 160%);
   }
-  .hero-bg-shapes {
+  .hero::before {
+    content: '';
     position: absolute;
     inset: 0;
-    overflow: hidden;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(800px 500px at 70% 30%, #000, transparent 75%);
+    -webkit-mask-image: radial-gradient(800px 500px at 70% 30%, #000, transparent 75%);
     pointer-events: none;
   }
-  .hero-bg-shapes .circle {
-    position: absolute;
-    border-radius: 50%;
-    opacity: 0.07;
-  }
-  .hero-bg-shapes .c1 {
-    width: 600px; height: 600px;
-    background: #f59e0b;
-    top: -200px; right: -150px;
-  }
-  .hero-bg-shapes .c2 {
-    width: 400px; height: 400px;
-    background: #fbbf24;
-    bottom: -100px; left: -100px;
-  }
-  .hero-bg-shapes .c3 {
-    width: 200px; height: 200px;
-    background: #fff;
-    top: 50%; left: 60%;
-    opacity: 0.03;
-  }
-  .hero-content {
+  .hero-grid {
     position: relative;
     z-index: 2;
-    max-width: 760px;
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    align-items: center;
+    gap: 64px;
+    max-width: 1240px;
     width: 100%;
     margin: 0 auto;
   }
   .hero-badge {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    padding: 6px 16px;
+    gap: 8px;
+    padding: 7px 18px;
     border-radius: 50px;
-    background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(255,255,255,0.12);
-    color: #fcd34d;
+    background: rgba(248,194,22,0.12);
+    border: 1px solid rgba(248,194,22,0.35);
+    color: #F8C216;
     font-size: 12px;
-    font-weight: 600;
+    font-weight: 700;
     letter-spacing: 0.04em;
-    margin-bottom: 24px;
+    margin-bottom: 26px;
   }
   .hero-badge svg { width: 14px; height: 14px; }
   .hero h1 {
-    font-size: clamp(36px, 5.5vw, 64px);
+    font-size: clamp(34px, 4.6vw, 58px);
     font-weight: 900;
-    line-height: 1.08;
+    line-height: 1.1;
     color: #fff;
     margin-bottom: 20px;
-    text-align: center;
   }
   .hero h1 .gradient-text {
-    background: linear-gradient(135deg, #f59e0b, #eab308);
+    background: linear-gradient(135deg, #F8C216, #EDAE74);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
   .hero p {
-    font-size: 17px;
-    line-height: 1.7;
-    color: #94a3b8;
-    max-width: 580px;
-    margin: 0 auto 36px;
-    text-align: center;
+    font-size: 16.5px;
+    line-height: 1.75;
+    color: #c9d6ec;
+    max-width: 540px;
+    margin-bottom: 36px;
   }
   .hero-actions {
     display: flex;
     flex-wrap: wrap;
     gap: 14px;
-    justify-content: center;
   }
   .hero-actions .btn-primary {
-    padding: 14px 32px;
+    padding: 15px 34px;
     font-size: 15px;
     font-weight: 700;
-    color: #fff;
-    background: linear-gradient(135deg, #d97706, #f59e0b);
-    border-radius: 12px;
+    color: #3C2420;
+    background: linear-gradient(135deg, #F8C216, #EDAE74);
+    border-radius: 13px;
     display: inline-flex;
     align-items: center;
     gap: 8px;
     transition: all 0.25s;
+    box-shadow: 0 6px 24px rgba(248,194,22,0.3);
   }
   .hero-actions .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(217,119,6,0.4);
+    box-shadow: 0 10px 34px rgba(248,194,22,0.45);
   }
   .hero-actions .btn-secondary {
-    padding: 14px 32px;
+    padding: 15px 34px;
     font-size: 15px;
     font-weight: 600;
-    color: #e2e8f0;
-    border: 1.5px solid rgba(255,255,255,0.2);
-    border-radius: 12px;
+    color: #fff;
+    background: rgba(255,255,255,0.06);
+    border: 1.5px solid rgba(255,255,255,0.35);
+    border-radius: 13px;
     transition: all 0.25s;
   }
   .hero-actions .btn-secondary:hover {
-    background: rgba(255,255,255,0.06);
-    border-color: rgba(255,255,255,0.35);
+    background: rgba(255,255,255,0.12);
+    border-color: rgba(255,255,255,0.6);
   }
   .hero-stats {
     display: flex;
-    gap: 56px;
-    margin-top: 56px;
-    padding-top: 32px;
-    border-top: 1px solid rgba(255,255,255,0.08);
-    justify-content: center;
+    gap: 44px;
+    margin-top: 52px;
+    padding-top: 28px;
+    border-top: 1px solid rgba(255,255,255,0.14);
   }
   .hero-stat h3 {
-    font-size: 28px;
+    font-size: 27px;
     font-weight: 800;
     color: #fff;
   }
-  .hero-stat h3 span { color: #fbbf24; }
+  .hero-stat h3 span { color: #F8C216; }
   .hero-stat p {
     font-size: 13px;
-    color: #64748b;
+    color: #a9bad4;
     margin: 2px 0 0;
+  }
+
+  /* ─── HERO VISUAL ─── */
+  .hero-visual {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+  }
+  .phone-mockup {
+    width: 340px;
+    background: #111;
+    border-radius: 42px;
+    padding: 11px;
+    box-shadow: 0 34px 90px rgba(0,0,0,0.45);
+    border: 1px solid rgba(255,255,255,0.22);
+  }
+  .phone-screen {
+    width: 100%;
+    height: 590px;
+    background: #000;
+    border-radius: 32px;
+    overflow: hidden;
+    position: relative;
+  }
+  .phone-screen .tiktok-embed { margin: 0 !important; padding-top: 40px; }
+  .phone-notch {
+    position: absolute;
+    top: 12px; left: 50%;
+    transform: translateX(-50%);
+    width: 108px; height: 24px;
+    background: #000;
+    border-radius: 20px;
+    z-index: 5;
+  }
+  .floating-chip {
+    position: absolute;
+    z-index: 4;
+    background: #fff;
+    border-radius: 14px;
+    padding: 10px 16px;
+    box-shadow: 0 12px 32px rgba(0,0,0,0.25);
+    font-size: 13px;
+    font-weight: 700;
+    color: #3C2420;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    animation: floaty 3.5s ease-in-out infinite;
+  }
+  .chip-1 { top: 70px; left: -46px; }
+  .chip-2 { bottom: 110px; right: -36px; animation-delay: 1.2s; }
+  @keyframes floaty {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
   }
 
   /* ─── SECTION ─── */
@@ -151,13 +197,13 @@
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: #d97706;
+    color: #A86635;
     margin-bottom: 12px;
   }
   .section-title {
     font-size: clamp(28px, 3.5vw, 40px);
     font-weight: 800;
-    color: #0f172a;
+    color: #3C2420;
     line-height: 1.2;
     margin-bottom: 16px;
   }
@@ -200,7 +246,7 @@
   .feature-card h3 {
     font-size: 17px;
     font-weight: 700;
-    color: #0f172a;
+    color: #3C2420;
     margin-bottom: 8px;
   }
   .feature-card p {
@@ -231,9 +277,9 @@
     height: 4px;
     border-radius: 16px 16px 0 0;
   }
-  .program-card:nth-child(1)::before { background: linear-gradient(90deg, #d97706, #f59e0b); }
-  .program-card:nth-child(2)::before { background: linear-gradient(90deg, #f59e0b, #eab308); }
-  .program-card:nth-child(3)::before { background: linear-gradient(90deg, #eab308, #fcd34d); }
+  .program-card:nth-child(1)::before { background: linear-gradient(90deg, #A86635, #EDAE74); }
+  .program-card:nth-child(2)::before { background: linear-gradient(90deg, #EDAE74, #F8C216); }
+  .program-card:nth-child(3)::before { background: linear-gradient(90deg, #F8C216, #0D3A81); }
   .program-card:hover {
     transform: translateY(-4px);
     box-shadow: 0 12px 40px rgba(0,0,0,0.08);
@@ -246,7 +292,7 @@
   .program-card h3 {
     font-size: 18px;
     font-weight: 700;
-    color: #0f172a;
+    color: #3C2420;
     margin-bottom: 10px;
   }
   .program-card p {
@@ -258,7 +304,7 @@
   .program-card a {
     font-size: 13px;
     font-weight: 600;
-    color: #d97706;
+    color: #A86635;
     display: inline-flex;
     align-items: center;
     gap: 4px;
@@ -279,7 +325,7 @@
     border: 1px solid #f1f5f9;
   }
   .testi-stars {
-    color: #f59e0b;
+    color: #F8C216;
     font-size: 14px;
     margin-bottom: 12px;
   }
@@ -308,7 +354,7 @@
   .testi-author .name {
     font-size: 13px;
     font-weight: 600;
-    color: #0f172a;
+    color: #3C2420;
   }
   .testi-author .role {
     font-size: 11px;
@@ -410,7 +456,7 @@
 
   /* ─── CTA ─── */
   .cta-section {
-    background: linear-gradient(135deg, #0f172a, #1e3a5f);
+    background: linear-gradient(135deg, #3C2420, #0D3A81);
     border-radius: 24px;
     padding: 80px 48px;
     text-align: center;
@@ -428,7 +474,7 @@
     position: absolute;
     border-radius: 50%;
     opacity: 0.05;
-    background: #fbbf24;
+    background: #F8C216;
   }
   .cta-section .cta-shapes .cs1 {
     width: 300px; height: 300px;
@@ -461,8 +507,8 @@
     padding: 16px 40px;
     font-size: 16px;
     font-weight: 700;
-    color: #fff;
-    background: linear-gradient(135deg, #d97706, #f59e0b);
+    color: #3C2420;
+    background: linear-gradient(135deg, #F8C216, #EDAE74);
     border-radius: 14px;
     transition: all 0.25s;
     position: relative;
@@ -470,11 +516,21 @@
   }
   .cta-section .btn-cta:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(217,119,6,0.4);
+    box-shadow: 0 8px 30px rgba(248,194,22,0.4);
   }
 
   /* ─── RESPONSIVE ─── */
   @media (max-width: 900px) {
+    .hero-grid {
+      grid-template-columns: 1fr;
+      text-align: center;
+      gap: 40px;
+    }
+    .hero h1 { text-align: center; }
+    .hero p { margin: 0 auto 36px; }
+    .hero-actions { justify-content: center; }
+    .hero-stats { justify-content: center; }
+    .hero-visual { display: none; }
     .features-grid,
     .programs-grid,
     .testi-grid { grid-template-columns: 1fr 1fr; }
@@ -492,32 +548,44 @@
 
 <!-- ─── HERO ─── -->
 <section class="hero">
-  <div class="hero-bg-shapes">
-    <div class="circle c1"></div>
-    <div class="circle c2"></div>
-    <div class="circle c3"></div>
-  </div>
-  <div class="hero-content">
-    <div class="hero-badge">
-      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-      #1 Les Privat Terpercaya 2026
+  <div class="hero-grid">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <svg fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.958a1 1 0 00.95.69h4.162c.969 0 1.371 1.24.588 1.81l-3.367 2.447a1 1 0 00-.364 1.118l1.286 3.958c.3.922-.755 1.688-1.539 1.118l-3.366-2.447a1 1 0 00-1.176 0l-3.366 2.447c-.784.57-1.838-.196-1.539-1.118l1.286-3.958a1 1 0 00-.364-1.118L2.05 9.385c-.783-.57-.38-1.81.588-1.81h4.162a1 1 0 00.95-.69l1.286-3.958z"/></svg>
+        #1 Les Privat Terpercaya 2026
+      </div>
+      <h1>
+        Temukan Guru<br>
+        Privat <span class="gradient-text">Terbaik</span> untuk Anda
+      </h1>
+      <p>Belajar lebih mudah bersama pengajar profesional yang diseleksi ketat. Fleksibel sesuai jadwal dan kebutuhan belajar Anda.</p>
+      <div class="hero-actions">
+        <a href="{{ url_for('siswa.daftar') }}" class="btn-primary">
+          <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/></svg>
+          Daftar Les Sekarang
+        </a>
+        <a href="{{ url_for('rekrutmen.daftar') }}" class="btn-secondary">Daftar Jadi Tutor</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat"><h3>150<span>+</span></h3><p>Tutor Aktif</p></div>
+        <div class="hero-stat"><h3>500<span>+</span></h3><p>Siswa Terdaftar</p></div>
+        <div class="hero-stat"><h3>98<span>%</span></h3><p>Kepuasan Siswa</p></div>
+      </div>
     </div>
-    <h1>
-      Temukan Guru<br>
-      Privat <span class="gradient-text">Terbaik</span>
-    </h1>
-    <p>Belajar lebih mudah bersama pengajar profesional yang diseleksi ketat. Fleksibel sesuai jadwal dan kebutuhan belajar Anda.</p>
-    <div class="hero-actions">
-      <a href="{{ url_for('siswa.daftar') }}" class="btn-primary">
-        <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/></svg>
-        Daftar Les Sekarang
-      </a>
-      <a href="{{ url_for('rekrutmen.daftar') }}" class="btn-secondary">Daftar Jadi Tutor</a>
-    </div>
-    <div class="hero-stats">
-      <div class="hero-stat"><h3>150<span>+</span></h3><p>Tutor Aktif</p></div>
-      <div class="hero-stat"><h3>500<span>+</span></h3><p>Siswa Terdaftar</p></div>
-      <div class="hero-stat"><h3>98<span>%</span></h3><p>Kepuasan Siswa</p></div>
+    <div class="hero-visual">
+      <div class="phone-mockup">
+        <div class="phone-notch"></div>
+        <div class="phone-screen">
+          <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@kitaprivat_pwt/video/7636672557344623890" data-video-id="7636672557344623890" style="max-width:605px;min-width:325px">
+            <section>
+              <a target="_blank" href="https://www.tiktok.com/@kitaprivat_pwt/video/7636672557344623890">@kitaprivat_pwt</a>
+            </section>
+          </blockquote>
+          <script async src="https://www.tiktok.com/embed.js"></script>
+        </div>
+      </div>
+      <div class="floating-chip chip-1">⭐ Rating 4.9/5</div>
+      <div class="floating-chip chip-2">🎓 500+ Siswa</div>
     </div>
   </div>
 </section>
@@ -531,32 +599,32 @@
   </div>
   <div class="features-grid">
     <div class="feature-card">
-      <div class="feature-icon" style="background:#fffbeb;color:#d97706">🎓</div>
+      <div class="feature-icon" style="background:#FDF6D8;color:#A86635">🎓</div>
       <h3>Tutor Profesional</h3>
       <p>Semua tutor kami lulus seleksi ketat, berpendidikan S1 dan berpengalaman mengajar.</p>
     </div>
     <div class="feature-card">
-      <div class="feature-icon" style="background:#fefce8;color:#ca8a04">📅</div>
+      <div class="feature-icon" style="background:#FDF6D8;color:#0D3A81">📅</div>
       <h3>Jadwal Fleksibel</h3>
       <p>Atur jadwal belajar sesuai keinginan. Bisa dipilih hari dan jam yang paling nyaman.</p>
     </div>
     <div class="feature-card">
-      <div class="feature-icon" style="background:#fffbeb;color:#f59e0b">📍</div>
+      <div class="feature-icon" style="background:#FDF6D8;color:#A86635">📍</div>
       <h3>Belajar di Rumah</h3>
       <p>Tutor datang ke rumah Anda. Belajar jadi lebih nyaman dan efektif tanpa perlu bepergian.</p>
     </div>
     <div class="feature-card">
-      <div class="feature-icon" style="background:#fffbeb;color:#d97706">📊</div>
+      <div class="feature-icon" style="background:#FDF6D8;color:#0D3A81">📊</div>
       <h3>Laporan Belajar</h3>
       <p>Pantau perkembangan belajar anak secara berkala melalui laporan dari tutor.</p>
     </div>
     <div class="feature-card">
-      <div class="feature-icon" style="background:#fffbeb;color:#d97706">🔒</div>
+      <div class="feature-icon" style="background:#FDF6D8;color:#A86635">🔒</div>
       <h3>Garansi Puas</h3>
       <p>Jika tidak cocok dengan tutor, kami siap mengganti tanpa biaya tambahan.</p>
     </div>
     <div class="feature-card">
-      <div class="feature-icon" style="background:#fefce8;color:#a16207">💰</div>
+      <div class="feature-icon" style="background:#E8EDF8;color:#0D3A81">💰</div>
       <h3>Harga Terjangkau</h3>
       <p>Biaya les privat mulai dari Rp 50.000/sesi. Dapatkan paket hemat untuk pembelajaran rutin.</p>
     </div>
@@ -606,7 +674,7 @@
       <div class="testi-stars">★★★★★</div>
       <p>"Anak saya sangat terbantu dengan les di KITA PRIVAT. Nilai Matematikanya naik dari 65 menjadi 90. Tutornya sabar dan profesional."</p>
       <div class="testi-author">
-        <div class="testi-avatar" style="background:#d97706">S</div>
+        <div class="testi-avatar" style="background:#A86635">S</div>
         <div><div class="name">Sari Wulandari</div><div class="role">Orang Tua Siswa</div></div>
       </div>
     </div>
@@ -614,7 +682,7 @@
       <div class="testi-stars">★★★★★</div>
       <p>"Saya suka belajar dengan tutor dari KITA PRIVAT. Cara mengajarnya asyik dan gak bikin bosan. Sekarang saya jadi suka Fisika!"</p>
       <div class="testi-author">
-        <div class="testi-avatar" style="background:#f59e0b">A</div>
+        <div class="testi-avatar" style="background:#0D3A81">A</div>
         <div><div class="name">Andi Pratama</div><div class="role">Siswa SMA</div></div>
       </div>
     </div>
@@ -622,7 +690,7 @@
       <div class="testi-stars">★★★★★</div>
       <p>"Sebagai tutor, saya merasa dihargai dan didukung penuh oleh tim KITA PRIVAT. Sistemnya rapi dan pembayaran tepat waktu."</p>
       <div class="testi-author">
-        <div class="testi-avatar" style="background:#ca8a04">R</div>
+        <div class="testi-avatar" style="background:#3C2420">R</div>
         <div><div class="name">Rina Wijaya</div><div class="role">Tutor</div></div>
       </div>
     </div>

@@ -18,7 +18,7 @@
     ] %}
     {% for key, label in tabs %}
     <a href="{{ url_for('siswa.index', tab=key) }}"
-       style="padding:10px 20px;font-size:13px;font-weight:600;white-space:nowrap;text-decoration:none;border-bottom:2px solid {{ 'var(--blue,#2563eb)' if tab == key else 'transparent' }};color:{{ '#1e293b' if tab == key else '#94a3b8' }}">
+       style="padding:10px 20px;font-size:13px;font-weight:600;white-space:nowrap;text-decoration:none;border-bottom:2px solid {{ 'var(--blue,#0D3A81)' if tab == key else 'transparent' }};color:{{ '#3C2420' if tab == key else '#94a3b8' }}">
       {{ label }}
     </a>
     {% endfor %}

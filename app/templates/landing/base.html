@@ -26,36 +26,32 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 16px 40px;
-      background: rgba(255,255,255,0.85);
+      height: 68px;
+      padding: 0 120px;
+      background: rgba(253,246,216,0.92);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(0,0,0,0.04);
+      border-bottom: 1px solid rgba(168,102,53,0.18);
       transition: box-shadow 0.3s;
     }
-    nav.scrolled { box-shadow: 0 1px 10px rgba(0,0,0,0.06); }
+    nav.scrolled { box-shadow: 0 1px 10px rgba(60,36,32,0.08); }
     .nav-logo {
       display: flex;
       align-items: center;
-      gap: 10px;
     }
     .nav-logo .logo-icon {
-      width: 38px; height: 38px;
-      border-radius: 10px;
-      background: linear-gradient(135deg, #1e3a5f, #2563eb);
+      width: 104px; height: 104px;
+      margin: -18px 0;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 18px;
-      font-weight: 800;
-      color: #fff;
+      flex-shrink: 0;
     }
-    .nav-logo-text {
-      font-size: 18px;
-      font-weight: 800;
-      color: #1e293b;
+    .nav-logo .logo-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
     }
-    .nav-logo-text span { color: #2563eb; }
     .nav-links {
       display: flex;
       align-items: center;
@@ -65,10 +61,10 @@
     .nav-links a {
       font-size: 14px;
       font-weight: 500;
-      color: #475569;
+      color: #3C2420;
       transition: color 0.2s;
     }
-    .nav-links a:hover { color: #2563eb; }
+    .nav-links a:hover { color: #A86635; }
     .nav-actions {
       display: flex;
       align-items: center;
@@ -82,20 +78,20 @@
       transition: all 0.2s;
     }
     .btn-outline {
-      color: #2563eb;
-      border: 1.5px solid #2563eb;
+      color: #0D3A81;
+      border: 1.5px solid #0D3A81;
     }
     .btn-outline:hover {
-      background: #2563eb;
+      background: #0D3A81;
       color: #fff;
     }
     .btn-solid {
-      background: linear-gradient(135deg, #1e3a5f, #2563eb);
+      background: linear-gradient(135deg, #0D3A81, #0A2C61);
       color: #fff;
     }
     .btn-solid:hover {
       transform: translateY(-1px);
-      box-shadow: 0 4px 15px rgba(37,99,235,0.35);
+      box-shadow: 0 4px 15px rgba(13,58,129,0.35);
     }
     .hamburger {
       display: none;
@@ -110,17 +106,17 @@
       display: block;
       width: 24px;
       height: 2px;
-      background: #1e293b;
+      background: #3C2420;
       border-radius: 2px;
       transition: 0.3s;
     }
 
     /* ─── MAIN ─── */
-    main { padding-top: 76px; }
+    main { padding-top: 68px; }
 
     /* ─── FOOTER ─── */
     footer {
-      background: #0f172a;
+      background: #3C2420;
       color: #94a3b8;
       padding: 48px 40px 24px;
     }
@@ -137,7 +133,7 @@
       color: #fff;
       margin-bottom: 12px;
     }
-    .footer-brand h3 span { color: #3b82f6; }
+    .footer-brand h3 span { color: #F8C216; }
     .footer-brand p {
       font-size: 13px;
       line-height: 1.7;
@@ -169,15 +165,16 @@
 
     /* ─── RESPONSIVE ─── */
     @media (max-width: 768px) {
-      nav { padding: 14px 20px; }
+      nav { height: 56px; padding: 0 16px; }
+      .nav-logo .logo-icon { width: 76px; height: 76px; margin: -10px 0; }
       .nav-links {
         position: fixed;
         top: 70px; left: 0; right: 0;
-        background: #fff;
+        background: #FDF6D8;
         flex-direction: column;
         padding: 20px;
         gap: 16px;
-        border-bottom: 1px solid #e2e8f0;
+        border-bottom: 1px solid rgba(168,102,53,0.18);
         transform: translateY(-120%);
         transition: transform 0.3s;
       }
@@ -197,9 +194,8 @@
 <body>
 
 <nav id="navbar">
-  <a href="/" class="nav-logo">
-    <div class="logo-icon">K</div>
-    <div class="nav-logo-text">KITA<span>PRIVAT</span></div>
+  <a href="/" class="nav-logo" aria-label="KITA PRIVAT">
+    <div class="logo-icon"><img src="{{ url_for('static', filename='images/logo.png') }}" alt="KITA PRIVAT"></div>
   </a>
   <ul class="nav-links" id="navLinks">
     <li><a href="/">Beranda</a></li>

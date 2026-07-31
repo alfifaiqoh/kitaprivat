@@ -16,8 +16,10 @@ def create_app(config_class=Config):
     uri = app.config.get('SQLALCHEMY_DATABASE_URI', '')
     if uri.startswith('sqlite'):
         import os
-        dirpath = uri.replace('sqlite:///', '').rsplit('/', 1)[0]
-        os.makedirs(dirpath, exist_ok=True)
+        dbpath = uri.replace('sqlite:///', '')
+        dirpath = os.path.dirname(dbpath)
+        if dirpath:
+            os.makedirs(dirpath, exist_ok=True)
 
     db.init_app(app)
     login_manager.init_app(app)

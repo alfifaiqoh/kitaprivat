@@ -17,7 +17,7 @@
       align-items: center;
       justify-content: center;
       padding: 24px;
-      background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #1e40af 100%);
+      background: linear-gradient(135deg, #3C2420 0%, #0D3A81 50%, #0A2C61 100%);
       position: relative;
       overflow-x: hidden;
     }
@@ -26,7 +26,7 @@
       position: fixed;
       width: 500px; height: 500px;
       border-radius: 50%;
-      background: #3b82f6;
+      background: #F8C216;
       opacity: 0.05;
       top: -150px; right: -100px;
       pointer-events: none;
@@ -36,7 +36,7 @@
       position: fixed;
       width: 350px; height: 350px;
       border-radius: 50%;
-      background: #60a5fa;
+      background: #EDAE74;
       opacity: 0.04;
       bottom: -100px; left: -80px;
       pointer-events: none;
@@ -59,18 +59,22 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 56px; height: 56px;
+      width: 64px; height: 64px;
       border-radius: 16px;
-      background: linear-gradient(135deg, #1e3a5f, #2563eb);
-      font-size: 24px;
-      font-weight: 800;
-      color: #fff;
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      overflow: hidden;
       margin-bottom: 16px;
+    }
+    .form-header .logo-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
     }
     .form-header h1 {
       font-size: 22px;
       font-weight: 800;
-      color: #0f172a;
+      color: #3C2420;
       margin-bottom: 6px;
     }
     .form-header p {
@@ -111,8 +115,8 @@
     .form-group input:focus,
     .form-group select:focus,
     .form-group textarea:focus {
-      border-color: #2563eb;
-      box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+      border-color: #0D3A81;
+      box-shadow: 0 0 0 3px rgba(13,58,129,0.1);
     }
     .form-group textarea { resize: vertical; min-height: 80px; }
     .map-wrap {
@@ -139,20 +143,20 @@
       outline: none;
     }
     .map-wrap .search-bar input:focus {
-      border-color: #2563eb;
+      border-color: #0D3A81;
     }
     .map-wrap .search-bar button {
       padding: 8px 16px;
       font-size: 13px;
       font-weight: 600;
       color: #fff;
-      background: #2563eb;
+      background: #0D3A81;
       border: none;
       border-radius: 8px;
       cursor: pointer;
       transition: background 0.2s;
     }
-    .map-wrap .search-bar button:hover { background: #1d4ed8; }
+    .map-wrap .search-bar button:hover { background: #0A2C61; }
     #map { height: 200px; }
     .map-hint {
       font-size: 12px;
@@ -167,7 +171,7 @@
       font-size: 15px;
       font-weight: 700;
       color: #fff;
-      background: linear-gradient(135deg, #2563eb, #7c3aed);
+      background: linear-gradient(135deg, #0D3A81, #0A2C61);
       border: none;
       border-radius: 12px;
       cursor: pointer;
@@ -176,7 +180,7 @@
     }
     .btn-submit:hover {
       transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(37,99,235,0.35);
+      box-shadow: 0 8px 30px rgba(13,58,129,0.35);
     }
     .form-footer {
       text-align: center;
@@ -185,7 +189,7 @@
       color: #94a3b8;
     }
     .form-footer a {
-      color: #2563eb;
+      color: #0D3A81;
       font-weight: 600;
       text-decoration: none;
     }
@@ -199,7 +203,7 @@
 <body>
   <div class="form-card">
     <div class="form-header">
-      <div class="logo-box">K</div>
+      <div class="logo-box"><img src="{{ url_for('static', filename='images/logo.png') }}" alt="KITA PRIVAT"></div>
       <h1>Pendaftaran Siswa</h1>
       <p>Daftarkan putra/putri Anda untuk les privat</p>
     </div>
