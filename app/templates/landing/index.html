@@ -12,10 +12,10 @@
     padding: 0 48px;
     overflow: hidden;
     background:
-      radial-gradient(1000px 520px at 88% -10%, rgba(248,194,22,0.25), transparent 62%),
-      radial-gradient(820px 520px at -8% 115%, rgba(237,174,116,0.18), transparent 60%),
-      radial-gradient(600px 400px at 50% 120%, rgba(248,194,22,0.06), transparent 70%),
-      linear-gradient(150deg, #0D3A81 0%, #14439F 52%, #3C2420 160%);
+      radial-gradient(900px 480px at 85% -10%, rgba(248,194,22,0.3), transparent 60%),
+      radial-gradient(760px 480px at -10% 112%, rgba(237,174,116,0.22), transparent 62%),
+      radial-gradient(520px 360px at 50% 125%, rgba(248,194,22,0.08), transparent 70%),
+      linear-gradient(158deg, #0B3273 0%, #14439F 48%, #2B1B14 135%);
   }
   .hero::before {
     content: '';
@@ -130,6 +130,43 @@
     margin: 2px 0 0;
   }
 
+  /* ─── HERO DECOR ─── */
+  .hero-decor {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .hero-decor .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(70px);
+  }
+  .orb-y { width: 360px; height: 360px; background: rgba(248,194,22,0.2); top: -100px; right: 6%; }
+  .orb-o { width: 320px; height: 320px; background: rgba(237,174,116,0.16); bottom: -90px; left: 3%; }
+  .orb-b { width: 240px; height: 240px; background: rgba(96,165,250,0.22); top: 42%; left: 44%; }
+  .hero-decor .symbol {
+    position: absolute;
+    font-weight: 800;
+    color: rgba(255,255,255,0.08);
+    line-height: 1;
+    user-select: none;
+  }
+  .sym-1 { top: 14%; left: 10%; font-size: 64px; transform: rotate(-12deg); }
+  .sym-2 { top: 24%; right: 13%; font-size: 46px; transform: rotate(10deg); }
+  .sym-3 { bottom: 20%; left: 18%; font-size: 52px; transform: rotate(7deg); }
+  .sym-4 { bottom: 12%; right: 22%; font-size: 62px; transform: rotate(-9deg); }
+  .sym-5 { top: 9%; left: 43%; font-size: 36px; }
+  .hero-decor .spark {
+    position: absolute;
+    color: #F8C216;
+    opacity: 0.55;
+    font-size: 24px;
+  }
+  .sp-1 { top: 8%; left: 30%; }
+  .sp-2 { bottom: 32%; right: 8%; font-size: 18px; }
+
   /* ─── HERO VISUAL ─── */
   .hero-visual {
     position: relative;
@@ -137,31 +174,12 @@
     display: flex;
     justify-content: center;
   }
-  .phone-mockup {
-    width: 340px;
-    background: #111;
-    border-radius: 42px;
-    padding: 11px;
-    box-shadow: 0 34px 90px rgba(0,0,0,0.45);
-    border: 1px solid rgba(255,255,255,0.22);
-  }
-  .phone-screen {
-    width: 100%;
-    height: 590px;
-    background: #000;
-    border-radius: 32px;
-    overflow: hidden;
-    position: relative;
-  }
-  .phone-screen .tiktok-embed { margin: 0 !important; padding-top: 40px; }
-  .phone-notch {
-    position: absolute;
-    top: 12px; left: 50%;
-    transform: translateX(-50%);
-    width: 108px; height: 24px;
-    background: #000;
-    border-radius: 20px;
-    z-index: 5;
+  .hero-illustration {
+    width: 460px;
+    max-width: 100%;
+    border-radius: 40px;
+    box-shadow: 0 34px 90px rgba(0,0,0,0.42);
+    animation: floaty 6s ease-in-out infinite;
   }
   .floating-chip {
     position: absolute;
@@ -216,6 +234,35 @@
   }
 
   /* ─── FEATURES ─── */
+  .features-section {
+    position: relative;
+    padding: 100px 48px;
+    background:
+      radial-gradient(800px 460px at 95% -5%, rgba(248,194,22,0.16), transparent 62%),
+      radial-gradient(760px 460px at -5% 105%, rgba(13,58,129,0.1), transparent 62%),
+      linear-gradient(160deg, #FFF9EC 0%, #F3F7FF 55%, #EEF4FF 100%);
+  }
+  .features-section .section-label {
+    background: linear-gradient(135deg, rgba(248,194,22,0.22), rgba(237,174,116,0.2));
+    border: 1px solid rgba(248,194,22,0.5);
+    color: #A86635;
+    padding: 8px 20px;
+    border-radius: 50px;
+    margin-bottom: 16px;
+  }
+  .features-section .section-title {
+    color: #1F2937;
+    margin-bottom: 14px;
+  }
+  .features-section .section-title::after {
+    content: '';
+    display: block;
+    width: 74px;
+    height: 5px;
+    margin: 14px auto 0;
+    border-radius: 5px;
+    background: linear-gradient(90deg, #F8C216, #EDAE74);
+  }
   .features-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -223,117 +270,702 @@
   }
   .feature-card {
     padding: 40px 36px;
-    border-radius: 16px;
-    border: 1px solid #f1f5f9;
+    border-radius: 20px;
+    border: 1px solid rgba(13,58,129,0.07);
     transition: all 0.3s;
     background: #fff;
+    box-shadow: 0 2px 14px rgba(13,58,129,0.05);
+    position: relative;
+    overflow: hidden;
   }
+  .feature-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(420px 220px at 100% 0%, rgba(248,194,22,0.12), transparent 62%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+  }
+  .feature-card:hover::before { opacity: 1; }
   .feature-card:hover {
-    border-color: #e2e8f0;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.06);
-    transform: translateY(-3px);
+    border-color: rgba(248,194,22,0.45);
+    box-shadow: 0 14px 42px rgba(13,58,129,0.13);
+    transform: translateY(-5px);
   }
   .feature-icon {
-    width: 54px;
-    height: 54px;
-    border-radius: 14px;
+    width: 58px;
+    height: 58px;
+    border-radius: 18px;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-bottom: 20px;
-    font-size: 24px;
+    font-size: 26px;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 6px 18px rgba(13,58,129,0.14);
   }
+  .feature-card:nth-child(odd) .feature-icon { background: linear-gradient(135deg, #E3ECFF, #CFDDFF); }
+  .feature-card:nth-child(even) .feature-icon { background: linear-gradient(135deg, #FDF6D8, #FBEBC0); }
   .feature-card h3 {
-    font-size: 17px;
-    font-weight: 700;
-    color: #3C2420;
-    margin-bottom: 8px;
+    font-size: 17.5px;
+    font-weight: 800;
+    color: #1F2937;
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 1;
   }
   .feature-card p {
-    font-size: 13px;
-    color: #64748b;
-    line-height: 1.7;
+    font-size: 13.5px;
+    color: #4B5563;
+    line-height: 1.75;
+    position: relative;
+    z-index: 1;
   }
 
   /* ─── PROGRAMS ─── */
+  .programs-section {
+    padding: 100px 48px;
+    background:
+      radial-gradient(800px 460px at 95% -5%, rgba(248,194,22,0.22), transparent 62%),
+      radial-gradient(720px 460px at -5% 105%, rgba(237,174,116,0.14), transparent 62%),
+      linear-gradient(158deg, #0B3273 0%, #14439F 50%, #2B1B14 135%);
+  }
+  .programs-section .section-label {
+    background: linear-gradient(135deg, rgba(248,194,22,0.16), rgba(237,174,116,0.14));
+    border: 1px solid rgba(248,194,22,0.45);
+    color: #F8C216;
+    padding: 8px 20px;
+    border-radius: 50px;
+    margin-bottom: 16px;
+  }
+  .programs-section .section-title {
+    color: #fff;
+    margin-bottom: 14px;
+  }
+  .programs-section .section-title::after {
+    content: '';
+    display: block;
+    width: 74px;
+    height: 5px;
+    margin: 14px auto 0;
+    border-radius: 5px;
+    background: linear-gradient(90deg, #F8C216, #EDAE74);
+  }
+  .programs-section .section-desc {
+    color: #c9d6ec;
+  }
   .programs-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 32px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 28px;
   }
   .program-card {
-    padding: 44px 36px;
-    border-radius: 16px;
+    padding: 32px 26px;
+    border-radius: 20px;
     background: #fff;
-    border: 1px solid #f1f5f9;
+    border: 1px solid rgba(13,58,129,0.07);
+    box-shadow: 0 2px 14px rgba(13,58,129,0.05);
     transition: all 0.3s;
     position: relative;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
   }
   .program-card::before {
     content: '';
     position: absolute;
     top: 0; left: 0; right: 0;
     height: 4px;
-    border-radius: 16px 16px 0 0;
+    border-radius: 20px 20px 0 0;
   }
-  .program-card:nth-child(1)::before { background: linear-gradient(90deg, #A86635, #EDAE74); }
-  .program-card:nth-child(2)::before { background: linear-gradient(90deg, #EDAE74, #F8C216); }
-  .program-card:nth-child(3)::before { background: linear-gradient(90deg, #F8C216, #0D3A81); }
+  .program-card:nth-child(1)::before { background: linear-gradient(90deg, #EDAE74, #F8C216); }
+  .program-card:nth-child(2)::before { background: linear-gradient(90deg, #A86635, #EDAE74); }
+  .program-card:nth-child(3)::before { background: linear-gradient(90deg, #0D3A81, #14439F); }
+  .program-card:nth-child(4)::before { background: linear-gradient(90deg, #14439F, #3C2420); }
   .program-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+    transform: translateY(-5px);
+    box-shadow: 0 16px 44px rgba(13,58,129,0.14);
+  }
+  .program-card .prog-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
   }
   .program-card .emoji {
-    font-size: 36px;
-    margin-bottom: 16px;
-    display: block;
+    width: 52px;
+    height: 52px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    flex-shrink: 0;
   }
+  .program-card:nth-child(1) .emoji { background: linear-gradient(135deg, #FFEFD6, #FBE0BD); }
+  .program-card:nth-child(2) .emoji { background: linear-gradient(135deg, #FFF3D6, #FFE7AE); }
+  .program-card:nth-child(3) .emoji { background: linear-gradient(135deg, #E3ECFF, #CFDDFF); }
+  .program-card:nth-child(4) .emoji { background: linear-gradient(135deg, #E8EDF8, #D6E1F7); }
   .program-card h3 {
-    font-size: 18px;
-    font-weight: 700;
-    color: #3C2420;
-    margin-bottom: 10px;
+    font-size: 19px;
+    font-weight: 800;
+    color: #1F2937;
   }
-  .program-card p {
-    font-size: 13px;
-    color: #64748b;
-    line-height: 1.7;
-    margin-bottom: 20px;
+  .program-card .prog-price {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    margin-bottom: 16px;
   }
-  .program-card a {
-    font-size: 13px;
+  .program-card .prog-price .num {
+    font-size: 28px;
+    font-weight: 900;
+    color: #0D3A81;
+  }
+  .program-card .prog-price .unit {
+    font-size: 12px;
     font-weight: 600;
+    color: #94a3b8;
+  }
+  .program-card .prog-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px;
+    flex: 1;
+  }
+  .program-card .prog-features li {
+    font-size: 12.5px;
+    color: #475569;
+    padding: 6px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .program-card .prog-features li .tick {
+    font-size: 13px;
+    flex-shrink: 0;
+  }
+  .program-card .prog-actions {
+    display: flex;
+    gap: 10px;
+  }
+  .program-card .prog-actions a {
+    flex: 1;
+    text-align: center;
+    padding: 11px 6px;
+    font-size: 13px;
+    font-weight: 700;
+    border-radius: 11px;
+    transition: all 0.25s;
+  }
+  .program-card .prog-detail {
+    background: linear-gradient(135deg, #0D3A81, #14439F);
+    color: #fff;
+  }
+  .program-card .prog-detail:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(13,58,129,0.35);
+  }
+  .program-card .prog-cta {
+    background: linear-gradient(135deg, #F8C216, #EDAE74);
+    color: #3C2420;
+  }
+  .program-card .prog-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(248,194,22,0.4);
+  }
+
+  /* ─── TENTOR SECTION ─── */
+  .tentor-section {
+    padding: 100px 48px;
+    background:
+      radial-gradient(800px 460px at 0% 0%, rgba(248,194,22,0.16), transparent 62%),
+      radial-gradient(760px 460px at 100% 100%, rgba(13,58,129,0.08), transparent 62%),
+      linear-gradient(160deg, #FFF9EC 0%, #F3F7FF 55%, #EEF4FF 100%);
+  }
+  .tentor-section .section-label {
+    background: linear-gradient(135deg, rgba(248,194,22,0.22), rgba(237,174,116,0.2));
+    border: 1px solid rgba(248,194,22,0.5);
     color: #A86635;
+    padding: 8px 20px;
+    border-radius: 50px;
+    margin-bottom: 16px;
+  }
+  .tentor-section .section-title {
+    color: #1F2937;
+    margin-bottom: 14px;
+  }
+  .tentor-section .section-title::after {
+    content: '';
+    display: block;
+    width: 74px;
+    height: 5px;
+    margin: 14px auto 0;
+    border-radius: 5px;
+    background: linear-gradient(90deg, #F8C216, #EDAE74);
+  }
+  .tentor-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    margin-bottom: 48px;
+  }
+  .tentor-card {
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+    padding: 30px 28px;
+    border-radius: 20px;
+    background: #fff;
+    border: 1px solid rgba(13,58,129,0.07);
+    box-shadow: 0 2px 14px rgba(13,58,129,0.05);
+    transition: all 0.3s;
+  }
+  .tentor-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 14px 42px rgba(13,58,129,0.12);
+  }
+  .tentor-card .t-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    flex-shrink: 0;
+  }
+  .tentor-card:nth-child(1) .t-icon { background: linear-gradient(135deg, #E8F6EE, #D2EEE0); }
+  .tentor-card:nth-child(2) .t-icon { background: linear-gradient(135deg, #E3ECFF, #CFDDFF); }
+  .tentor-card:nth-child(3) .t-icon { background: linear-gradient(135deg, #FFEFD6, #FBE0BD); }
+  .tentor-card h3 {
+    font-size: 16.5px;
+    font-weight: 800;
+    color: #1F2937;
+    margin-bottom: 8px;
+  }
+  .tentor-card p {
+    font-size: 13.5px;
+    color: #4B5563;
+    line-height: 1.75;
+  }
+  .tentor-cta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    padding: 48px 44px;
+    border-radius: 24px;
+    background:
+      radial-gradient(600px 320px at 90% -20%, rgba(248,194,22,0.22), transparent 60%),
+      linear-gradient(150deg, #0B3273 0%, #14439F 60%, #2B1B14 150%);
+  }
+  .tentor-cta h3 {
+    font-size: 22px;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+  .tentor-cta p {
+    font-size: 14px;
+    color: #c9d6ec;
+    line-height: 1.7;
+    max-width: 460px;
+  }
+  .tentor-cta .tentor-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .tentor-btn {
     display: inline-flex;
     align-items: center;
-    gap: 4px;
-    transition: gap 0.2s;
+    gap: 8px;
+    padding: 14px 30px;
+    font-size: 14.5px;
+    font-weight: 700;
+    color: #3C2420;
+    background: linear-gradient(135deg, #F8C216, #EDAE74);
+    border-radius: 13px;
+    transition: all 0.25s;
+    box-shadow: 0 8px 26px rgba(248,194,22,0.35);
   }
-  .program-card a:hover { gap: 8px; }
+  .tentor-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 34px rgba(248,194,22,0.5);
+  }
+  .tentor-btn2 {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 30px;
+    font-size: 14.5px;
+    font-weight: 600;
+    color: #fff;
+    background: rgba(255,255,255,0.08);
+    border: 1.5px solid rgba(255,255,255,0.35);
+    border-radius: 13px;
+    transition: all 0.25s;
+  }
+  .tentor-btn2:hover {
+    background: rgba(255,255,255,0.14);
+    border-color: rgba(255,255,255,0.6);
+  }
+  @media (max-width: 900px) {
+    .tentor-cards { grid-template-columns: 1fr; }
+    .tentor-cta { flex-direction: column; text-align: center; padding: 36px 24px; }
+  }
+
+  /* ─── CARA DAFTAR ─── */
+  .daftar-section {
+    padding: 100px 48px;
+    position: relative;
+    overflow: hidden;
+    background:
+      radial-gradient(700px 420px at 90% 0%, rgba(255,255,255,0.35), transparent 62%),
+      radial-gradient(760px 460px at 8% 105%, rgba(13,58,129,0.12), transparent 62%),
+      linear-gradient(165deg, #F8C216 0%, #FFDE8A 28%, #FFFFFF 52%, #AECBF5 76%, #2E5FC4 100%);
+  }
+  .daftar-section .d-shape {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .daftar-section .ds1 {
+    width: 300px; height: 300px;
+    top: -100px; right: 6%;
+    background: radial-gradient(circle, rgba(248,194,22,0.3), transparent 70%);
+  }
+  .daftar-section .ds2 {
+    width: 360px; height: 360px;
+    bottom: -140px; left: 2%;
+    background: radial-gradient(circle, rgba(255,255,255,0.45), transparent 70%);
+  }
+  .daftar-section .ds3 {
+    width: 90px; height: 90px;
+    top: 42%; right: 5%;
+    border: 2px dashed rgba(248,194,22,0.35);
+    background: transparent;
+  }
+  .daftar-section .section { position: relative; z-index: 1; }
+  .daftar-section .section-label {
+    background: #0D3A81;
+    border: 2px solid #fff;
+    color: #fff;
+    padding: 8px 20px;
+    border-radius: 50px;
+    margin-bottom: 16px;
+    box-shadow: 0 4px 14px rgba(13,58,129,0.3);
+  }
+  .daftar-section .section-title {
+    color: #1F2937;
+    margin-bottom: 14px;
+  }
+  .daftar-section .section-title::after {
+    content: '';
+    display: block;
+    width: 74px;
+    height: 5px;
+    margin: 14px auto 0;
+    border-radius: 5px;
+    background: linear-gradient(90deg, #F8C216, #EDAE74);
+  }
+  .daftar-section .section-desc { color: #64748b; }
+  .daftar-steps {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 28px;
+  }
+  .daftar-step {
+    position: relative;
+    background: linear-gradient(160deg, #0D3A81 0%, #0A2C61 100%);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 20px;
+    padding: 40px 26px 32px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(10,44,97,0.30);
+    transition: all 0.3s;
+  }
+  .daftar-step:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 44px rgba(10,44,97,0.45);
+    border-color: rgba(248,194,22,0.5);
+  }
+  .daftar-step .d-num {
+    position: absolute;
+    top: -19px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #F8C216, #EDAE74);
+    border: 3px solid #fff;
+    color: #3C2420;
+    font-size: 16px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+  }
+  .daftar-step .d-icon {
+    width: 68px;
+    height: 68px;
+    margin: 14px auto 18px;
+    border-radius: 20px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.20);
+    transition: transform 0.3s;
+  }
+  .daftar-step:hover .d-icon { transform: scale(1.08) rotate(-3deg); }
+  .daftar-step h3 {
+    font-size: 16.5px;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 10px;
+  }
+  .daftar-step p {
+    font-size: 13.5px;
+    color: #c9d6ec;
+    line-height: 1.75;
+  }
+  .daftar-more {
+    text-align: center;
+    margin-top: 40px;
+  }
+  .daftar-more a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 28px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #0D3A81;
+    border: 1.5px solid #0D3A81;
+    background: transparent;
+    border-radius: 12px;
+    transition: all 0.25s;
+  }
+  .daftar-more a:hover {
+    background: #0D3A81;
+    color: #fff;
+    transform: translateY(-2px);
+  }
+
+  /* ─── WILAYAH ─── */
+  .wilayah-section {
+    padding: 100px 48px;
+    position: relative;
+    overflow: hidden;
+    background:
+      radial-gradient(760px 440px at 10% 0%, rgba(248,194,22,0.28), transparent 60%),
+      radial-gradient(760px 440px at 100% 100%, rgba(255,213,79,0.45), transparent 62%),
+      linear-gradient(160deg, #0B2E66 0%, #14439F 45%, #2E5FC4 62%, #F6C244 108%);
+  }
+  .wilayah-section .wil-shape {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .wilayah-section .ws1 {
+    width: 280px; height: 280px;
+    top: -90px; right: 8%;
+    background: radial-gradient(circle, rgba(248,194,22,0.35), transparent 70%);
+  }
+  .wilayah-section .ws2 {
+    width: 360px; height: 360px;
+    bottom: -130px; left: 3%;
+    background: radial-gradient(circle, rgba(255,255,255,0.12), transparent 70%);
+  }
+  .wilayah-section .ws3 {
+    width: 90px; height: 90px;
+    top: 40%; left: 6%;
+    border: 2px dashed rgba(248,194,22,0.4);
+    background: transparent;
+  }
+  .wilayah-section .section { position: relative; z-index: 1; }
+  .wilayah-section .section-label {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(248,194,22,0.55);
+    color: #FFD21F;
+    padding: 8px 20px;
+    border-radius: 50px;
+    margin-bottom: 16px;
+  }
+  .wilayah-section .section-title {
+    color: #fff;
+    margin-bottom: 14px;
+  }
+  .wilayah-section .section-title::after {
+    content: '';
+    display: block;
+    width: 74px;
+    height: 5px;
+    margin: 14px auto 0;
+    border-radius: 5px;
+    background: linear-gradient(90deg, #F8C216, #EDAE74);
+  }
+  .wilayah-section .section-desc { color: #c9d6ec; }
+  .wil-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+  .wil-chip {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 22px;
+    border-radius: 14px;
+    background: #fff;
+    border: 1px solid rgba(13,58,129,0.07);
+    box-shadow: 0 2px 10px rgba(13,58,129,0.04);
+    font-size: 14.5px;
+    font-weight: 700;
+    color: #1F2937;
+    transition: all 0.25s;
+  }
+  .wil-chip:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 28px rgba(248,194,22,0.25);
+    border-color: rgba(248,194,22,0.6);
+  }
+  .wil-chip .w-emoji { font-size: 20px; }
+  .wil-note {
+    text-align: center;
+    margin-top: 32px;
+    font-size: 13px;
+    color: #dbe6f6;
+  }
+  .wil-online {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    max-width: 640px;
+    margin: 0 auto 44px;
+    padding: 26px 32px;
+    border-radius: 18px;
+    background:
+      radial-gradient(400px 200px at 100% 0%, rgba(255,255,255,0.35), transparent 60%),
+      linear-gradient(135deg, #F8C216, #EDAE74);
+    box-shadow: 0 14px 36px rgba(248,194,22,0.3);
+  }
+  .wil-online .w-emoji {
+    line-height: 1;
+    flex-shrink: 0;
+    width: 60px; height: 60px;
+    border-radius: 50%;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 16px rgba(60,36,32,0.18);
+  }
+  .wil-online .w-emoji svg { width: 28px; height: 28px; }
+  .wil-online h3 {
+    font-size: 17px;
+    font-weight: 800;
+    color: #3C2420;
+    margin-bottom: 4px;
+  }
+  .wil-online p {
+    font-size: 13px;
+    color: rgba(60,36,32,0.75);
+    margin: 0;
+    line-height: 1.6;
+  }
+  .wil-sublabel {
+    text-align: center;
+    font-size: 12.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #FFD21F;
+    margin-bottom: 22px;
+  }
 
   /* ─── TESTIMONIALS ─── */
+  .testi-section {
+    padding: 100px 48px;
+    background:
+      radial-gradient(800px 460px at 95% -5%, rgba(248,194,22,0.2), transparent 62%),
+      radial-gradient(760px 460px at -5% 105%, rgba(237,174,116,0.12), transparent 62%),
+      linear-gradient(158deg, #0B3273 0%, #14439F 50%, #2B1B14 135%);
+  }
+  .testi-section .section-label {
+    background: linear-gradient(135deg, rgba(248,194,22,0.16), rgba(237,174,116,0.14));
+    border: 1px solid rgba(248,194,22,0.45);
+    color: #F8C216;
+    padding: 8px 20px;
+    border-radius: 50px;
+    margin-bottom: 16px;
+  }
+  .testi-section .section-title {
+    color: #fff;
+    margin-bottom: 14px;
+  }
+  .testi-section .section-title::after {
+    content: '';
+    display: block;
+    width: 74px;
+    height: 5px;
+    margin: 14px auto 0;
+    border-radius: 5px;
+    background: linear-gradient(90deg, #F8C216, #EDAE74);
+  }
+  .testi-section .section-desc {
+    color: #c9d6ec;
+  }
   .testi-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 28px;
   }
   .testi-card {
-    padding: 36px 32px;
-    border-radius: 14px;
-    background: #f8fafc;
-    border: 1px solid #f1f5f9;
+    padding: 34px 30px;
+    border-radius: 20px;
+    background: #fff;
+    border: 1px solid rgba(255,255,255,0.15);
+    box-shadow: 0 14px 44px rgba(0,0,0,0.28);
+    position: relative;
+    transition: all 0.3s;
+    overflow: hidden;
+  }
+  .testi-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 54px rgba(0,0,0,0.35);
+  }
+  .testi-card::before {
+    content: '\275D';
+    position: absolute;
+    top: 10px;
+    right: 22px;
+    font-size: 72px;
+    line-height: 1;
+    color: rgba(248,194,22,0.22);
+    font-family: Georgia, serif;
+    pointer-events: none;
   }
   .testi-stars {
     color: #F8C216;
-    font-size: 14px;
-    margin-bottom: 12px;
+    font-size: 15px;
+    margin-bottom: 14px;
+    letter-spacing: 2px;
   }
   .testi-card p {
-    font-size: 13px;
+    font-size: 13.5px;
     color: #475569;
-    line-height: 1.7;
-    margin-bottom: 16px;
+    line-height: 1.75;
+    margin-bottom: 20px;
     font-style: italic;
   }
   .testi-author {
@@ -342,121 +974,130 @@
     gap: 12px;
   }
   .testi-avatar {
-    width: 36px; height: 36px;
+    width: 42px; height: 42px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 14px;
-    font-weight: 700;
+    font-size: 15px;
+    font-weight: 800;
     color: #fff;
+    box-shadow: 0 4px 14px rgba(13,58,129,0.25);
   }
+  .testi-card:nth-child(1) .testi-avatar { background: linear-gradient(135deg, #EDAE74, #A86635); }
+  .testi-card:nth-child(2) .testi-avatar { background: linear-gradient(135deg, #14439F, #0B3273); }
+  .testi-card:nth-child(3) .testi-avatar { background: linear-gradient(135deg, #F8C216, #E9A91B); }
   .testi-author .name {
-    font-size: 13px;
-    font-weight: 600;
-    color: #3C2420;
+    font-size: 13.5px;
+    font-weight: 700;
+    color: #1F2937;
   }
   .testi-author .role {
-    font-size: 11px;
+    font-size: 11.5px;
     color: #94a3b8;
   }
 
-  /* ─── TIKTOK REVIEWS ─── */
-  .tiktok-section {
-    padding: 80px 48px;
-    text-align: center;
-    background: #fff;
+  /* ─── SOSIAL MEDIA ─── */
+  .sosmed-section {
+    padding: 100px 48px;
+    background: linear-gradient(160deg, #FFFFFF 0%, #F5F8FF 100%);
   }
-  .tiktok-card {
+  .sosmed-section .section-label {
+    background: linear-gradient(135deg, rgba(248,194,22,0.22), rgba(237,174,116,0.2));
+    border: 1px solid rgba(248,194,22,0.5);
+    color: #A86635;
+    padding: 8px 20px;
+    border-radius: 50px;
+    margin-bottom: 16px;
+  }
+  .sosmed-section .section-title {
+    color: #1F2937;
+    margin-bottom: 14px;
+  }
+  .sosmed-section .section-title::after {
+    content: '';
+    display: block;
+    width: 74px;
+    height: 5px;
+    margin: 14px auto 0;
+    border-radius: 5px;
+    background: linear-gradient(90deg, #F8C216, #EDAE74);
+  }
+  .sosmed-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 24px;
+  }
+  .sosmed-card {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    padding: 60px 40px;
-    border-radius: 20px;
-    background: linear-gradient(135deg, #000 0%, #1a1a2e 100%);
-    color: #fff;
     text-align: center;
-    max-width: 500px;
-    margin: 0 auto;
-    position: relative;
-    overflow: hidden;
-  }
-  .tiktok-card::before {
-    content: '';
-    position: absolute;
-    width: 200px;
-    height: 200px;
-    background: rgba(255,255,255,0.03);
-    border-radius: 50%;
-    top: -50px;
-    right: -50px;
-  }
-  .tiktok-card .tiktok-icon {
-    font-size: 64px;
-    margin-bottom: 20px;
-  }
-  .tiktok-card h3 {
-    font-size: 22px;
-    font-weight: 800;
-    margin-bottom: 8px;
-  }
-  .tiktok-card p {
-    font-size: 14px;
-    color: #94a3b8;
-    margin-bottom: 28px;
-    line-height: 1.6;
-  }
-  .tiktok-card .follow-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 12px 28px;
-    background: #fe2c55;
-    color: #fff;
-    font-weight: 700;
-    font-size: 14px;
-    border-radius: 50px;
-    transition: all 0.25s;
-  }
-  .tiktok-card .follow-btn:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 24px rgba(254,44,85,0.4);
-  }
-  .tiktok-card-placeholder {
-    color: #fff;
-    text-align: center;
-    padding: 20px;
-  }
-  .tiktok-card-placeholder .icon {
-    font-size: 48px;
-    margin-bottom: 12px;
-  }
-  .tiktok-card-placeholder p {
-    font-size: 13px;
-    opacity: 0.7;
-  }
-  .tiktok-btn {
-    display: inline-flex;
-    align-items: center;
     gap: 10px;
-    padding: 14px 32px;
-    margin-top: 40px;
-    font-size: 15px;
+    padding: 36px 24px 32px;
+    border-radius: 20px;
+    background: #fff;
+    border: 1px solid rgba(13,58,129,0.07);
+    box-shadow: 0 2px 14px rgba(13,58,129,0.05);
+    transition: all 0.3s;
+  }
+  .sosmed-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 44px rgba(13,58,129,0.14);
+  }
+  .sm-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+  .sm-icon svg { width: 28px; height: 28px; fill: currentColor; }
+  .sm-icon .at {
+    font-size: 30px;
+    font-weight: 800;
+    line-height: 1;
+  }
+  .sosmed-card.ig .sm-icon { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+  .sosmed-card.wa .sm-icon { background: linear-gradient(45deg, #25D366, #128C7E); }
+  .sosmed-card.threads .sm-icon { background: #000; }
+  .sosmed-card.tt .sm-icon { background: #010101; }
+  .sosmed-card.yt .sm-icon { background: linear-gradient(45deg, #f00, #c4302b); }
+  .sosmed-card h3 {
+    font-size: 16px;
+    font-weight: 800;
+    color: #1F2937;
+  }
+  .sosmed-card .sm-handle {
+    font-size: 13px;
+    font-weight: 600;
+    color: #64748b;
+  }
+  .sosmed-card .sm-follow {
+    margin-top: 8px;
+    padding: 9px 24px;
+    font-size: 12.5px;
     font-weight: 700;
     color: #fff;
-    background: #000;
     border-radius: 50px;
     transition: all 0.25s;
   }
-  .tiktok-btn:hover {
+  .sosmed-card .sm-follow:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    box-shadow: 0 8px 22px rgba(0,0,0,0.25);
   }
+  .sosmed-card.ig .sm-follow { background: linear-gradient(45deg, #f09433, #cc2366); }
+  .sosmed-card.wa .sm-follow { background: linear-gradient(45deg, #25D366, #128C7E); }
+  .sosmed-card.threads .sm-follow { background: #000; }
+  .sosmed-card.tt .sm-follow { background: #010101; }
+  .sosmed-card.yt .sm-follow { background: #f00; }
 
   /* ─── CTA ─── */
   .cta-section {
-    background: linear-gradient(135deg, #3C2420, #0D3A81);
+    background: linear-gradient(135deg, #0D3A81, #2E5FC4 55%, #14439F);
     border-radius: 24px;
     padding: 80px 48px;
     text-align: center;
@@ -507,7 +1148,7 @@
     padding: 16px 40px;
     font-size: 16px;
     font-weight: 700;
-    color: #3C2420;
+    color: #0D3A81;
     background: linear-gradient(135deg, #F8C216, #EDAE74);
     border-radius: 14px;
     transition: all 0.25s;
@@ -534,20 +1175,45 @@
     .features-grid,
     .programs-grid,
     .testi-grid { grid-template-columns: 1fr 1fr; }
+    .daftar-steps { grid-template-columns: 1fr 1fr; }
+    .wil-grid { grid-template-columns: 1fr 1fr; }
+    .sosmed-grid { grid-template-columns: 1fr 1fr; }
   }
   @media (max-width: 600px) {
     .hero { padding: 0 20px; min-height: 80vh; }
     .hero-stats { gap: 24px; flex-wrap: wrap; }
+    .features-section { padding: 60px 20px; }
+    .programs-section { padding: 60px 20px; }
+    .tentor-section { padding: 60px 20px; }
+    .daftar-section { padding: 60px 20px; }
+    .wilayah-section { padding: 60px 20px; }
+    .testi-section { padding: 60px 20px; }
+    .sosmed-section { padding: 60px 20px; }
     .section { padding: 60px 20px; }
     .features-grid,
     .programs-grid,
     .testi-grid { grid-template-columns: 1fr; }
+    .daftar-steps { grid-template-columns: 1fr; }
+    .wil-grid { grid-template-columns: 1fr; }
+    .sosmed-grid { grid-template-columns: 1fr; }
     .cta-section { margin: 40px 20px; padding: 40px 24px; }
   }
 </style>
 
 <!-- ─── HERO ─── -->
 <section class="hero">
+  <div class="hero-decor">
+    <div class="orb orb-y"></div>
+    <div class="orb orb-o"></div>
+    <div class="orb orb-b"></div>
+    <span class="symbol sym-1">Σ</span>
+    <span class="symbol sym-2">π</span>
+    <span class="symbol sym-3">÷</span>
+    <span class="symbol sym-4">√</span>
+    <span class="symbol sym-5">∞</span>
+    <span class="spark sp-1">✦</span>
+    <span class="spark sp-2">✦</span>
+  </div>
   <div class="hero-grid">
     <div class="hero-content">
       <div class="hero-badge">
@@ -564,7 +1230,7 @@
           <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/></svg>
           Daftar Les Sekarang
         </a>
-        <a href="{{ url_for('rekrutmen.daftar') }}" class="btn-secondary">Daftar Jadi Tutor</a>
+        <a href="{{ url_for('rekrutmen.daftar') }}" class="btn-secondary">Daftar Jadi Tentor</a>
       </div>
       <div class="hero-stats">
         <div class="hero-stat"><h3>150<span>+</span></h3><p>Tutor Aktif</p></div>
@@ -573,17 +1239,82 @@
       </div>
     </div>
     <div class="hero-visual">
-      <div class="phone-mockup">
-        <div class="phone-notch"></div>
-        <div class="phone-screen">
-          <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@kitaprivat_pwt/video/7636672557344623890" data-video-id="7636672557344623890" style="max-width:605px;min-width:325px">
-            <section>
-              <a target="_blank" href="https://www.tiktok.com/@kitaprivat_pwt/video/7636672557344623890">@kitaprivat_pwt</a>
-            </section>
-          </blockquote>
-          <script async src="https://www.tiktok.com/embed.js"></script>
-        </div>
-      </div>
+      <svg class="hero-illustration" viewBox="0 0 480 480" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustrasi belajar privat bersama tutor">
+        <defs>
+          <linearGradient id="il-bg" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#1E4FA8"/>
+            <stop offset="1" stop-color="#0B3273"/>
+          </linearGradient>
+          <linearGradient id="il-sun" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#F8C216"/>
+            <stop offset="1" stop-color="#EDAE74"/>
+          </linearGradient>
+        </defs>
+
+        <rect x="20" y="20" width="440" height="440" rx="80" fill="url(#il-bg)"/>
+
+        <circle cx="76" cy="84" r="7" fill="#F8C216" opacity="0.75"/>
+        <circle cx="414" cy="70" r="5" fill="#FFFFFF" opacity="0.5"/>
+        <circle cx="408" cy="404" r="8" fill="#F8C216" opacity="0.5"/>
+        <circle cx="64" cy="300" r="5" fill="#FFFFFF" opacity="0.35"/>
+        <circle cx="120" cy="430" r="6" fill="#FFFFFF" opacity="0.4"/>
+        <path d="M372 120l5 12 12 5-12 5-5 12-5-12-12-5 12-5z" fill="#F8C216" opacity="0.9"/>
+        <path d="M96 160l4 9 9 4-9 4-4 9-4-9-9-4 9-4z" fill="#FFFFFF" opacity="0.6"/>
+
+        <path d="M240 40v44" stroke="#EDAE74" stroke-width="5" stroke-linecap="round"/>
+        <path d="M206 96h68l12 22H194z" fill="url(#il-sun)"/>
+        <circle cx="240" cy="112" r="10" fill="#F8C216" opacity="0.9"/>
+        <ellipse cx="240" cy="180" rx="120" ry="66" fill="#F8C216" opacity="0.12"/>
+
+        <rect x="60" y="330" width="360" height="22" rx="11" fill="#A86635"/>
+        <rect x="100" y="352" width="18" height="88" rx="9" fill="#8A5429"/>
+        <rect x="362" y="352" width="18" height="88" rx="9" fill="#8A5429"/>
+
+        <rect x="78" y="312" width="46" height="13" rx="5" fill="#F8C216"/>
+        <rect x="86" y="300" width="38" height="13" rx="5" fill="#EDAE74"/>
+        <rect x="94" y="288" width="30" height="13" rx="5" fill="#FFFFFF" opacity="0.9"/>
+
+        <rect x="225" y="346" width="140" height="12" rx="6" fill="#EDAE74"/>
+        <rect x="243" y="286" width="104" height="62" rx="9" fill="#FFFFFF"/>
+        <rect x="249" y="292" width="92" height="50" rx="6" fill="#0B3273"/>
+        <rect x="257" y="300" width="76" height="7" rx="3.5" fill="#F8C216"/>
+        <rect x="257" y="315" width="58" height="7" rx="3.5" fill="#FFFFFF" opacity="0.65"/>
+        <rect x="257" y="330" width="66" height="7" rx="3.5" fill="#FFFFFF" opacity="0.4"/>
+
+        <rect x="142" y="205" width="72" height="125" rx="26" fill="#0D3A81"/>
+        <circle cx="178" cy="174" r="34" fill="#F2C9A0"/>
+        <path d="M144 176a34 34 0 0 1 68 0v-10a34 34 0 0 0 -68 0z" fill="#3C2420"/>
+        <circle cx="166" cy="176" r="9.5" fill="none" stroke="#3C2420" stroke-width="3"/>
+        <circle cx="190" cy="176" r="9.5" fill="none" stroke="#3C2420" stroke-width="3"/>
+        <path d="M176 176h4" stroke="#3C2420" stroke-width="3"/>
+        <path d="M159 187q7 6 14 0" stroke="#A05F3C" stroke-width="3" stroke-linecap="round" fill="none"/>
+        <path d="M210 246c26 4 40 14 46 26" stroke="#0D3A81" stroke-width="17" stroke-linecap="round"/>
+        <circle cx="257" cy="274" r="10" fill="#F2C9A0"/>
+
+        <rect x="350" y="235" width="62" height="95" rx="22" fill="#F8C216"/>
+        <circle cx="383" cy="206" r="28" fill="#F2C9A0"/>
+        <circle cx="383" cy="180" r="11" fill="#3C2420"/>
+        <path d="M355 208a28 28 0 0 1 56 0v-8a28 28 0 0 0 -56 0z" fill="#3C2420"/>
+        <path d="M374 216q7 6 14 0" stroke="#A05F3C" stroke-width="3" stroke-linecap="round" fill="none"/>
+        <path d="M358 288l20 -7 20 7-18 30z" fill="#FFFFFF"/>
+        <path d="M370 300h14M380 314h8" stroke="#C9D6EC" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="370" cy="294" r="8" fill="#F2C9A0"/>
+        <circle cx="388" cy="294" r="8" fill="#F2C9A0"/>
+
+        <g transform="translate(110 92) rotate(-12)">
+          <rect x="0" y="8" width="64" height="28" rx="9" fill="#F8C216"/>
+          <path d="M32 -2v34" stroke="#EDAE74" stroke-width="5" stroke-linecap="round"/>
+          <circle cx="32" cy="34" r="8" fill="#EDAE74"/>
+          <rect x="-16" y="24" width="96" height="10" rx="5" fill="#EDAE74"/>
+        </g>
+
+        <g transform="translate(306 96) rotate(18)">
+          <rect x="0" y="0" width="17" height="64" rx="4" fill="#F8C216"/>
+          <path d="M0 18h17L8.5 48z" fill="#EDAE74"/>
+          <path d="M8.5 48v14" stroke="#3C2420" stroke-width="2" stroke-linecap="round"/>
+          <rect x="2" y="62" width="13" height="7" rx="2" fill="#F8C216"/>
+        </g>
+      </svg>
       <div class="floating-chip chip-1">⭐ Rating 4.9/5</div>
       <div class="floating-chip chip-2">🎓 500+ Siswa</div>
     </div>
@@ -591,48 +1322,50 @@
 </section>
 
 <!-- ─── FITUR ─── -->
-<section class="section">
-  <div style="text-align:center">
-    <span class="section-label">Mengapa Kami</span>
-    <h2 class="section-title">Kenapa Pilih KITA PRIVAT?</h2>
-    <p class="section-desc" style="margin:0 auto 48px">Kami memberikan pengalaman belajar terbaik dengan tutor profesional yang sudah terseleksi.</p>
-  </div>
-  <div class="features-grid">
-    <div class="feature-card">
-      <div class="feature-icon" style="background:#FDF6D8;color:#A86635">🎓</div>
-      <h3>Tutor Profesional</h3>
-      <p>Semua tutor kami lulus seleksi ketat, berpendidikan S1 dan berpengalaman mengajar.</p>
+<section class="features-section">
+  <div class="section" style="padding:0">
+    <div style="text-align:center">
+      <span class="section-label">Mengapa Kami</span>
+      <h2 class="section-title">Kenapa Pilih KITA PRIVAT?</h2>
+      <p class="section-desc" style="margin:0 auto 48px">Kami memberikan pengalaman belajar terbaik dengan tutor profesional yang sudah terseleksi.</p>
     </div>
-    <div class="feature-card">
-      <div class="feature-icon" style="background:#FDF6D8;color:#0D3A81">📅</div>
-      <h3>Jadwal Fleksibel</h3>
-      <p>Atur jadwal belajar sesuai keinginan. Bisa dipilih hari dan jam yang paling nyaman.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon" style="background:#FDF6D8;color:#A86635">📍</div>
-      <h3>Belajar di Rumah</h3>
-      <p>Tutor datang ke rumah Anda. Belajar jadi lebih nyaman dan efektif tanpa perlu bepergian.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon" style="background:#FDF6D8;color:#0D3A81">📊</div>
-      <h3>Laporan Belajar</h3>
-      <p>Pantau perkembangan belajar anak secara berkala melalui laporan dari tutor.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon" style="background:#FDF6D8;color:#A86635">🔒</div>
-      <h3>Garansi Puas</h3>
-      <p>Jika tidak cocok dengan tutor, kami siap mengganti tanpa biaya tambahan.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon" style="background:#E8EDF8;color:#0D3A81">💰</div>
-      <h3>Harga Terjangkau</h3>
-      <p>Biaya les privat mulai dari Rp 50.000/sesi. Dapatkan paket hemat untuk pembelajaran rutin.</p>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🎓</div>
+        <h3>Tutor Profesional</h3>
+        <p>Semua tutor kami lulus seleksi ketat, berpendidikan S1 dan berpengalaman mengajar.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📅</div>
+        <h3>Jadwal Fleksibel</h3>
+        <p>Atur jadwal belajar sesuai keinginan. Bisa dipilih hari dan jam yang paling nyaman.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📍</div>
+        <h3>Belajar di Rumah</h3>
+        <p>Tutor datang ke rumah Anda. Belajar jadi lebih nyaman dan efektif tanpa perlu bepergian.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <h3>Laporan Belajar</h3>
+        <p>Pantau perkembangan belajar anak secara berkala melalui laporan dari tutor.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔒</div>
+        <h3>Garansi Puas</h3>
+        <p>Jika tidak cocok dengan tutor, kami siap mengganti tanpa biaya tambahan.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">💰</div>
+        <h3>Harga Terjangkau</h3>
+        <p>Biaya les privat mulai dari Rp 50.000/sesi. Dapatkan paket hemat untuk pembelajaran rutin.</p>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- ─── PROGRAM ─── -->
-<section style="background:#f8fafc;padding:100px 48px">
+<section class="programs-section">
   <div class="section" style="padding:0">
     <div style="text-align:center">
       <span class="section-label">Program</span>
@@ -641,80 +1374,300 @@
     </div>
     <div class="programs-grid">
       <div class="program-card">
-        <span class="emoji">📚</span>
-        <h3>Privat SD</h3>
-        <p>Bimbingan belajar untuk siswa SD. Matematika, IPA, Bahasa Inggris, dan mata pelajaran lainnya.</p>
-        <a href="{{ url_for('landing.program') }}">Lihat Detail →</a>
+        <div class="prog-head">
+          <span class="emoji">🎒</span>
+          <h3>Privat TK</h3>
+        </div>
+        <div class="prog-price"><span class="num">Rp 50K</span><span class="unit">/ sesi</span></div>
+        <ul class="prog-features">
+          <li><span class="tick">✨</span>Siap masuk SD.</li>
+          <li><span class="tick">✨</span>Worksheet eksklusif.</li>
+          <li><span class="tick">✨</span>Aktivitas interaktif.</li>
+          <li><span class="tick">✨</span>Progress report.</li>
+          <li><span class="tick">✨</span>Jadwal fleksibel.</li>
+          <li><span class="tick">✨</span>Home visit.</li>
+          <li><span class="tick">✨</span>Guru berpengalaman.</li>
+          <li><span class="tick">✨</span>60 menit efektif.</li>
+        </ul>
+        <div class="prog-actions">
+          <a href="{{ url_for('landing.program_detail', slug='tk') }}" class="prog-detail">Lihat Detail</a>
+          <a href="{{ url_for('siswa.daftar') }}" class="prog-cta">Daftar</a>
+        </div>
       </div>
       <div class="program-card">
-        <span class="emoji">📖</span>
-        <h3>Privat SMP</h3>
-        <p>Persiapan Ujian Sekolah dan kenaikan kelas. Tutor berpengalaman untuk semua mapel.</p>
-        <a href="{{ url_for('landing.program') }}">Lihat Detail →</a>
+        <div class="prog-head">
+          <span class="emoji">📚</span>
+          <h3>Privat SD</h3>
+        </div>
+        <div class="prog-price"><span class="num">Rp 65K</span><span class="unit">/ sesi</span></div>
+        <ul class="prog-features">
+          <li><span class="tick">⭐</span>Semua mapel.</li>
+          <li><span class="tick">⭐</span>Guru berpengalaman.</li>
+          <li><span class="tick">⭐</span>Rangkuman eksklusif.</li>
+          <li><span class="tick">⭐</span>Latihan soal terarah.</li>
+          <li><span class="tick">⭐</span>Siap TKA.</li>
+          <li><span class="tick">⭐</span>Home visit.</li>
+          <li><span class="tick">⭐</span>Jadwal fleksibel.</li>
+          <li><span class="tick">⭐</span>90 menit efektif.</li>
+        </ul>
+        <div class="prog-actions">
+          <a href="{{ url_for('landing.program_detail', slug='sd') }}" class="prog-detail">Lihat Detail</a>
+          <a href="{{ url_for('siswa.daftar') }}" class="prog-cta">Daftar</a>
+        </div>
       </div>
       <div class="program-card">
-        <span class="emoji">🎯</span>
-        <h3>Privat SMA</h3>
-        <p>Persiapan UTBK, Ujian Sekolah, dan pendalaman materi untuk siswa SMA/SMK.</p>
-        <a href="{{ url_for('landing.program') }}">Lihat Detail →</a>
+        <div class="prog-head">
+          <span class="emoji">📖</span>
+          <h3>Privat SMP</h3>
+        </div>
+        <div class="prog-price"><span class="num">Rp 70K</span><span class="unit">/ sesi</span></div>
+        <ul class="prog-features">
+          <li><span class="tick">⭐</span>Semua mapel.</li>
+          <li><span class="tick">⭐</span>Guru berpengalaman.</li>
+          <li><span class="tick">⭐</span>Rangkuman eksklusif.</li>
+          <li><span class="tick">⭐</span>Soal sesuai kisi-kisi.</li>
+          <li><span class="tick">⭐</span>Siap ujian &amp; TKA.</li>
+          <li><span class="tick">⭐</span>Home visit.</li>
+          <li><span class="tick">⭐</span>Jadwal fleksibel.</li>
+          <li><span class="tick">⭐</span>90 menit efektif.</li>
+        </ul>
+        <div class="prog-actions">
+          <a href="{{ url_for('landing.program_detail', slug='smp') }}" class="prog-detail">Lihat Detail</a>
+          <a href="{{ url_for('siswa.daftar') }}" class="prog-cta">Daftar</a>
+        </div>
+      </div>
+      <div class="program-card">
+        <div class="prog-head">
+          <span class="emoji">🎯</span>
+          <h3>Privat SMA</h3>
+        </div>
+        <div class="prog-price"><span class="num">Rp 80K</span><span class="unit">/ sesi</span></div>
+        <ul class="prog-features">
+          <li><span class="tick">⭐</span>Semua mapel.</li>
+          <li><span class="tick">⭐</span>Guru berpengalaman.</li>
+          <li><span class="tick">⭐</span>Rangkuman eksklusif.</li>
+          <li><span class="tick">⭐</span>Soal sesuai kisi-kisi.</li>
+          <li><span class="tick">⭐</span>Siap UTBK, TKA, &amp; ujian.</li>
+          <li><span class="tick">⭐</span>Home visit.</li>
+          <li><span class="tick">⭐</span>Jadwal fleksibel.</li>
+          <li><span class="tick">⭐</span>90 menit efektif.</li>
+        </ul>
+        <div class="prog-actions">
+          <a href="{{ url_for('landing.program_detail', slug='sma') }}" class="prog-detail">Lihat Detail</a>
+          <a href="{{ url_for('siswa.daftar') }}" class="prog-cta">Daftar</a>
+        </div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ─── TENTOR ─── -->
+<section class="tentor-section">
+  <div class="section" style="padding:0">
+    <div style="text-align:center">
+      <span class="section-label">Jadi Tentor</span>
+      <h2 class="section-title">Ingin Menjadi Tentor KITA PRIVAT?</h2>
+      <p class="section-desc" style="margin:0 auto 48px">Ajar dengan jadwal fleksibel, dapatkan penghasilan menarik, dan berkembang bersama kami.</p>
+    </div>
+    <div class="tentor-cards">
+      <div class="tentor-card">
+        <div class="t-icon">💰</div>
+        <div>
+          <h3>Honor Menarik</h3>
+          <p>Honor kompetitif per sesi dengan pencairan tepat waktu setiap bulan.</p>
+        </div>
+      </div>
+      <div class="tentor-card">
+        <div class="t-icon">📅</div>
+        <div>
+          <h3>Jadwal Fleksibel</h3>
+          <p>Atur jadwal mengajar sendiri sesuai kesibukan dan kenyamanan Anda.</p>
+        </div>
+      </div>
+      <div class="tentor-card">
+        <div class="t-icon">🧑‍🏫</div>
+        <div>
+          <h3>Dukungan Penuh</h3>
+          <p>Tim admin siap membantu penugasan, jadwal, dan kebutuhan mengajar Anda.</p>
+        </div>
+      </div>
+    </div>
+    <div class="tentor-cta">
+      <div>
+        <h3>Bergabung sekarang, jadwal &amp; honor fleksibel</h3>
+        <p>Daftarkan diri Anda sebagai tentor KITA PRIVAT dan mulailah mengajar di sekitar Anda.</p>
+      </div>
+      <div class="tentor-actions">
+        <a href="{{ url_for('rekrutmen.daftar') }}" class="tentor-btn">Daftar Jadi Tentor</a>
+        <a href="{{ url_for('landing.rekrutmen') }}" class="tentor-btn2">Pelajari Lebih Lanjut</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CARA DAFTAR ─── -->
+<section class="daftar-section">
+  <div class="d-shape ds1"></div>
+  <div class="d-shape ds2"></div>
+  <div class="d-shape ds3"></div>
+  <div class="section" style="padding:0">
+    <div style="text-align:center">
+      <span class="section-label">Cara Daftar</span>
+      <h2 class="section-title">Mudah Daftar Les Privat</h2>
+      <p class="section-desc" style="margin:0 auto 48px">Empat langkah mudah untuk mulai belajar bersama KITA PRIVAT.</p>
+    </div>
+    <div class="daftar-steps">
+      <div class="daftar-step">
+        <span class="d-num">1</span>
+        <div class="d-icon">📝</div>
+        <h3>Isi Data Siswa</h3>
+        <p>Lengkapi formulir pendaftaran dengan data anak dan pilih jenjang pendidikan.</p>
+      </div>
+      <div class="daftar-step">
+        <span class="d-num">2</span>
+        <div class="d-icon">🎯</div>
+        <h3>Pilih Program &amp; Paket</h3>
+        <p>Tentukan program les dan paket yang paling sesuai dengan kebutuhan belajar.</p>
+      </div>
+      <div class="daftar-step">
+        <span class="d-num">3</span>
+        <div class="d-icon">📞</div>
+        <h3>Konfirmasi Admin</h3>
+        <p>Tim kami menghubungi Anda untuk konfirmasi, pencocokan tutor, dan jadwal.</p>
+      </div>
+      <div class="daftar-step">
+        <span class="d-num">4</span>
+        <div class="d-icon">🎓</div>
+        <h3>Mulai Belajar</h3>
+        <p>Jadwal les berjalan sesuai rencana dengan tutor yang sudah dipilihkan.</p>
+      </div>
+    </div>
+    <div class="daftar-more">
+      <a href="{{ url_for('landing.cara_daftar') }}">Lihat Detail Cara Daftar →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── WILAYAH ─── -->
+<section class="wilayah-section">
+  <div class="wil-shape ws1"></div>
+  <div class="wil-shape ws2"></div>
+  <div class="wil-shape ws3"></div>
+  <div class="section" style="padding:0">
+    <div style="text-align:center">
+      <span class="section-label">Wilayah Layanan</span>
+      <h2 class="section-title">Tersedia di Seluruh Indonesia</h2>
+      <p class="section-desc" style="margin:0 auto 48px">Belajar online bisa diikuti dari mana saja di Indonesia, plus kunjungan tutor ke rumah (home visit) di Purwokerto dan sekitarnya.</p>
+    </div>
+    <div class="wil-online">
+      <span class="w-emoji"><svg viewBox="0 0 24 24" fill="none" stroke="#0D3A81" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14.5 14.5 0 0 1 0 18 14.5 14.5 0 0 1 0-18z"/></svg></span>
+      <div>
+        <h3>Belajar Online, Seluruh Wilayah Indonesia</h3>
+        <p>Les online via Zoom/Google Meet bisa diikuti dari mana saja di Indonesia.</p>
+      </div>
+    </div>
+    <h3 class="wil-sublabel">Home Visit — Purwokerto &amp; Sekitarnya</h3>
+    <div class="wil-grid">
+      <div class="wil-chip"><span class="w-emoji">📍</span>Purwokerto</div>
+      <div class="wil-chip"><span class="w-emoji">📍</span>Banyumas</div>
+      <div class="wil-chip"><span class="w-emoji">📍</span>Cilongok</div>
+      <div class="wil-chip"><span class="w-emoji">📍</span>Sokaraja</div>
+      <div class="wil-chip"><span class="w-emoji">📍</span>Baturaden</div>
+      <div class="wil-chip"><span class="w-emoji">📍</span>Kembaran</div>
+      <div class="wil-chip"><span class="w-emoji">📍</span>Ajibarang</div>
+      <div class="wil-chip"><span class="w-emoji">📍</span>Wangon</div>
+      <div class="wil-chip"><span class="w-emoji">📍</span>Sumpiuh</div>
+    </div>
+    <p class="wil-note">Tutor online tersedia untuk seluruh wilayah Indonesia. Home visit tersedia di Purwokerto, Banyumas, Cilongok, dan daerah sekitar.</p>
   </div>
 </section>
 
 <!-- ─── TESTIMONIAL ─── -->
-<section class="section">
-  <div style="text-align:center">
-    <span class="section-label">Testimonial</span>
-    <h2 class="section-title">Apa Kata Mereka?</h2>
-    <p class="section-desc" style="margin:0 auto 48px">Kepercayaan dan kepuasan siswa serta orang tua adalah prioritas utama kami.</p>
-  </div>
-  <div class="testi-grid">
-    <div class="testi-card">
-      <div class="testi-stars">★★★★★</div>
-      <p>"Anak saya sangat terbantu dengan les di KITA PRIVAT. Nilai Matematikanya naik dari 65 menjadi 90. Tutornya sabar dan profesional."</p>
-      <div class="testi-author">
-        <div class="testi-avatar" style="background:#A86635">S</div>
-        <div><div class="name">Sari Wulandari</div><div class="role">Orang Tua Siswa</div></div>
-      </div>
+<section class="testi-section">
+  <div class="section" style="padding:0">
+    <div style="text-align:center">
+      <span class="section-label">Testimonial</span>
+      <h2 class="section-title">Apa Kata Mereka?</h2>
+      <p class="section-desc" style="margin:0 auto 48px">Kepercayaan dan kepuasan siswa serta orang tua adalah prioritas utama kami.</p>
     </div>
-    <div class="testi-card">
-      <div class="testi-stars">★★★★★</div>
-      <p>"Saya suka belajar dengan tutor dari KITA PRIVAT. Cara mengajarnya asyik dan gak bikin bosan. Sekarang saya jadi suka Fisika!"</p>
-      <div class="testi-author">
-        <div class="testi-avatar" style="background:#0D3A81">A</div>
-        <div><div class="name">Andi Pratama</div><div class="role">Siswa SMA</div></div>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p>"Anak saya sangat terbantu dengan les di KITA PRIVAT. Nilai Matematikanya naik dari 65 menjadi 90. Tutornya sabar dan profesional."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">S</div>
+          <div><div class="name">Sari Wulandari</div><div class="role">Orang Tua Siswa</div></div>
+        </div>
       </div>
-    </div>
-    <div class="testi-card">
-      <div class="testi-stars">★★★★★</div>
-      <p>"Sebagai tutor, saya merasa dihargai dan didukung penuh oleh tim KITA PRIVAT. Sistemnya rapi dan pembayaran tepat waktu."</p>
-      <div class="testi-author">
-        <div class="testi-avatar" style="background:#3C2420">R</div>
-        <div><div class="name">Rina Wijaya</div><div class="role">Tutor</div></div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p>"Saya suka belajar dengan tutor dari KITA PRIVAT. Cara mengajarnya asyik dan gak bikin bosan. Sekarang saya jadi suka Fisika!"</p>
+        <div class="testi-author">
+          <div class="testi-avatar">A</div>
+          <div><div class="name">Andi Pratama</div><div class="role">Siswa SMA</div></div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <p>"Sebagai tutor, saya merasa dihargai dan didukung penuh oleh tim KITA PRIVAT. Sistemnya rapi dan pembayaran tepat waktu."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">R</div>
+          <div><div class="name">Rina Wijaya</div><div class="role">Tutor</div></div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ─── TIKTOK REVIEWS ─── -->
-<section class="tiktok-section">
-  <span class="section-label">TikTok</span>
-  <h2 class="section-title">Review dari TikTok</h2>
-  <p class="section-desc" style="margin:0 auto 48px">Lihat langsung review dan keseruan belajar bareng KITA PRIVAT di TikTok.</p>
-  <div class="tiktok-card">
-    <div class="tiktok-icon">🎬</div>
-    <h3>@kitaprivat_pwt</h3>
-    <p>Lihat review, testimoni, dan keseruan belajar langsung dari TikTok kami!</p>
-    <a href="https://www.tiktok.com/@kitaprivat_pwt" target="_blank" class="follow-btn">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
-      Ikuti @kitaprivat_pwt
-    </a>
+<!-- ─── SOSIAL MEDIA ─── -->
+<section class="sosmed-section">
+  <div class="section" style="padding:0">
+    <div style="text-align:center">
+      <span class="section-label">Sosial Media</span>
+      <h2 class="section-title">Ikuti Kami di Media Sosial</h2>
+      <p class="section-desc" style="margin:0 auto 48px">Review, info program, dan keseruan belajar KITA PRIVAT ada di semua platform kami.</p>
+    </div>
+    <div class="sosmed-grid">
+      <a href="https://wa.me/6283877345020" target="_blank" class="sosmed-card wa">
+        <div class="sm-icon">
+          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        </div>
+        <h3>WhatsApp</h3>
+        <span class="sm-handle">+62 838-7734-5020</span>
+        <span class="sm-follow">Chat</span>
+      </a>
+      <a href="https://www.instagram.com/kitaprivat_pwt/" target="_blank" class="sosmed-card ig">
+        <div class="sm-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        </div>
+        <h3>Instagram</h3>
+        <span class="sm-handle">@kitaprivat_pwt</span>
+        <span class="sm-follow">Follow</span>
+      </a>
+      <a href="https://www.threads.net/@kitaprivat_pwt" target="_blank" class="sosmed-card threads">
+        <div class="sm-icon"><span class="at">@</span></div>
+        <h3>Threads</h3>
+        <span class="sm-handle">@kitaprivat_pwt</span>
+        <span class="sm-follow">Follow</span>
+      </a>
+      <a href="https://www.tiktok.com/@kitaprivat_pwt" target="_blank" class="sosmed-card tt">
+        <div class="sm-icon">
+          <svg viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+        </div>
+        <h3>TikTok</h3>
+        <span class="sm-handle">@kitaprivat_pwt</span>
+        <span class="sm-follow">Follow</span>
+      </a>
+      <a href="https://youtube.com/@kitaprivat_pwt?si=jTj5iO0TQHEbV4Jc" target="_blank" class="sosmed-card yt">
+        <div class="sm-icon">
+          <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+        </div>
+        <h3>YouTube</h3>
+        <span class="sm-handle">Kita Privat</span>
+        <span class="sm-follow">Subscribe</span>
+      </a>
+    </div>
   </div>
-  <a href="https://www.tiktok.com/@kitaprivat_pwt" target="_blank" class="tiktok-btn">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
-    Lihat Semua Review di TikTok
-  </a>
 </section>
 
 <!-- ─── CTA ─── -->

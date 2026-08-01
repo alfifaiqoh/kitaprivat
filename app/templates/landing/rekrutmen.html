@@ -1,11 +1,374 @@
 {% extends 'landing/base.html' %}
-{% block title %}Rekrutmen Tutor - KITA PRIVAT{% endblock %}
+{% block title %}Jadi Tentor - KITA PRIVAT{% endblock %}
 {% block content %}
-<section class="py-16 px-4">
-    <div class="max-w-4xl mx-auto text-center">
-        <h1 class="text-4xl font-bold text-edu-blue mb-6">Rekrutmen Tutor</h1>
-        <p class="text-gray-600 mb-8 max-w-2xl mx-auto">Bergabunglah bersama KITA PRIVAT sebagai tutor profesional. Kami mencari pengajar berkualitas yang ingin berkontribusi dalam dunia pendidikan.</p>
-        <a href="{{ url_for('rekrutmen.daftar') }}" class="btn btn-primary">Daftar Jadi Tutor</a>
+<style>
+  .page-hero {
+    background:
+      radial-gradient(700px 420px at 85% -10%, rgba(248,194,22,0.28), transparent 60%),
+      radial-gradient(620px 400px at -8% 115%, rgba(237,174,116,0.18), transparent 62%),
+      linear-gradient(150deg, #0B3273 0%, #14439F 55%, #2B1B14 140%);
+    padding: 100px 48px 84px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .page-hero .shapes div {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.06;
+    background: #F8C216;
+  }
+  .page-hero .s1 { width: 400px; height: 400px; top: -150px; left: -100px; }
+  .page-hero .s2 { width: 250px; height: 250px; bottom: -80px; right: -60px; }
+  .page-hero .hero-emoji {
+    font-size: 56px;
+    display: block;
+    margin-bottom: 14px;
+  }
+  .page-hero h1 {
+    font-size: clamp(32px, 4vw, 48px);
+    font-weight: 900;
+    color: #fff;
+    margin-bottom: 16px;
+    position: relative;
+    z-index: 1;
+  }
+  .page-hero p {
+    font-size: 16px;
+    color: #c9d6ec;
+    max-width: 580px;
+    margin: 0 auto 32px;
+    line-height: 1.75;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 15px 36px;
+    font-size: 15px;
+    font-weight: 700;
+    color: #3C2420;
+    background: linear-gradient(135deg, #F8C216, #EDAE74);
+    border-radius: 13px;
+    transition: all 0.25s;
+    box-shadow: 0 6px 24px rgba(248,194,22,0.3);
+    position: relative;
+    z-index: 1;
+  }
+  .hero-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 34px rgba(248,194,22,0.45);
+  }
+  .hero-note {
+    display: block;
+    margin-top: 16px;
+    font-size: 13px;
+    color: #a9bad4;
+  }
+
+  .rc-section {
+    padding: 100px 48px;
+    background:
+      radial-gradient(800px 460px at 95% -5%, rgba(248,194,22,0.12), transparent 62%),
+      radial-gradient(760px 460px at -5% 105%, rgba(13,58,129,0.08), transparent 62%),
+      linear-gradient(160deg, #FFF9EC 0%, #F3F7FF 55%, #EEF4FF 100%);
+  }
+  .rc-inner {
+    max-width: 1180px;
+    margin: 0 auto;
+  }
+  .rc-header {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+  .rc-header .label {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #A86635;
+    background: linear-gradient(135deg, rgba(248,194,22,0.22), rgba(237,174,116,0.2));
+    border: 1px solid rgba(248,194,22,0.5);
+    padding: 8px 20px;
+    border-radius: 50px;
+    margin-bottom: 16px;
+  }
+  .rc-header h2 {
+    font-size: clamp(26px, 3.2vw, 38px);
+    font-weight: 800;
+    color: #1F2937;
+    margin-bottom: 12px;
+  }
+  .rc-header p {
+    font-size: 15px;
+    color: #64748b;
+    max-width: 540px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  .rc-benefits {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+  .rc-benefit {
+    padding: 36px 32px;
+    border-radius: 20px;
+    background: #fff;
+    border: 1px solid rgba(13,58,129,0.07);
+    box-shadow: 0 2px 14px rgba(13,58,129,0.05);
+    transition: all 0.3s;
+  }
+  .rc-benefit:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 14px 42px rgba(13,58,129,0.12);
+  }
+  .rc-benefit .icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    margin-bottom: 18px;
+  }
+  .rc-benefit:nth-child(1) .icon { background: linear-gradient(135deg, #E8F6EE, #D2EEE0); }
+  .rc-benefit:nth-child(2) .icon { background: linear-gradient(135deg, #E3ECFF, #CFDDFF); }
+  .rc-benefit:nth-child(3) .icon { background: linear-gradient(135deg, #FFEFD6, #FBE0BD); }
+  .rc-benefit:nth-child(4) .icon { background: linear-gradient(135deg, #E0F2FE, #C7E8FD); }
+  .rc-benefit:nth-child(5) .icon { background: linear-gradient(135deg, #FFF3D6, #FFE7AE); }
+  .rc-benefit:nth-child(6) .icon { background: linear-gradient(135deg, #F5EAF8, #EBD9F1); }
+  .rc-benefit h3 {
+    font-size: 17px;
+    font-weight: 800;
+    color: #1F2937;
+    margin-bottom: 10px;
+  }
+  .rc-benefit p {
+    font-size: 13.5px;
+    color: #4B5563;
+    line-height: 1.75;
+  }
+
+  .rc-steps-section {
+    padding: 100px 48px;
+    max-width: 1180px;
+    margin: 0 auto;
+  }
+  .rc-steps-section h2 {
+    text-align: center;
+    font-size: clamp(26px, 3.2vw, 38px);
+    font-weight: 800;
+    color: #1F2937;
+    margin-bottom: 56px;
+  }
+  .rc-steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    counter-reset: step;
+  }
+  .rc-step {
+    position: relative;
+    padding: 40px 32px;
+    border-radius: 20px;
+    background: #f8fafc;
+    border: 1px solid #f1f5f9;
+    text-align: center;
+  }
+  .rc-step .num {
+    width: 44px;
+    height: 44px;
+    margin: 0 auto 18px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #0D3A81, #14439F);
+    color: #fff;
+    font-size: 18px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 18px rgba(13,58,129,0.3);
+  }
+  .rc-step h3 {
+    font-size: 16.5px;
+    font-weight: 800;
+    color: #1F2937;
+    margin-bottom: 10px;
+  }
+  .rc-step p {
+    font-size: 13.5px;
+    color: #4B5563;
+    line-height: 1.75;
+  }
+
+  .rc-syarat {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 44px;
+  }
+  .rc-syarat span {
+    padding: 10px 20px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #0D3A81;
+    background: #E8EDF8;
+    border-radius: 50px;
+  }
+
+  .rc-cta {
+    margin: 0 48px 100px;
+    padding: 60px 48px;
+    border-radius: 24px;
+    background:
+      radial-gradient(700px 400px at 90% -20%, rgba(248,194,22,0.25), transparent 60%),
+      linear-gradient(150deg, #0B3273 0%, #14439F 60%, #2B1B14 150%);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    max-width: 1180px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .rc-cta h3 {
+    font-size: 24px;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+  .rc-cta p {
+    font-size: 14px;
+    color: #c9d6ec;
+    max-width: 480px;
+    line-height: 1.7;
+  }
+  .rc-cta a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 15px 32px;
+    font-size: 15px;
+    font-weight: 700;
+    color: #3C2420;
+    background: linear-gradient(135deg, #F8C216, #EDAE74);
+    border-radius: 13px;
+    white-space: nowrap;
+    transition: all 0.25s;
+    box-shadow: 0 8px 26px rgba(248,194,22,0.35);
+  }
+  .rc-cta a:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 34px rgba(248,194,22,0.5);
+  }
+
+  @media (max-width: 900px) {
+    .rc-benefits { grid-template-columns: 1fr 1fr; }
+    .rc-steps { grid-template-columns: 1fr; }
+    .rc-cta { flex-direction: column; text-align: center; padding: 44px 24px; }
+  }
+  @media (max-width: 600px) {
+    .page-hero { padding: 80px 20px 64px; }
+    .rc-section { padding: 60px 20px; }
+    .rc-steps-section { padding: 60px 20px; }
+    .rc-benefits { grid-template-columns: 1fr; }
+    .rc-cta { margin: 0 20px 60px; padding: 36px 20px; }
+  }
+</style>
+
+<div class="page-hero">
+  <div class="shapes"><div class="s1"></div><div class="s2"></div></div>
+  <span class="hero-emoji">🧑‍🏫</span>
+  <h1>Jadi Tentor KITA PRIVAT</h1>
+  <p>Bergabunglah bersama kami sebagai tentor profesional. Ajar dengan jadwal fleksibel, dapatkan penghasilan menarik, dan tumbuh bersama komunitas pendidik.</p>
+  <a href="{{ url_for('rekrutmen.daftar') }}" class="hero-cta">
+    <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/></svg>
+    Daftar Jadi Tentor
+  </a>
+  <span class="hero-note">Gratis mendaftar • Tanpa biaya administrasi</span>
+</div>
+
+<section class="rc-section">
+  <div class="rc-inner">
+    <div class="rc-header">
+      <span class="label">Keuntungan</span>
+      <h2>Kenapa Jadi Tentor di KITA PRIVAT?</h2>
+      <p>Kami memberikan dukungan penuh agar Anda bisa fokus mengajar dan berkembang sebagai pendidik.</p>
     </div>
+    <div class="rc-benefits">
+      <div class="rc-benefit">
+        <div class="icon">💰</div>
+        <h3>Penghasilan Menarik</h3>
+        <p>Honor kompetitif per sesi dengan pencairan tepat waktu setiap bulan.</p>
+      </div>
+      <div class="rc-benefit">
+        <div class="icon">📅</div>
+        <h3>Jadwal Fleksibel</h3>
+        <p>Atur jadwal mengajar sendiri sesuai kesibukan dan kenyamanan Anda.</p>
+      </div>
+      <div class="rc-benefit">
+        <div class="icon">📍</div>
+        <h3>Mengajar di Sekitar Anda</h3>
+        <p>Penugasan siswa sesuai domisili, tanpa perlu jauh-jauh keluar kota.</p>
+      </div>
+      <div class="rc-benefit">
+        <div class="icon">📋</div>
+        <h3>Materi Siap Pakai</h3>
+        <p>Rangkuman dan worksheet eksklusif untuk menunjang kegiatan mengajar.</p>
+      </div>
+      <div class="rc-benefit">
+        <div class="icon">🧑‍🏫</div>
+        <h3>Dukungan Tim</h3>
+        <p>Admin siap membantu penugasan, jadwal, dan kebutuhan lainnya.</p>
+      </div>
+      <div class="rc-benefit">
+        <div class="icon">📈</div>
+        <h3>Pengalaman Mengajar</h3>
+        <p>Tingkatkan pengalaman dan portofolio Anda sebagai pendidik profesional.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="rc-steps-section">
+  <h2>Cara Bergabung</h2>
+  <div class="rc-steps">
+    <div class="rc-step">
+      <div class="num">1</div>
+      <h3>Daftar & Isi Data</h3>
+      <p>Klik tombol "Daftar Jadi Tentor", lengkapi profil dan pilih keahlian mengajar Anda.</p>
+    </div>
+    <div class="rc-step">
+      <div class="num">2</div>
+      <h3>Ikuti Seleksi</h3>
+      <p>Tim kami akan menghubungi Anda untuk wawancara dan tes kemampuan mengajar.</p>
+    </div>
+    <div class="rc-step">
+      <div class="num">3</div>
+      <h3>Mulai Mengajar</h3>
+      <p>Terima penugasan siswa di sekitar Anda dan mulailah mengajar.</p>
+    </div>
+  </div>
+  <div class="rc-syarat">
+    <span>Mahasiswa & fresh graduate</span>
+    <span>Min. S1 / semester akhir</span>
+    <span>Bersedia home visit</span>
+    <span>Komunikatif & sabar</span>
+  </div>
+</section>
+
+<section class="rc-cta">
+  <div>
+    <h3>Siap Jadi Bagian dari Tim KITA PRIVAT?</h3>
+    <p>Daftarkan diri Anda sekarang, tim kami akan segera menghubungi Anda.</p>
+  </div>
+  <a href="{{ url_for('rekrutmen.daftar') }}">Daftar Jadi Tentor →</a>
 </section>
 {% endblock %}

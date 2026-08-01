@@ -3,39 +3,278 @@
 {% block content %}
 <style>
   .page-hero {
-    background: linear-gradient(135deg, #3C2420 0%, #0D3A81 60%, #0A2C61 100%);
-    padding: 100px 48px 80px;
+    background:
+      radial-gradient(900px 520px at 15% -10%, rgba(248,194,22,0.16), transparent 60%),
+      radial-gradient(800px 500px at 105% 10%, rgba(237,174,116,0.18), transparent 60%),
+      linear-gradient(135deg, #3C2420 0%, #0D3A81 55%, #0A2C61 100%);
+    padding: 110px 48px 96px;
     text-align: center;
     position: relative;
     overflow: hidden;
   }
+  .page-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+    background-size: 44px 44px;
+    mask-image: radial-gradient(720px 420px at 50% 0%, #000 30%, transparent 78%);
+    -webkit-mask-image: radial-gradient(720px 420px at 50% 0%, #000 30%, transparent 78%);
+  }
   .page-hero .shapes div {
     position: absolute;
     border-radius: 50%;
-    opacity: 0.05;
     background: #F8C216;
   }
-  .page-hero .s1 { width: 400px; height: 400px; top: -150px; left: -100px; }
-  .page-hero .s2 { width: 250px; height: 250px; bottom: -80px; right: -60px; }
-  .page-hero h1 {
-    font-size: clamp(32px, 4vw, 48px);
-    font-weight: 900;
-    color: #fff;
-    margin-bottom: 16px;
+  .page-hero .s1 {
+    width: 420px; height: 420px; top: -160px; left: -120px; opacity: 0.07;
+    animation: hero-pulse 9s ease-in-out infinite;
+  }
+  .page-hero .s2 {
+    width: 280px; height: 280px; bottom: -90px; right: -60px; opacity: 0.06;
+    animation: hero-pulse 11s ease-in-out infinite reverse;
+  }
+  .page-hero .s3 {
+    width: 140px; height: 140px; top: 90px; right: 12%; opacity: 0.12;
+    animation: hero-float 8s ease-in-out infinite;
+  }
+  .page-hero .s4 {
+    width: 70px; height: 70px; bottom: 70px; left: 10%; opacity: 0.14;
+    animation: hero-float 10s ease-in-out infinite reverse;
+  }
+  @keyframes hero-pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.12); }
+  }
+  @keyframes hero-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-18px); }
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 18px;
+    border-radius: 999px;
+    background: rgba(248,194,22,0.12);
+    border: 1px solid rgba(248,194,22,0.4);
+    color: #F8C216;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    margin-bottom: 22px;
     position: relative;
     z-index: 1;
   }
-  .page-hero p {
-    font-size: 16px;
-    color: #94a3b8;
-    max-width: 540px;
-    margin: 0 auto;
+  .hero-badge .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #F8C216;
+    box-shadow: 0 0 0 4px rgba(248,194,22,0.22);
+    animation: hero-pulse 2s ease-in-out infinite;
+  }
+  .page-hero h1 {
+    font-size: clamp(34px, 5vw, 56px);
+    font-weight: 900;
+    line-height: 1.15;
+    color: #fff;
+    margin-bottom: 18px;
     position: relative;
     z-index: 1;
+  }
+  .page-hero h1 .hl {
+    background: linear-gradient(120deg, #F8C216, #EDAE74);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+  .page-hero p {
+    font-size: 17px;
+    color: #c9d6ec;
+    max-width: 560px;
+    margin: 0 auto;
+    line-height: 1.7;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-cta {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 34px;
+    position: relative;
+    z-index: 1;
+    flex-wrap: wrap;
+  }
+  .hero-cta a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 30px;
+    font-size: 15px;
+    font-weight: 700;
+    border-radius: 12px;
+    transition: all 0.25s;
+  }
+  .hero-cta .cta-primary {
+    color: #3C2420;
+    background: linear-gradient(135deg, #F8C216, #EDAE74);
+    box-shadow: 0 10px 30px rgba(248,194,22,0.35);
+  }
+  .hero-cta .cta-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 40px rgba(248,194,22,0.45);
+  }
+  .hero-cta .cta-ghost {
+    color: #fff;
+    border: 1.5px solid rgba(255,255,255,0.35);
+    background: rgba(255,255,255,0.06);
+    backdrop-filter: blur(8px);
+  }
+  .hero-cta .cta-ghost:hover {
+    background: rgba(255,255,255,0.14);
+    border-color: rgba(255,255,255,0.6);
+    transform: translateY(-3px);
+  }
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    margin: 52px auto 0;
+    max-width: 720px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.14);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 22px 0;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-stats .stat {
+    flex: 1;
+    text-align: center;
+    padding: 0 18px;
+    border-right: 1px solid rgba(255,255,255,0.12);
+  }
+  .hero-stats .stat:last-child { border-right: none; }
+  .hero-stats .stat b {
+    display: block;
+    font-size: 26px;
+    font-weight: 900;
+    color: #F8C216;
+  }
+  .hero-stats .stat span {
+    font-size: 12.5px;
+    font-weight: 500;
+    color: #c9d6ec;
+  }
+  .hero-float-card {
+    position: absolute;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    border-radius: 14px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.18);
+    backdrop-filter: blur(10px);
+    font-size: 13px;
+    font-weight: 600;
+    color: #fff;
+    box-shadow: 0 12px 32px rgba(0,0,0,0.22);
+    animation: hero-float 7s ease-in-out infinite;
+  }
+  .hero-float-card .f-emoji {
+    font-size: 20px;
+  }
+  .hero-float-card.f1 { top: 130px; left: 7%; animation-delay: 0s; }
+  .hero-float-card.f2 { top: 200px; right: 7%; animation-delay: 1.6s; }
+  .hero-float-card.f3 { bottom: 120px; left: 12%; animation-delay: 3.1s; }
+  .hero-float-card.f4 { bottom: 150px; right: 11%; animation-delay: 4.5s; }
+  @media (max-width: 1100px) { .hero-float-card { display: none; } }
+
+  /* ─── STRIP PEMISAH ─── */
+  .prog-strip {
+    background: linear-gradient(135deg, #E3ECFF 0%, #F2F6FE 55%, #FFFFFF 100%);
+    padding: 64px 48px;
+    position: relative;
+    z-index: 5;
+  }
+  .prog-strip-inner {
+    max-width: 1160px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+  .prog-strip-head {
+    max-width: 1160px;
+    margin: 0 auto 40px;
+    text-align: center;
+  }
+  .prog-strip-head h3 {
+    font-size: clamp(22px, 3vw, 30px);
+    font-weight: 800;
+    color: #3C2420;
+    margin-bottom: 8px;
+  }
+  .prog-strip-head p {
+    font-size: 14.5px;
+    color: #8a7a66;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+  .prog-strip .strip-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 22px 24px;
+    background: #fff;
+    border: 1px solid #e6ecf7;
+    border-radius: 18px;
+    font-size: 17px;
+    font-weight: 700;
+    color: #3C2420;
+    box-shadow: 0 8px 24px rgba(13,58,129,0.10);
+    transition: all 0.25s;
+  }
+  .prog-strip .strip-item:hover {
+    transform: translateY(-4px) scale(1.02);
+    background: #f8fafc;
+    box-shadow: 0 14px 32px rgba(13,58,129,0.18);
+  }
+  .prog-strip .strip-item .strip-ico {
+    width: 52px; height: 52px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    flex-shrink: 0;
+    background: #E3ECFF;
+    box-shadow: 0 4px 12px rgba(13,58,129,0.12);
+  }
+  .prog-strip .strip-item span b {
+    display: block;
+    font-size: 13.5px;
+    font-weight: 500;
+    color: #8a7a66;
+    margin-top: 2px;
   }
 
   .prog-section {
     padding: 100px 48px;
+    background:
+      radial-gradient(800px 460px at 95% -5%, rgba(248,194,22,0.22), transparent 62%),
+      radial-gradient(720px 460px at -5% 105%, rgba(237,174,116,0.14), transparent 62%),
+      linear-gradient(158deg, #0B3273 0%, #14439F 50%, #2B1B14 135%);
+  }
+  .prog-inner {
     max-width: 1280px;
     margin: 0 auto;
   }
@@ -46,20 +285,20 @@
   .prog-header h2 {
     font-size: clamp(24px, 3vw, 36px);
     font-weight: 800;
-    color: #3C2420;
+    color: #fff;
     margin-bottom: 12px;
   }
   .prog-header p {
     font-size: 15px;
-    color: #64748b;
+    color: #c9d6ec;
     max-width: 500px;
     margin: 0 auto;
   }
 
   .prog-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 32px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 28px;
   }
   .prog-card {
     border-radius: 20px;
@@ -136,6 +375,11 @@
     margin-top: 16px;
     transition: all 0.25s;
   }
+  .prog-card .btn-prog + .btn-prog { margin-top: 10px; }
+  .prog-card .btn-prog:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(13,58,129,0.2);
+  }
 
   /* ─── BANNER ─── */
   .prog-banner {
@@ -186,20 +430,87 @@
     .prog-banner { flex-direction: column; text-align: center; padding: 40px 24px; }
   }
   @media (max-width: 600px) {
-    .page-hero { padding: 80px 20px 60px; }
+    .page-hero { padding: 80px 20px 64px; }
+    .hero-stats { flex-wrap: wrap; gap: 18px 0; padding: 18px 8px; }
+    .hero-stats .stat { flex: 1 1 45%; border-right: none; }
+    .hero-stats .stat:nth-child(odd) { border-right: 1px solid rgba(255,255,255,0.12); }
+    .prog-strip { padding: 40px 20px; }
+    .prog-strip-inner { grid-template-columns: 1fr; gap: 14px; }
+    .prog-strip .strip-item { font-size: 15px; padding: 16px 18px; }
+    .prog-strip .strip-item .strip-ico { width: 44px; height: 44px; font-size: 20px; }
     .prog-section { padding: 60px 20px; }
     .prog-grid { grid-template-columns: 1fr; }
     .prog-banner { margin: 40px 20px; padding: 32px 20px; }
   }
+  @media (min-width: 601px) and (max-width: 900px) {
+    .prog-strip-inner { grid-template-columns: 1fr 1fr; gap: 16px; }
+  }
 </style>
 
 <div class="page-hero">
-  <div class="shapes"><div class="s1"></div><div class="s2"></div></div>
-  <h1>Program Les Privat</h1>
-  <p>Pilih program yang sesuai dengan kebutuhan belajar. Fleksibel, terjangkau, dan tutor profesional.</p>
+  <div class="shapes"><div class="s1"></div><div class="s2"></div><div class="s3"></div><div class="s4"></div></div>
+  <div class="hero-float-card f1"><span class="f-emoji">🎒</span> Tutor berpengalaman</div>
+  <div class="hero-float-card f2"><span class="f-emoji">📚</span> Materi eksklusif</div>
+  <div class="hero-float-card f3"><span class="f-emoji">✅</span> Progress report</div>
+  <div class="hero-float-card f4"><span class="f-emoji">🏠</span> Home visit</div>
+  <div class="hero-badge"><span class="dot"></span> 100% Personal & Fleksibel</div>
+  <h1>Program <span class="hl">Les Privat</span><br>untuk Semua Jenjang</h1>
+  <p>Pilih program yang sesuai dengan kebutuhan belajar. Fleksibel, terjangkau, dan didampingi tutor profesional terbaik.</p>
+  <div class="hero-cta">
+    <a href="#program" class="cta-primary">Lihat Program ↓</a>
+    <a href="{{ url_for('siswa.daftar') }}" class="cta-ghost">Konsultasi Gratis</a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat"><b>4</b><span>Jenjang Program</span></div>
+    <div class="stat"><b>100%</b><span>Tutor Profesional</span></div>
+    <div class="stat"><b>Rp 50K</b><span>Mulai per sesi</span></div>
+    <div class="stat"><b>24/7</b><span>Bantuan Admin</span></div>
+  </div>
 </div>
 
-<section class="prog-section">
+<div class="prog-strip">
+  <div class="prog-strip-head">
+    <h3>Kenapa Belajar di KITA PRIVAT?</h3>
+    <p>Metode personal, tutor terverifikasi, dan dukungan penuh untuk hasil belajar terbaik.</p>
+  </div>
+  <div class="prog-strip-inner">
+    <div class="strip-item">
+      <div class="strip-ico">🏠</div>
+      <span>Home Visit<b>Di rumah siswa</b></span>
+    </div>
+    <div class="strip-item">
+      <div class="strip-ico">💻</div>
+      <span>Online<b>Zoom / Google Meet</b></span>
+    </div>
+    <div class="strip-item">
+      <div class="strip-ico">🗓️</div>
+      <span>Jadwal Fleksibel<b>Sesuai waktu luang</b></span>
+    </div>
+    <div class="strip-item">
+      <div class="strip-ico">🎓</div>
+      <span>Tutor Terverifikasi<b>Lulusan terbaik</b></span>
+    </div>
+    <div class="strip-item">
+      <div class="strip-ico">📊</div>
+      <span>Progress Report<b>Pantau perkembangan</b></span>
+    </div>
+    <div class="strip-item">
+      <div class="strip-ico">📝</div>
+      <span>Latihan Soal<b>Sesuai kisi-kisi</b></span>
+    </div>
+    <div class="strip-item">
+      <div class="strip-ico">🏆</div>
+      <span>Siap UTBK & TKA<b>Ujian & SBMPTN</b></span>
+    </div>
+    <div class="strip-item">
+      <div class="strip-ico">💰</div>
+      <span>Harga Terjangkau<b>Mulai Rp 50K</b></span>
+    </div>
+  </div>
+</div>
+
+<section class="prog-section" id="program">
+  <div class="prog-inner">
   <div class="prog-header">
     <h2>Pilihan Program</h2>
     <p>Kami menyediakan program untuk semua jenjang pendidikan dengan metode belajar yang personal.</p>
@@ -207,57 +518,96 @@
   <div class="prog-grid">
     <div class="prog-card">
       <div class="prog-card-top">
-        <div class="emoji-bg" style="background:#E8EDF8">📚</div>
+        <div class="emoji-bg" style="background:linear-gradient(135deg,#FFEFD6,#FBE0BD)">🎒</div>
+        <h3>Privat TK</h3>
+        <p>Bimbingan belajar untuk anak TK dengan metode bermain sambil belajar. Siap memasuki jenjang SD.</p>
+      </div>
+      <div class="prog-card-body">
+        <ul class="prog-features">
+          <li>✨ Siap masuk SD.</li>
+          <li>✨ Worksheet eksklusif.</li>
+          <li>✨ Aktivitas interaktif.</li>
+          <li>✨ Progress report.</li>
+          <li>✨ Jadwal fleksibel.</li>
+          <li>✨ Home visit.</li>
+          <li>✨ Guru berpengalaman.</li>
+          <li>✨ 60 menit efektif.</li>
+        </ul>
+        <div class="prog-price">Rp 50K <sub>/ sesi</sub></div>
+        <a href="{{ url_for('landing.program_detail', slug='tk') }}" class="btn-prog" style="background:#0D3A81;color:#fff">Lihat Detail</a>
+        <a href="{{ url_for('siswa.daftar') }}" class="btn-prog" style="background:#FDF6D8;color:#A86635">Daftar</a>
+      </div>
+    </div>
+
+    <div class="prog-card">
+      <div class="prog-card-top">
+        <div class="emoji-bg" style="background:linear-gradient(135deg,#FFF3D6,#FFE7AE)">📚</div>
         <h3>Privat SD</h3>
-        <p>Bimbingan belajar untuk siswa SD. Metode menyenangkan dengan fokus pada pemahaman dasar.</p>
+        <p>Bimbingan belajar untuk siswa SD. Penguatan semua mapel dengan latihan soal terarah dan siap TKA.</p>
       </div>
       <div class="prog-card-body">
         <ul class="prog-features">
-          <li><svg fill="none" stroke="#16a34a" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>Matematika, IPA, Bahasa</li>
-          <li><svg fill="none" stroke="#16a34a" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>Belajar di rumah / online</li>
-          <li><svg fill="none" stroke="#16a34a" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>Tutor ramah & sabar</li>
-          <li><svg fill="none" stroke="#16a34a" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>Laporan perkembangan</li>
+          <li>⭐ Semua mapel.</li>
+          <li>⭐ Guru berpengalaman.</li>
+          <li>⭐ Rangkuman eksklusif.</li>
+          <li>⭐ Latihan soal terarah.</li>
+          <li>⭐ Siap TKA.</li>
+          <li>⭐ Home visit.</li>
+          <li>⭐ Jadwal fleksibel.</li>
+          <li>⭐ 90 menit efektif.</li>
         </ul>
-        <div class="prog-price">Rp 60K <sub>/ sesi</sub></div>
-        <a href="{{ url_for('siswa.daftar') }}" class="btn-prog" style="background:#E8EDF8;color:#0D3A81">Daftar Sekarang</a>
+        <div class="prog-price">Rp 65K <sub>/ sesi</sub></div>
+        <a href="{{ url_for('landing.program_detail', slug='sd') }}" class="btn-prog" style="background:#0D3A81;color:#fff">Lihat Detail</a>
+        <a href="{{ url_for('siswa.daftar') }}" class="btn-prog" style="background:#FDF6D8;color:#A86635">Daftar</a>
       </div>
     </div>
 
     <div class="prog-card">
       <div class="prog-card-top">
-        <div class="emoji-bg" style="background:#FDF6D8">📖</div>
+        <div class="emoji-bg" style="background:linear-gradient(135deg,#E3ECFF,#CFDDFF)">📖</div>
         <h3>Privat SMP</h3>
-        <p>Persiapan ujian sekolah dan kenaikan kelas. Bimbingan intensif untuk semua mata pelajaran.</p>
+        <p>Bimbingan intensif semua mapel. Soal latihan sesuai kisi-kisi, siap hadapi ujian sekolah dan TKA.</p>
       </div>
       <div class="prog-card-body">
         <ul class="prog-features">
-          <li><svg fill="none" stroke="#16a34a" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>Semua mapel SMP</li>
-          <li><svg fill="none" stroke="#16a34a" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>Tryout & latihan soal</li>
-          <li><svg fill="none" stroke="#16a34a" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>Les privat 1on1</li>
-          <li><svg fill="none" stroke="#16a34a" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>Pantau nilai & progres</li>
+          <li>⭐ Semua mapel.</li>
+          <li>⭐ Guru berpengalaman.</li>
+          <li>⭐ Rangkuman eksklusif.</li>
+          <li>⭐ Soal sesuai kisi-kisi.</li>
+          <li>⭐ Siap ujian & TKA.</li>
+          <li>⭐ Home visit.</li>
+          <li>⭐ Jadwal fleksibel.</li>
+          <li>⭐ 90 menit efektif.</li>
         </ul>
-        <div class="prog-price">Rp 75K <sub>/ sesi</sub></div>
-        <a href="{{ url_for('siswa.daftar') }}" class="btn-prog" style="background:#FDF6D8;color:#A86635">Daftar Sekarang</a>
+        <div class="prog-price">Rp 70K <sub>/ sesi</sub></div>
+        <a href="{{ url_for('landing.program_detail', slug='smp') }}" class="btn-prog" style="background:#0D3A81;color:#fff">Lihat Detail</a>
+        <a href="{{ url_for('siswa.daftar') }}" class="btn-prog" style="background:#FDF6D8;color:#A86635">Daftar</a>
       </div>
     </div>
 
     <div class="prog-card">
       <div class="prog-card-top">
-        <div class="emoji-bg" style="background:#f0fdf4">🎯</div>
+        <div class="emoji-bg" style="background:linear-gradient(135deg,#E8EDF8,#D6E1F7)">🎯</div>
         <h3>Privat SMA</h3>
-        <p>Persiapan UTBK, ujian sekolah, dan pendalaman materi untuk siswa SMA/SMK.</p>
+        <p>Pendampingan semua mapel. Materi mendalam sesuai kisi-kisi, siap hadapi UTBK, TKA, dan ujian sekolah.</p>
       </div>
       <div class="prog-card-body">
         <ul class="prog-features">
-          <li><svg fill="none" stroke="#16a34a" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>Matematika, Fisika, Kimia, Biologi</li>
-          <li><svg fill="none" stroke="#16a34a" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>Bimbel UTBK intensif</li>
-          <li><svg fill="none" stroke="#16a34a" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>Tutor lulusan PTN favorit</li>
-          <li><svg fill="none" stroke="#16a34a" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>Paket tryout & prediksi</li>
+          <li>⭐ Semua mapel.</li>
+          <li>⭐ Guru berpengalaman.</li>
+          <li>⭐ Rangkuman eksklusif.</li>
+          <li>⭐ Soal sesuai kisi-kisi.</li>
+          <li>⭐ Siap UTBK, TKA, & ujian.</li>
+          <li>⭐ Home visit.</li>
+          <li>⭐ Jadwal fleksibel.</li>
+          <li>⭐ 90 menit efektif.</li>
         </ul>
-        <div class="prog-price">Rp 90K <sub>/ sesi</sub></div>
-        <a href="{{ url_for('siswa.daftar') }}" class="btn-prog" style="background:#f0fdf4;color:#16a34a">Daftar Sekarang</a>
+        <div class="prog-price">Rp 80K <sub>/ sesi</sub></div>
+        <a href="{{ url_for('landing.program_detail', slug='sma') }}" class="btn-prog" style="background:#0D3A81;color:#fff">Lihat Detail</a>
+        <a href="{{ url_for('siswa.daftar') }}" class="btn-prog" style="background:#FDF6D8;color:#A86635">Daftar</a>
       </div>
     </div>
+  </div>
   </div>
 </section>
 
