@@ -405,7 +405,25 @@
   .prog-banner p {
     font-size: 14px;
     color: #64748b;
-    max-width: 480px;
+    max-width: 520px;
+  }
+  .prog-banner .banner-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 14px;
+  }
+  .prog-banner .banner-tags span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #0D3A81;
+    background: #fff;
+    border: 1px solid #d5e0f5;
+    border-radius: 50px;
   }
   .prog-banner a {
     display: inline-flex;
@@ -613,8 +631,14 @@
 
 <section class="prog-banner">
   <div>
-    <h3>Program Bahasa & Keterampilan</h3>
-    <p>Selain akademik, kami juga menyediakan les Bahasa Inggris, Bahasa Jepang, Komputer, dan program keterampilan lainnya.</p>
+    <h3>Program Persiapan Ujian &amp; TKA</h3>
+    <p>Fokus penuh pada akademik: penguasaan materi semua mapel, latihan soal sesuai kisi-kisi, dan pendampingan intensif menghadapi ujian sekolah, TKA, hingga UTBK.</p>
+    <div class="banner-tags">
+      <span>🎯 UTBK &amp; SBMPTN</span>
+      <span>📝 TKA</span>
+      <span>🏆 Ujian Sekolah</span>
+      <span>📚 Semua Mapel</span>
+    </div>
   </div>
   <a href="{{ url_for('siswa.daftar') }}">Konsultasi Gratis →</a>
 </section>

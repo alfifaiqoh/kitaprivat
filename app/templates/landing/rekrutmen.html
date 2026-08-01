@@ -4,69 +4,196 @@
 <style>
   .page-hero {
     background:
-      radial-gradient(700px 420px at 85% -10%, rgba(248,194,22,0.28), transparent 60%),
-      radial-gradient(620px 400px at -8% 115%, rgba(237,174,116,0.18), transparent 62%),
-      linear-gradient(150deg, #0B3273 0%, #14439F 55%, #2B1B14 140%);
-    padding: 100px 48px 84px;
+      radial-gradient(900px 520px at 15% -10%, rgba(248,194,22,0.16), transparent 60%),
+      radial-gradient(800px 500px at 105% 10%, rgba(237,174,116,0.18), transparent 60%),
+      linear-gradient(135deg, #0B3273 0%, #14439F 55%, #0A2C61 100%);
+    padding: 110px 48px 96px;
     text-align: center;
     position: relative;
     overflow: hidden;
   }
+  .page-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+    background-size: 44px 44px;
+    mask-image: radial-gradient(720px 420px at 50% 0%, #000 30%, transparent 78%);
+    -webkit-mask-image: radial-gradient(720px 420px at 50% 0%, #000 30%, transparent 78%);
+  }
   .page-hero .shapes div {
     position: absolute;
     border-radius: 50%;
-    opacity: 0.06;
     background: #F8C216;
   }
-  .page-hero .s1 { width: 400px; height: 400px; top: -150px; left: -100px; }
-  .page-hero .s2 { width: 250px; height: 250px; bottom: -80px; right: -60px; }
-  .page-hero .hero-emoji {
-    font-size: 56px;
-    display: block;
-    margin-bottom: 14px;
+  .page-hero .s1 {
+    width: 420px; height: 420px; top: -160px; left: -120px; opacity: 0.07;
+    animation: rc-pulse 9s ease-in-out infinite;
   }
-  .page-hero h1 {
-    font-size: clamp(32px, 4vw, 48px);
-    font-weight: 900;
-    color: #fff;
-    margin-bottom: 16px;
+  .page-hero .s2 {
+    width: 280px; height: 280px; bottom: -90px; right: -60px; opacity: 0.06;
+    animation: rc-pulse 11s ease-in-out infinite reverse;
+  }
+  .page-hero .s3 {
+    width: 140px; height: 140px; top: 90px; right: 12%; opacity: 0.12;
+    animation: rc-float 8s ease-in-out infinite;
+  }
+  .page-hero .s4 {
+    width: 70px; height: 70px; bottom: 70px; left: 10%; opacity: 0.14;
+    animation: rc-float 10s ease-in-out infinite reverse;
+  }
+  @keyframes rc-pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.12); }
+  }
+  @keyframes rc-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-18px); }
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 18px;
+    border-radius: 999px;
+    background: rgba(248,194,22,0.12);
+    border: 1px solid rgba(248,194,22,0.4);
+    color: #F8C216;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    margin-bottom: 22px;
     position: relative;
     z-index: 1;
   }
+  .hero-badge .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #F8C216;
+    box-shadow: 0 0 0 4px rgba(248,194,22,0.22);
+    animation: rc-pulse 2s ease-in-out infinite;
+  }
+  .page-hero h1 {
+    font-size: clamp(34px, 5vw, 56px);
+    font-weight: 900;
+    line-height: 1.15;
+    color: #fff;
+    margin-bottom: 18px;
+    position: relative;
+    z-index: 1;
+  }
+  .page-hero h1 .hl {
+    background: linear-gradient(120deg, #F8C216, #EDAE74);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
   .page-hero p {
-    font-size: 16px;
+    font-size: 17px;
     color: #c9d6ec;
-    max-width: 580px;
-    margin: 0 auto 32px;
-    line-height: 1.75;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.7;
     position: relative;
     z-index: 1;
   }
   .hero-cta {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 34px;
+    position: relative;
+    z-index: 1;
+    flex-wrap: wrap;
+  }
+  .hero-cta a {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 15px 36px;
+    padding: 14px 30px;
     font-size: 15px;
     font-weight: 700;
+    border-radius: 12px;
+    transition: all 0.25s;
+  }
+  .hero-cta .cta-primary {
     color: #3C2420;
     background: linear-gradient(135deg, #F8C216, #EDAE74);
-    border-radius: 13px;
-    transition: all 0.25s;
-    box-shadow: 0 6px 24px rgba(248,194,22,0.3);
+    box-shadow: 0 10px 30px rgba(248,194,22,0.35);
+  }
+  .hero-cta .cta-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 40px rgba(248,194,22,0.45);
+  }
+  .hero-cta .cta-ghost {
+    color: #fff;
+    border: 1.5px solid rgba(255,255,255,0.35);
+    background: rgba(255,255,255,0.06);
+    backdrop-filter: blur(8px);
+  }
+  .hero-cta .cta-ghost:hover {
+    background: rgba(255,255,255,0.14);
+    border-color: rgba(255,255,255,0.6);
+    transform: translateY(-3px);
+  }
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    margin: 52px auto 0;
+    max-width: 760px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.14);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 22px 0;
     position: relative;
     z-index: 1;
   }
-  .hero-cta:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 34px rgba(248,194,22,0.45);
+  .hero-stats .stat {
+    flex: 1;
+    text-align: center;
+    padding: 0 18px;
+    border-right: 1px solid rgba(255,255,255,0.12);
   }
-  .hero-note {
+  .hero-stats .stat:last-child { border-right: none; }
+  .hero-stats .stat b {
     display: block;
-    margin-top: 16px;
-    font-size: 13px;
-    color: #a9bad4;
+    font-size: 26px;
+    font-weight: 900;
+    color: #F8C216;
   }
+  .hero-stats .stat span {
+    font-size: 12.5px;
+    font-weight: 500;
+    color: #c9d6ec;
+  }
+  .hero-float-card {
+    position: absolute;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    border-radius: 14px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.18);
+    backdrop-filter: blur(10px);
+    font-size: 13px;
+    font-weight: 600;
+    color: #fff;
+    box-shadow: 0 12px 32px rgba(0,0,0,0.22);
+    animation: rc-float 7s ease-in-out infinite;
+  }
+  .hero-float-card .f-emoji { font-size: 20px; }
+  .hero-float-card.f1 { top: 130px; left: 7%; animation-delay: 0s; }
+  .hero-float-card.f2 { top: 200px; right: 7%; animation-delay: 1.6s; }
+  .hero-float-card.f3 { bottom: 120px; left: 12%; animation-delay: 3.1s; }
+  .hero-float-card.f4 { bottom: 150px; right: 11%; animation-delay: 4.5s; }
+  @media (max-width: 1100px) { .hero-float-card { display: none; } }
 
   .rc-section {
     padding: 100px 48px;
@@ -159,51 +286,100 @@
     padding: 100px 48px;
     max-width: 1180px;
     margin: 0 auto;
+    text-align: center;
+  }
+  .rc-steps-section .label {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #A86635;
+    background: linear-gradient(135deg, rgba(248,194,22,0.22), rgba(237,174,116,0.2));
+    border: 1px solid rgba(248,194,22,0.5);
+    padding: 8px 20px;
+    border-radius: 50px;
+    margin-bottom: 16px;
   }
   .rc-steps-section h2 {
-    text-align: center;
     font-size: clamp(26px, 3.2vw, 38px);
     font-weight: 800;
     color: #1F2937;
-    margin-bottom: 56px;
+    margin-bottom: 12px;
+  }
+  .rc-steps-section .sub {
+    font-size: 15px;
+    color: #64748b;
+    max-width: 540px;
+    margin: 0 auto;
+    line-height: 1.7;
+    white-space: nowrap;
   }
   .rc-steps {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 32px;
-    counter-reset: step;
+    margin-top: 48px;
   }
   .rc-step {
     position: relative;
-    padding: 40px 32px;
+    padding: 44px 32px 36px;
     border-radius: 20px;
-    background: #f8fafc;
-    border: 1px solid #f1f5f9;
+    background: linear-gradient(160deg, #0D3A81 0%, #0A2C61 100%);
+    border: 1px solid rgba(255,255,255,0.12);
+    box-shadow: 0 10px 30px rgba(10,44,97,0.30);
     text-align: center;
+    transition: all 0.3s;
+  }
+  .rc-step:hover {
+    border-color: rgba(248,194,22,0.5);
+  }
+  .rc-step:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 44px rgba(13,58,129,0.15);
+    border-color: rgba(248,194,22,0.5);
   }
   .rc-step .num {
-    width: 44px;
-    height: 44px;
-    margin: 0 auto 18px;
+    position: absolute;
+    top: -19px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #0D3A81, #14439F);
-    color: #fff;
-    font-size: 18px;
+    background: linear-gradient(135deg, #F8C216, #EDAE74);
+    border: 3px solid #fff;
+    color: #3C2420;
+    font-size: 16px;
     font-weight: 800;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 6px 18px rgba(13,58,129,0.3);
+    box-shadow: 0 6px 18px rgba(248,194,22,0.4);
   }
+  .rc-step .icon {
+    width: 66px;
+    height: 66px;
+    margin: 12px auto 18px;
+    border-radius: 20px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.22);
+    transition: transform 0.3s;
+  }
+  .rc-step:hover .icon { transform: scale(1.08) rotate(-3deg); }
   .rc-step h3 {
-    font-size: 16.5px;
+    font-size: 17px;
     font-weight: 800;
-    color: #1F2937;
+    color: #fff;
     margin-bottom: 10px;
   }
   .rc-step p {
     font-size: 13.5px;
-    color: #4B5563;
+    color: #c9d6ec;
     line-height: 1.75;
   }
 
@@ -271,11 +447,16 @@
 
   @media (max-width: 900px) {
     .rc-benefits { grid-template-columns: 1fr 1fr; }
-    .rc-steps { grid-template-columns: 1fr; }
+    .rc-steps { grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .rc-step { padding: 40px 18px 28px; }
     .rc-cta { flex-direction: column; text-align: center; padding: 44px 24px; }
   }
   @media (max-width: 600px) {
     .page-hero { padding: 80px 20px 64px; }
+    .hero-stats { flex-wrap: wrap; gap: 18px 0; padding: 18px 8px; }
+    .hero-stats .stat { flex: 1 1 45%; border-right: none; }
+    .hero-stats .stat:nth-child(odd) { border-right: 1px solid rgba(255,255,255,0.12); }
+    .rc-steps-section .sub { white-space: normal; font-size: 13.5px; }
     .rc-section { padding: 60px 20px; }
     .rc-steps-section { padding: 60px 20px; }
     .rc-benefits { grid-template-columns: 1fr; }
@@ -284,18 +465,27 @@
 </style>
 
 <div class="page-hero">
-  <div class="shapes"><div class="s1"></div><div class="s2"></div></div>
-  <span class="hero-emoji">🧑‍🏫</span>
-  <h1>Jadi Tentor KITA PRIVAT</h1>
-  <p>Bergabunglah bersama kami sebagai tentor profesional. Ajar dengan jadwal fleksibel, dapatkan penghasilan menarik, dan tumbuh bersama komunitas pendidik.</p>
-  <a href="{{ url_for('rekrutmen.daftar') }}" class="hero-cta">
-    <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/></svg>
-    Daftar Jadi Tentor
-  </a>
-  <span class="hero-note">Gratis mendaftar • Tanpa biaya administrasi</span>
+  <div class="shapes"><div class="s1"></div><div class="s2"></div><div class="s3"></div><div class="s4"></div></div>
+  <div class="hero-float-card f1"><span class="f-emoji">💰</span> Honor kompetitif</div>
+  <div class="hero-float-card f2"><span class="f-emoji">📅</span> Jadwal fleksibel</div>
+  <div class="hero-float-card f3"><span class="f-emoji">📋</span> Materi siap pakai</div>
+  <div class="hero-float-card f4"><span class="f-emoji">🏠</span> Mengajar di sekitar</div>
+  <div class="hero-badge"><span class="dot"></span> Bergabung Bersama Kami</div>
+  <h1>Jadi <span class="hl">Tentor</span><br>KITA PRIVAT</h1>
+  <p>Bergabunglah sebagai tentor profesional. Ajar dengan jadwal fleksibel, dapatkan penghasilan menarik, dan tumbuh bersama komunitas pendidik.</p>
+  <div class="hero-cta">
+    <a href="{{ url_for('rekrutmen.daftar') }}" class="cta-primary">Daftar Jadi Tentor →</a>
+    <a href="#keuntungan" class="cta-ghost">Lihat Keuntungan ↓</a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat"><b>Gratis</b><span>Biaya Pendaftaran</span></div>
+    <div class="stat"><b>100%</b><span>Dukungan Tim</span></div>
+    <div class="stat"><b>Fleksibel</b><span>Jadwal Mengajar</span></div>
+    <div class="stat"><b>+</b><span>Pengalaman Mengajar</span></div>
+  </div>
 </div>
 
-<section class="rc-section">
+<section class="rc-section" id="keuntungan">
   <div class="rc-inner">
     <div class="rc-header">
       <span class="label">Keuntungan</span>
@@ -338,20 +528,25 @@
 </section>
 
 <section class="rc-steps-section">
+  <span class="label">Proses Seleksi</span>
   <h2>Cara Bergabung</h2>
+  <p class="sub">Tiga langkah sederhana untuk memulai karier mengajar Anda bersama KITA&nbsp;PRIVAT.</p>
   <div class="rc-steps">
     <div class="rc-step">
       <div class="num">1</div>
+      <div class="icon" style="background:linear-gradient(135deg,#E3ECFF,#CFDDFF)">📝</div>
       <h3>Daftar & Isi Data</h3>
       <p>Klik tombol "Daftar Jadi Tentor", lengkapi profil dan pilih keahlian mengajar Anda.</p>
     </div>
     <div class="rc-step">
       <div class="num">2</div>
+      <div class="icon" style="background:linear-gradient(135deg,#FDF6D8,#FBEBC0)">🎯</div>
       <h3>Ikuti Seleksi</h3>
       <p>Tim kami akan menghubungi Anda untuk wawancara dan tes kemampuan mengajar.</p>
     </div>
     <div class="rc-step">
       <div class="num">3</div>
+      <div class="icon" style="background:linear-gradient(135deg,#E3ECFF,#CFDDFF)">🚀</div>
       <h3>Mulai Mengajar</h3>
       <p>Terima penugasan siswa di sekitar Anda dan mulailah mengajar.</p>
     </div>

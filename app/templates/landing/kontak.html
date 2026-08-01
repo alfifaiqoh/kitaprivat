@@ -3,36 +3,197 @@
 {% block content %}
 <style>
   .page-hero {
-    background: linear-gradient(135deg, #3C2420 0%, #0D3A81 60%, #0A2C61 100%);
-    padding: 100px 48px 80px;
+    background:
+      radial-gradient(900px 520px at 15% -10%, rgba(248,194,22,0.16), transparent 60%),
+      radial-gradient(800px 500px at 105% 10%, rgba(237,174,116,0.18), transparent 60%),
+      linear-gradient(135deg, #0B3273 0%, #14439F 55%, #0A2C61 100%);
+    padding: 110px 48px 96px;
     text-align: center;
     position: relative;
     overflow: hidden;
   }
+  .page-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+    background-size: 44px 44px;
+    mask-image: radial-gradient(720px 420px at 50% 0%, #000 30%, transparent 78%);
+    -webkit-mask-image: radial-gradient(720px 420px at 50% 0%, #000 30%, transparent 78%);
+  }
   .page-hero .shapes div {
     position: absolute;
     border-radius: 50%;
-    opacity: 0.05;
     background: #F8C216;
   }
-  .page-hero .s1 { width: 400px; height: 400px; top: -150px; left: -100px; }
-  .page-hero .s2 { width: 250px; height: 250px; bottom: -80px; right: -60px; }
-  .page-hero h1 {
-    font-size: clamp(32px, 4vw, 48px);
-    font-weight: 900;
-    color: #fff;
-    margin-bottom: 16px;
+  .page-hero .s1 {
+    width: 420px; height: 420px; top: -160px; left: -120px; opacity: 0.07;
+    animation: pg-pulse 9s ease-in-out infinite;
+  }
+  .page-hero .s2 {
+    width: 280px; height: 280px; bottom: -90px; right: -60px; opacity: 0.06;
+    animation: pg-pulse 11s ease-in-out infinite reverse;
+  }
+  .page-hero .s3 {
+    width: 140px; height: 140px; top: 90px; right: 12%; opacity: 0.12;
+    animation: pg-float 8s ease-in-out infinite;
+  }
+  .page-hero .s4 {
+    width: 70px; height: 70px; bottom: 70px; left: 10%; opacity: 0.14;
+    animation: pg-float 10s ease-in-out infinite reverse;
+  }
+  @keyframes pg-pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.12); }
+  }
+  @keyframes pg-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-18px); }
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 18px;
+    border-radius: 999px;
+    background: rgba(248,194,22,0.12);
+    border: 1px solid rgba(248,194,22,0.4);
+    color: #F8C216;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    margin-bottom: 22px;
     position: relative;
     z-index: 1;
+  }
+  .hero-badge .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #F8C216;
+    box-shadow: 0 0 0 4px rgba(248,194,22,0.22);
+    animation: pg-pulse 2s ease-in-out infinite;
+  }
+  .page-hero h1 {
+    font-size: clamp(34px, 5vw, 56px);
+    font-weight: 900;
+    line-height: 1.15;
+    color: #fff;
+    margin-bottom: 18px;
+    position: relative;
+    z-index: 1;
+  }
+  .page-hero h1 .hl {
+    background: linear-gradient(120deg, #F8C216, #EDAE74);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
   }
   .page-hero p {
-    font-size: 16px;
-    color: #94a3b8;
-    max-width: 540px;
+    font-size: 17px;
+    color: #c9d6ec;
+    max-width: 580px;
     margin: 0 auto;
+    line-height: 1.7;
     position: relative;
     z-index: 1;
   }
+  .hero-cta {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 32px;
+    position: relative;
+    z-index: 1;
+    flex-wrap: wrap;
+  }
+  .hero-cta a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 30px;
+    font-size: 15px;
+    font-weight: 700;
+    border-radius: 12px;
+    transition: all 0.25s;
+  }
+  .hero-cta .cta-primary {
+    color: #3C2420;
+    background: linear-gradient(135deg, #F8C216, #EDAE74);
+    box-shadow: 0 10px 30px rgba(248,194,22,0.35);
+  }
+  .hero-cta .cta-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 40px rgba(248,194,22,0.45);
+  }
+  .hero-cta .cta-ghost {
+    color: #fff;
+    border: 1.5px solid rgba(255,255,255,0.35);
+    background: rgba(255,255,255,0.06);
+    backdrop-filter: blur(8px);
+  }
+  .hero-cta .cta-ghost:hover {
+    background: rgba(255,255,255,0.14);
+    border-color: rgba(255,255,255,0.6);
+    transform: translateY(-3px);
+  }
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    margin: 52px auto 0;
+    max-width: 760px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.14);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 22px 0;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-stats .stat {
+    flex: 1;
+    text-align: center;
+    padding: 0 18px;
+    border-right: 1px solid rgba(255,255,255,0.12);
+  }
+  .hero-stats .stat:last-child { border-right: none; }
+  .hero-stats .stat b {
+    display: block;
+    font-size: 26px;
+    font-weight: 900;
+    color: #F8C216;
+  }
+  .hero-stats .stat span {
+    font-size: 12.5px;
+    font-weight: 500;
+    color: #c9d6ec;
+  }
+  .hero-float-card {
+    position: absolute;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    border-radius: 14px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.18);
+    backdrop-filter: blur(10px);
+    font-size: 13px;
+    font-weight: 600;
+    color: #fff;
+    box-shadow: 0 12px 32px rgba(0,0,0,0.22);
+    animation: pg-float 7s ease-in-out infinite;
+  }
+  .hero-float-card .f-emoji { font-size: 20px; }
+  .hero-float-card.f1 { top: 130px; left: 7%; animation-delay: 0s; }
+  .hero-float-card.f2 { top: 200px; right: 7%; animation-delay: 1.6s; }
+  .hero-float-card.f3 { bottom: 120px; left: 12%; animation-delay: 3.1s; }
+  .hero-float-card.f4 { bottom: 150px; right: 11%; animation-delay: 4.5s; }
+  @media (max-width: 1100px) { .hero-float-card { display: none; } }
 
   .kontak-section {
     padding: 100px 48px;
@@ -40,66 +201,147 @@
     margin: 0 auto;
   }
 
+  .sec-label {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #A86635;
+    background: linear-gradient(135deg, rgba(248,194,22,0.22), rgba(237,174,116,0.2));
+    border: 1px solid rgba(248,194,22,0.5);
+    padding: 8px 20px;
+    border-radius: 50px;
+    margin-bottom: 16px;
+  }
+  .sec-head {
+    text-align: center;
+    margin-bottom: 56px;
+  }
+  .sec-head h2 {
+    font-size: clamp(26px, 3.2vw, 38px);
+    font-weight: 800;
+    color: #1F2937;
+    margin-bottom: 12px;
+  }
+  .sec-head h2 .hl {
+    background: linear-gradient(120deg, #C77B14, #EDAE74);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .sec-head p {
+    font-size: 15px;
+    color: #64748b;
+    max-width: 540px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
   /* ─── INFO CARDS ─── */
   .info-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 28px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
     margin-bottom: 80px;
   }
   .info-card {
-    padding: 36px 28px;
-    border-radius: 16px;
-    border: 1px solid #f1f5f9;
+    padding: 36px 26px;
+    border-radius: 20px;
+    border: 1px solid rgba(13,58,129,0.08);
     text-align: center;
     transition: all 0.3s;
     background: #fff;
+    box-shadow: 0 2px 14px rgba(13,58,129,0.05);
+    position: relative;
+    overflow: hidden;
   }
+  .info-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 20px;
+    right: 20px;
+    height: 4px;
+    border-radius: 0 0 8px 8px;
+    background: linear-gradient(90deg, #F8C216, #EDAE74);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .info-card:hover::before { opacity: 1; }
   .info-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 40px rgba(0,0,0,0.06);
+    transform: translateY(-5px);
+    box-shadow: 0 14px 42px rgba(13,58,129,0.12);
   }
   .info-card .icon {
-    width: 56px; height: 56px;
-    border-radius: 16px;
+    width: 60px; height: 60px;
+    border-radius: 18px;
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0 auto 18px;
-    font-size: 24px;
+    font-size: 26px;
   }
+  .info-card:nth-child(1) .icon { background: linear-gradient(135deg, #E3ECFF, #CFDDFF); }
+  .info-card:nth-child(2) .icon { background: linear-gradient(135deg, #E8F6EE, #D2EEE0); }
+  .info-card:nth-child(3) .icon { background: linear-gradient(135deg, #FFEFD6, #FBE0BD); }
+  .info-card:nth-child(4) .icon { background: linear-gradient(135deg, #FFF3D6, #FFE7AE); }
   .info-card h3 {
     font-size: 16px;
-    font-weight: 700;
-    color: #3C2420;
+    font-weight: 800;
+    color: #1F2937;
     margin-bottom: 8px;
   }
   .info-card p {
-    font-size: 14px;
-    color: #475569;
-    line-height: 1.6;
+    font-size: 13.5px;
+    color: #4B5563;
+    line-height: 1.7;
   }
   .info-card a {
-    color: #475569;
+    color: #0D3A81;
+    font-weight: 600;
     text-decoration: none;
     transition: color 0.2s;
   }
-  .info-card a:hover { color: #0D3A81; }
+  .info-card a:hover { color: #F8C216; }
+  .info-card .sub {
+    font-size: 12px;
+    color: #94a3b8;
+    margin-top: 6px;
+  }
 
   /* ─── FORM ─── */
   .contact-row {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 48px;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 32px;
     align-items: start;
   }
-  .form-wrap h2 {
+  .form-card {
+    padding: 44px 40px;
+    border-radius: 24px;
+    background: #fff;
+    border: 1px solid rgba(13,58,129,0.08);
+    box-shadow: 0 6px 30px rgba(13,58,129,0.08);
+    position: relative;
+  }
+  .form-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 24px;
+    right: 24px;
+    height: 5px;
+    border-radius: 0 0 10px 10px;
+    background: linear-gradient(90deg, #F8C216, #EDAE74);
+  }
+  .form-card h2 {
     font-size: 24px;
     font-weight: 800;
-    color: #3C2420;
+    color: #1F2937;
     margin-bottom: 8px;
   }
-  .form-wrap > p {
+  .form-card > p {
     font-size: 14px;
     color: #64748b;
     margin-bottom: 28px;
@@ -112,15 +354,15 @@
     font-size: 13px;
     font-weight: 600;
     color: #334155;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
   }
   .form-group input,
   .form-group textarea,
   .form-group select {
     width: 100%;
-    padding: 11px 14px;
+    padding: 12px 16px;
     border: 1.5px solid #e2e8f0;
-    border-radius: 10px;
+    border-radius: 12px;
     font-size: 14px;
     font-family: inherit;
     color: #1e293b;
@@ -133,7 +375,8 @@
   .form-group select:focus {
     outline: none;
     border-color: #0D3A81;
-    box-shadow: 0 0 0 3px rgba(13,58,129,0.1);
+    box-shadow: 0 0 0 3px rgba(13,58,129,0.12);
+    background: #F8FAFF;
   }
   .form-group textarea { resize: vertical; min-height: 120px; }
   .form-row {
@@ -142,77 +385,101 @@
     gap: 18px;
   }
   .btn-submit {
-    padding: 13px 32px;
+    width: 100%;
+    padding: 14px;
     font-size: 15px;
-    font-weight: 700;
-    color: #fff;
-    background: linear-gradient(135deg, #0D3A81, #0A2C61);
+    font-weight: 800;
+    color: #3C2420;
+    background: linear-gradient(135deg, #F8C216, #EDAE74);
     border: none;
-    border-radius: 12px;
+    border-radius: 14px;
     cursor: pointer;
     transition: all 0.25s;
+    box-shadow: 0 10px 26px rgba(248,194,22,0.35);
   }
   .btn-submit:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(13,58,129,0.35);
+    box-shadow: 0 14px 34px rgba(248,194,22,0.45);
   }
 
   /* ─── SOCIAL ─── */
-  .social-wrap {
-    padding: 36px 32px;
-    background: #f8fafc;
-    border-radius: 20px;
-    border: 1px solid #f1f5f9;
+  .social-card {
+    padding: 44px 36px;
+    border-radius: 24px;
+    background:
+      radial-gradient(420px 260px at 100% 0%, rgba(248,194,22,0.18), transparent 60%),
+      linear-gradient(160deg, #0B3273 0%, #14439F 55%, #0A2C61 100%);
+    box-shadow: 0 14px 40px rgba(10,44,97,0.25);
+    position: relative;
+    overflow: hidden;
   }
-  .social-wrap h3 {
-    font-size: 18px;
-    font-weight: 700;
-    color: #3C2420;
+  .social-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+    mask-image: radial-gradient(400px 280px at 80% 0%, #000 20%, transparent 75%);
+    -webkit-mask-image: radial-gradient(400px 280px at 80% 0%, #000 20%, transparent 75%);
+  }
+  .social-card h3 {
+    font-size: 20px;
+    font-weight: 800;
+    color: #fff;
     margin-bottom: 6px;
+    position: relative;
+    z-index: 1;
   }
-  .social-wrap > p {
+  .social-card > p {
     font-size: 13px;
-    color: #64748b;
-    margin-bottom: 24px;
+    color: #c9d6ec;
+    margin-bottom: 26px;
+    position: relative;
+    z-index: 1;
   }
   .social-links {
     display: flex;
     flex-direction: column;
     gap: 14px;
+    position: relative;
+    z-index: 1;
   }
   .social-links a {
     display: flex;
     align-items: center;
     gap: 14px;
-    padding: 14px 18px;
-    border-radius: 12px;
-    background: #fff;
-    border: 1px solid #f1f5f9;
+    padding: 13px 16px;
+    border-radius: 14px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.14);
     text-decoration: none;
-    transition: all 0.2s;
+    transition: all 0.25s;
   }
   .social-links a:hover {
-    border-color: #e2e8f0;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
-    transform: translateX(4px);
+    background: rgba(255,255,255,0.16);
+    border-color: rgba(248,194,22,0.5);
+    transform: translateX(5px);
   }
   .social-links a .soc-icon {
-    width: 40px; height: 40px;
-    border-radius: 10px;
+    width: 42px; height: 42px;
+    border-radius: 12px;
+    background: #fff;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 18px;
+    font-size: 19px;
     flex-shrink: 0;
   }
   .social-links a .soc-label {
     font-size: 14px;
-    font-weight: 600;
-    color: #3C2420;
+    font-weight: 700;
+    color: #fff;
   }
   .social-links a .soc-handle {
     font-size: 12px;
-    color: #94a3b8;
+    color: #c9d6ec;
   }
 
   @media (max-width: 900px) {
@@ -220,42 +487,75 @@
     .contact-row { grid-template-columns: 1fr; }
   }
   @media (max-width: 600px) {
-    .page-hero { padding: 80px 20px 60px; }
+    .page-hero { padding: 80px 20px 64px; }
+    .hero-stats { flex-wrap: wrap; gap: 18px 0; padding: 18px 8px; }
+    .hero-stats .stat { flex: 1 1 45%; border-right: none; }
+    .hero-stats .stat:nth-child(odd) { border-right: 1px solid rgba(255,255,255,0.12); }
     .kontak-section { padding: 60px 20px; }
     .info-grid { grid-template-columns: 1fr; }
     .form-row { grid-template-columns: 1fr; }
+    .form-card { padding: 32px 24px; }
+    .social-card { padding: 36px 24px; }
   }
 </style>
 
 <div class="page-hero">
-  <div class="shapes"><div class="s1"></div><div class="s2"></div></div>
-  <h1>Hubungi Kami</h1>
-  <p>Ada pertanyaan atau ingin konsultasi? Tim kami siap membantu Anda.</p>
+  <div class="shapes"><div class="s1"></div><div class="s2"></div><div class="s3"></div><div class="s4"></div></div>
+  <div class="hero-float-card f1"><span class="f-emoji">💬</span> Respon cepat</div>
+  <div class="hero-float-card f2"><span class="f-emoji">📞</span> Konsultasi gratis</div>
+  <div class="hero-float-card f3"><span class="f-emoji">🤝</span> Tim ramah</div>
+  <div class="hero-float-card f4"><span class="f-emoji">📍</span> Purwokerto</div>
+  <div class="hero-badge"><span class="dot"></span> Hubungi Kami</div>
+  <h1>Hubungi Kami<br><span class="hl">KITA PRIVAT</span></h1>
+  <p>Ada pertanyaan atau ingin konsultasi? Tim kami siap membantu Anda kapan saja.</p>
+  <div class="hero-cta">
+    <a href="https://wa.me/6283877345020" target="_blank" rel="noopener" class="cta-primary">Chat WhatsApp →</a>
+    <a href="#form" class="cta-ghost">Kirim Pesan ↓</a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat"><b>24/7</b><span>Layanan</span></div>
+    <div class="stat"><b>Gratis</b><span>Konsultasi</span></div>
+    <div class="stat"><b>Cepat</b><span>Respon Admin</span></div>
+    <div class="stat"><b>100%</b><span>Ramah & Profesional</span></div>
+  </div>
 </div>
 
 <section class="kontak-section">
+  <div class="sec-head">
+    <span class="sec-label">Kontak Kami</span>
+    <h2>Mari <span class="hl">Terhubung</span> dengan Kami</h2>
+    <p>Pilih cara yang paling nyaman untuk menghubungi tim KITA PRIVAT.</p>
+  </div>
+
   <div class="info-grid">
     <div class="info-card">
-      <div class="icon" style="background:#E8EDF8;color:#0D3A81">📞</div>
-      <h3>Telepon</h3>
-      <p><a href="tel:+6281234567890">+62 812-3456-7890</a></p>
-      <p style="font-size:12px;color:#94a3b8">Sen–Sab, 08:00–18:00</p>
+      <div class="icon">💬</div>
+      <h3>WhatsApp</h3>
+      <p><a href="https://wa.me/6283877345020" target="_blank" rel="noopener">+62 838-7734-5020</a></p>
+      <p class="sub">Respon tercepat, Sen–Sab 08:00–18:00</p>
     </div>
     <div class="info-card">
-      <div class="icon" style="background:#f0fdf4;color:#16a34a">✉️</div>
+      <div class="icon">📞</div>
+      <h3>Telepon</h3>
+      <p><a href="tel:+6283877345020">+62 838-7734-5020</a></p>
+      <p class="sub">Sen–Sab, 08:00–18:00</p>
+    </div>
+    <div class="info-card">
+      <div class="icon">✉️</div>
       <h3>Email</h3>
       <p><a href="mailto:info@kitaprivat.id">info@kitaprivat.id</a></p>
-      <p style="font-size:12px;color:#94a3b8">Kami balas dalam 1×24 jam</p>
+      <p class="sub">Kami balas dalam 1×24 jam</p>
     </div>
     <div class="info-card">
-      <div class="icon" style="background:#FDF6D8;color:#A86635">📍</div>
+      <div class="icon">📍</div>
       <h3>Alamat</h3>
-      <p>Jl. Contoh No. 123<br>Purwokerto, Jawa Tengah 53111</p>
+      <p>Purwokerto,<br>Banyumas, Jawa Tengah</p>
+      <p class="sub">Home visit &amp; belajar online</p>
     </div>
   </div>
 
   <div class="contact-row">
-    <div class="form-wrap">
+    <div class="form-card" id="form">
       <h2>Kirim Pesan</h2>
       <p>Isi form di bawah dan tim kami akan menghubungi Anda segera.</p>
       <form method="POST" action="{{ url_for('landing.kontak') }}">
@@ -281,25 +581,29 @@
       </form>
     </div>
 
-    <div class="social-wrap">
+    <div class="social-card">
       <h3>Ikuti Kami</h3>
       <p>Dapatkan informasi terbaru dan tips belajar dari kami.</p>
       <div class="social-links">
-        <a href="#">
-          <div class="soc-icon" style="background:#f0fdf4;color:#16a34a">📱</div>
-          <div><div class="soc-label">WhatsApp</div><div class="soc-handle">+62 812-3456-7890</div></div>
+        <a href="https://wa.me/6283877345020" target="_blank" rel="noopener">
+          <div class="soc-icon">💬</div>
+          <div><div class="soc-label">WhatsApp</div><div class="soc-handle">+62 838-7734-5020</div></div>
         </a>
-        <a href="#">
-          <div class="soc-icon" style="background:#e4e4e7;color:#18181b">📷</div>
-          <div><div class="soc-label">Instagram</div><div class="soc-handle">@kitaprivat</div></div>
+        <a href="https://www.instagram.com/kitaprivat_pwt/" target="_blank" rel="noopener">
+          <div class="soc-icon">📷</div>
+          <div><div class="soc-label">Instagram</div><div class="soc-handle">@kitaprivat_pwt</div></div>
         </a>
-        <a href="#">
-          <div class="soc-icon" style="background:#E8EDF8;color:#0D3A81">💬</div>
-          <div><div class="soc-label">Telegram</div><div class="soc-handle">@kitaprivat</div></div>
+        <a href="https://www.threads.net/@kitaprivat_pwt" target="_blank" rel="noopener">
+          <div class="soc-icon">🧵</div>
+          <div><div class="soc-label">Threads</div><div class="soc-handle">@kitaprivat_pwt</div></div>
         </a>
-        <a href="#">
-          <div class="soc-icon" style="background:#fef2f2;color:#dc2626">▶️</div>
-          <div><div class="soc-label">YouTube</div><div class="soc-handle">KITA PRIVAT</div></div>
+        <a href="https://www.tiktok.com/@kitaprivat_pwt" target="_blank" rel="noopener">
+          <div class="soc-icon">🎵</div>
+          <div><div class="soc-label">TikTok</div><div class="soc-handle">@kitaprivat_pwt</div></div>
+        </a>
+        <a href="https://youtube.com/@kitaprivat_pwt?si=jTj5iO0TQHEbV4Jc" target="_blank" rel="noopener">
+          <div class="soc-icon">▶️</div>
+          <div><div class="soc-label">YouTube</div><div class="soc-handle">Kita Privat</div></div>
         </a>
       </div>
     </div>
