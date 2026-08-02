@@ -2,8 +2,15 @@ import os
 import base64
 from datetime import datetime
 from uuid import uuid4
+from urllib.parse import quote
 from flask import current_app
 from werkzeug.utils import secure_filename
+
+WA_NUMBER = '6283877345020'
+
+
+def wa_chat_url(message):
+    return f"https://web.whatsapp.com/send?phone={WA_NUMBER}&text={quote(message)}"
 
 
 def save_base64_image(data, subdir=''):

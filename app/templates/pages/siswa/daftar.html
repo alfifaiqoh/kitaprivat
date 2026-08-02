@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pendaftaran Siswa - KITA PRIVAT</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/faviconkitaprivat.png') }}">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
@@ -13,10 +13,7 @@
     body {
       font-family: 'Inter', sans-serif;
       min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
+      padding: 76px 24px 40px;
       background: linear-gradient(135deg, #3C2420 0%, #0D3A81 50%, #0A2C61 100%);
       position: relative;
       overflow-x: hidden;
@@ -44,32 +41,49 @@
     .form-card {
       width: 100%;
       max-width: 640px;
+      margin: 0 auto;
       background: #fff;
       border-radius: 24px;
-      padding: 48px 40px;
+      padding: 44px 40px;
       box-shadow: 0 20px 60px rgba(0,0,0,0.2);
       position: relative;
       z-index: 1;
     }
+    .topbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 60px;
+      z-index: 30;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      background: #fff;
+      border-bottom: 1px solid #e2e8f0;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    }
+    .topbar .tb-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #0D3A81;
+      font-size: 16px;
+      font-weight: 700;
+      text-decoration: none;
+      padding: 8px 6px;
+      border-radius: 10px;
+    }
+    .topbar .tb-back:hover { color: #7b1f19; }
+    .topbar .tb-back svg { width: 20px; height: 20px; flex-shrink: 0; }
     .form-header {
       text-align: center;
       margin-bottom: 32px;
     }
-    .form-header .logo-box {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 64px; height: 64px;
-      border-radius: 16px;
-      background: #fff;
-      border: 1px solid #e2e8f0;
-      overflow: hidden;
-      margin-bottom: 16px;
-    }
-    .form-header .logo-box img {
-      width: 100%;
-      height: 100%;
+    .form-header .logo-img {
+      height: 96px;
+      width: auto;
       object-fit: contain;
+      margin-bottom: 14px;
     }
     .form-header h1 {
       font-size: 22px;
@@ -88,6 +102,7 @@
     }
     .form-group {
       margin-bottom: 18px;
+      min-width: 0;
     }
     .form-group label {
       display: block;
@@ -101,6 +116,7 @@
     .form-group select,
     .form-group textarea {
       width: 100%;
+      min-width: 0;
       padding: 11px 14px;
       border: 1.5px solid #e2e8f0;
       border-radius: 10px;
@@ -119,12 +135,19 @@
       box-shadow: 0 0 0 3px rgba(13,58,129,0.1);
     }
     .form-group textarea { resize: vertical; min-height: 80px; }
+    .detail-grid {
+      display: grid;
+      grid-template-columns: 1fr 0.7fr 0.7fr;
+      gap: 12px;
+    }
+    .detail-grid .form-group { margin-bottom: 18px; }
     .map-wrap {
       border-radius: 12px;
       overflow: hidden;
       border: 1.5px solid #e2e8f0;
       margin-bottom: 12px;
       height: 280px;
+      min-width: 0;
     }
     .map-wrap .search-bar {
       display: flex;
@@ -167,21 +190,95 @@
     }
     .btn-submit {
       width: 100%;
-      padding: 13px;
-      font-size: 15px;
+      padding: 15px;
+      font-size: 16px;
       font-weight: 700;
       color: #fff;
       background: linear-gradient(135deg, #0D3A81, #0A2C61);
       border: none;
-      border-radius: 12px;
+      border-radius: 14px;
       cursor: pointer;
       transition: all 0.25s;
-      margin-top: 4px;
+      margin-top: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 10px 30px rgba(13,58,129,0.25);
     }
     .btn-submit:hover {
       transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(13,58,129,0.35);
+      box-shadow: 0 14px 38px rgba(13,58,129,0.4);
     }
+    .btn-submit svg { width: 18px; height: 18px; flex-shrink: 0; }
+    .form-note {
+      margin-top: 14px;
+      font-size: 12px;
+      color: #94a3b8;
+      text-align: center;
+      line-height: 1.6;
+    }
+    .form-title {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      font-size: 12.5px;
+      font-weight: 800;
+      color: #0D3A81;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin: 26px 0 18px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #E3ECFF;
+    }
+    .form-title:nth-of-type(1) { margin-top: 4px; }
+    .form-title::before {
+      content: '';
+      width: 22px;
+      height: 4px;
+      border-radius: 4px;
+      background: linear-gradient(90deg, #F8C216, #EDAE74);
+      flex-shrink: 0;
+    }
+    .alert-error {
+      background: #fef2f2;
+      border: 1.5px solid #fca5a5;
+      color: #b91c1c;
+      padding: 12px 14px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 18px;
+    }
+    .hp-hint {
+      font-size: 11.5px;
+      color: #94a3b8;
+      margin-top: 6px;
+    }
+    .detail-hint {
+      font-size: 12px;
+      color: #94a3b8;
+      font-style: italic;
+      margin: 4px 0 0;
+    }
+    .map-pick-note {
+      font-size: 12px;
+      color: #64748b;
+      margin: 0 0 8px;
+    }
+    .search-status {
+      font-size: 12px;
+      color: #b45309;
+      background: #fffbeb;
+      border: 1px solid #fcd34d;
+      border-radius: 8px;
+      padding: 8px 10px;
+      display: none;
+      margin-top: 8px;
+      align-items: center;
+      gap: 6px;
+    }
+    .search-status.show { display: flex; }
     .form-footer {
       text-align: center;
       margin-top: 24px;
@@ -195,20 +292,33 @@
     }
     .form-footer a:hover { text-decoration: underline; }
     @media (max-width: 480px) {
-      .form-card { padding: 32px 20px; }
+      body { padding: 72px 12px 32px; }
+      .form-card { padding: 30px 18px; }
       .form-row { grid-template-columns: 1fr; }
+      .detail-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
+  <header class="topbar">
+    <a href="/" class="tb-back" aria-label="Kembali ke Beranda">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+      Kembali
+    </a>
+  </header>
   <div class="form-card">
     <div class="form-header">
-      <div class="logo-box"><img src="{{ url_for('static', filename='images/logo.png') }}" alt="KITA PRIVAT"></div>
+      <a href="/"><img class="logo-img" src="{{ url_for('static', filename='images/logo.png') }}" alt="KITA PRIVAT"></a>
       <h1>Pendaftaran Siswa</h1>
       <p>Daftarkan putra/putri Anda untuk les privat</p>
     </div>
 
     <form method="POST" id="formDaftar">
+      {% if error %}
+      <div class="alert-error">{{ error }}</div>
+      {% endif %}
+
+      <div class="form-title">Data Siswa</div>
       <div class="form-group">
         <label>Nama Lengkap <span class="req">*</span></label>
         <input type="text" name="nama" required placeholder="Nama lengkap siswa">
@@ -224,15 +334,21 @@
           </select>
         </div>
         <div class="form-group">
-          <label>Tanggal Lahir</label>
-          <input type="date" name="tanggal_lahir">
+          <label>Jenjang <span class="req">*</span></label>
+          <select name="jenjang" required>
+            <option value="">Pilih Jenjang</option>
+            <option value="TK">TK</option>
+            <option value="SD">SD</option>
+            <option value="SMP">SMP</option>
+            <option value="SMA">SMA</option>
+          </select>
         </div>
       </div>
 
       <div class="form-row">
         <div class="form-group">
           <label>Kelas</label>
-          <input type="text" name="kelas" placeholder="SD/SMP/SMA">
+          <input type="text" name="kelas" placeholder="contoh: 7">
         </div>
         <div class="form-group">
           <label>Sekolah</label>
@@ -240,47 +356,83 @@
         </div>
       </div>
 
+      <div class="form-title">Alamat</div>
       <div class="form-group">
         <label>Alamat <span class="req">*</span></label>
+        <p class="map-pick-note">Bisa pilih langsung dari peta/maps di bawah ini.</p>
         <div class="map-wrap">
           <div class="search-bar">
-            <input type="text" id="searchMap" placeholder="Cari lokasi..." />
+            <input type="text" id="searchMap" placeholder="Cari jalan / desa / kecamatan..." />
             <button type="button" id="btnSearch">Cari</button>
           </div>
           <div id="map"></div>
-          <div class="map-hint">Klik peta untuk memilih lokasi & Isi alamat otomatis</div>
+          <div class="map-hint">💡 Isi jalan / desa / kecamatan pada kolom Cari agar alamat terisi otomatis</div>
+          <div class="search-status" id="searchStatus">⚠️ Tidak ditemukan. Coba tanpa kata "jalan", klik peta, atau isi No.Rumah / RT / RW manual.</div>
         </div>
         <textarea name="alamat" id="alamat" rows="2" placeholder="Alamat lengkap" required></textarea>
+        <div class="detail-grid">
+          <div class="form-group">
+            <label>No. Rumah / Blok</label>
+            <input type="text" name="no_rumah" id="noRumah" placeholder="mis. 12A">
+          </div>
+          <div class="form-group">
+            <label>RT</label>
+            <input type="text" name="rt" id="rt" maxlength="3" inputmode="numeric" placeholder="mis. 02">
+          </div>
+          <div class="form-group">
+            <label>RW</label>
+            <input type="text" name="rw" id="rw" maxlength="2" inputmode="numeric" placeholder="mis. 05">
+          </div>
+        </div>
+        <p class="detail-hint">No. Rumah, RT, dan RW tidak wajib diisi — boleh dikosongkan.</p>
+      </div>
+
+      <div class="form-title">Kontak & Jadwal</div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>No HP <span class="req">*</span></label>
+          <input type="tel" name="telepon" placeholder="08xxxxxxxxxxx" required minlength="10" maxlength="13" pattern="[0-9]{10,13}" title="No HP maksimal 13 digit angka, contoh: 0812345678901" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+          <div class="hp-hint">13 digit angka</div>
+        </div>
+        <div class="form-group">
+          <label>Perkiraan Jadwal Les</label>
+          <select name="jadwal_diinginkan">
+            <option value="">Pilih Jadwal</option>
+            <option value="Fleksibel">Fleksibel</option>
+            <option value="Pagi (06.00-09.00)">Pagi (06.00-09.00)</option>
+            <option value="Siang (10.00-12.00)">Siang (10.00-12.00)</option>
+            <option value="Sore (13.00-16.00)">Sore (13.00-16.00)</option>
+            <option value="Malam (17.00-21.00)">Malam (17.00-21.00)</option>
+            <option value="Weekend (Sabtu/Minggu)">Weekend (Sabtu/Minggu)</option>
+          </select>
+        </div>
       </div>
 
       <div class="form-row">
         <div class="form-group">
-          <label>Telepon</label>
-          <input type="text" name="telepon" placeholder="0812-xxxx-xxxx">
+          <label>Mata Pelajaran 1</label>
+          <input type="text" name="mata_pelajaran1" placeholder="misal: Matematika">
         </div>
         <div class="form-group">
-          <label>Email</label>
-          <input type="email" name="email" placeholder="email@contoh.com">
+          <label>Mata Pelajaran 2 <span style="font-weight:500;color:#94a3b8;">(opsional)</span></label>
+          <input type="text" name="mata_pelajaran2" placeholder="misal: IPA">
         </div>
-      </div>
-
-      <div class="form-group">
-        <label>Mata Pelajaran</label>
-        <input type="text" name="mata_pelajaran" placeholder="Matematika, IPA, Bahasa Inggris, dll">
       </div>
 
       <div class="form-group">
         <label>Keterangan</label>
-        <textarea name="keterangan" rows="2" placeholder="Jadwal diinginkan atau catatan lain"></textarea>
+        <textarea name="keterangan" rows="2" placeholder="Catatan tambahan (opsional)"></textarea>
       </div>
 
-      <button type="submit" class="btn-submit">Daftar Sekarang</button>
+      <button type="submit" class="btn-submit">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>
+        Daftar Sekarang
+      </button>
+      <p class="form-note">Setelah klik daftar, data tersimpan & Anda akan diarahkan ke <b>WhatsApp admin</b> untuk konfirmasi.</p>
     </form>
 
     <div class="form-footer">
       Sudah punya akun? <a href="{{ url_for('auth.login') }}">Masuk</a>
-      <br>
-      <a href="/">← Kembali ke Beranda</a>
     </div>
   </div>
 
@@ -294,7 +446,7 @@
     let marker = null;
 
     function reverseGeocode(lat, lng) {
-      fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&accept-language=id`)
+      fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lng}&accept-language=id`)
         .then(r => r.json())
         .then(data => {
           const addr = data.display_name || '';
@@ -315,22 +467,80 @@
     });
 
     document.getElementById('btnSearch').addEventListener('click', function() {
-      const q = document.getElementById('searchMap').value.trim();
-      if (!q) return;
-      fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(q)}&limit=1`)
-        .then(r => r.json())
-        .then(data => {
-          if (data.length > 0) {
-            setMarker(parseFloat(data[0].lat), parseFloat(data[0].lon));
-          }
-        })
-        .catch(() => {});
+      doNominatimSearch(document.getElementById('searchMap').value);
     });
 
     document.getElementById('searchMap').addEventListener('keydown', function(e) {
       if (e.key === 'Enter') {
         e.preventDefault();
-        document.getElementById('btnSearch').click();
+        doNominatimSearch(this.value);
+      }
+    });
+
+    let searchTimer = null;
+    document.getElementById('searchMap').addEventListener('input', function() {
+      clearTimeout(searchTimer);
+      const q = this.value.trim();
+      if (q.length < 3) return;
+      searchTimer = setTimeout(() => doNominatimSearch(q), 800);
+    });
+
+    function parseRtRw(q) {
+      const mrt = q.match(/rt\s*0?(\d{1,3})/i);
+      const mrw = q.match(/rw\s*0?(\d{1,3})/i);
+      return { rt: mrt ? mrt[1] : '', rw: mrw ? mrw[1] : '' };
+    }
+
+    function cleanSearch(q) {
+      return q
+        .replace(/^(jl\.?|jln\.?|jalan|gang|gn?g\b)\s*/i, '')
+        .replace(/(^|[\s,;/])(?:rt|rw)\s*\d{1,3}(?:\s*[-/]\s*\d{1,3})?/gi, ' ')
+        .replace(/\s{2,}/g, ' ')
+        .replace(/,/g, ' ')
+        .trim();
+    }
+
+    function setStatus(msg) {
+      const el = document.getElementById('searchStatus');
+      if (el) { el.textContent = msg; el.classList.add('show'); }
+    }
+
+    function clearStatus() {
+      const el = document.getElementById('searchStatus');
+      if (el) { el.classList.remove('show'); }
+    }
+
+    function doNominatimSearch(raw) {
+      const d = parseRtRw(raw);
+      if (d.rt) document.getElementById('rt').value = d.rt;
+      if (d.rw) document.getElementById('rw').value = d.rw;
+      const q = cleanSearch(raw);
+      if (!q) { setStatus('Ketik nama jalan / desa / kecamatan di kolom Cari.'); return; }
+      fetch(`https://nominatim.openstreetmap.org/search?format=jsonv2&q=${encodeURIComponent(q)}&limit=1&addressdetails=1&accept-language=id`)
+        .then(r => r.json())
+        .then(data => {
+          if (data.length > 0) {
+            setMarker(parseFloat(data[0].lat), parseFloat(data[0].lon));
+            clearStatus();
+          } else {
+            setStatus('⚠️ Tidak ditemukan. Coba tanpa kata "jalan" / klik peta / isi No. Rumah-RT-RW manual.');
+          }
+        })
+        .catch(() => setStatus('⚠️ Gagal terhubung ke pencarian peta. Silakan isi alamat secara manual.'));
+    }
+
+document.getElementById('formDaftar').addEventListener('submit', function() {
+      const no = document.getElementById('noRumah').value.trim();
+      const rt = document.getElementById('rt').value.trim();
+      const rw = document.getElementById('rw').value.trim();
+      const alamatInput = document.getElementById('alamat');
+      const base = alamatInput.value.trim();
+      const parts = [];
+      if (no) parts.push('No. ' + no);
+      if (rt) parts.push('RT ' + rt);
+      if (rw) parts.push('RW ' + rw);
+      if (parts.length > 0) {
+        alamatInput.value = parts.join(' ') + (base ? (', ' + base) : '');
       }
     });
 

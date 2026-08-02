@@ -8,6 +8,7 @@ from app.models.rekrutmen import RekrutmenTutor
 from app.models.tutor import Tutor
 from app.models.user import User
 from app.utils.decorators import role_required
+from app.utils.helpers import wa_chat_url
 
 rekrutmen_bp = Blueprint('rekrutmen', __name__, url_prefix='/rekrutmen')
 
@@ -57,7 +58,19 @@ def daftar():
         )
         db.session.add(r)
         db.session.commit()
-        return redirect(url_for('rekrutmen.sukses'))
+
+        pesan = f"""Halo Admin KITA PRIVAT, saya baru mendaftar sebagai tentor:
+
+Nama: {r.nama}
+Email: {r.email}
+Telepon: {r.telepon or '-'}
+Alamat: {r.alamat or '-'}
+Bidang: {r.bidang or '-'}
+Pendidikan: {r.pendidikan or '-'}
+Pengalaman: {r.pengalaman or '-'}
+
+Mohon info langkah selanjutnya. Terima kasih."""
+        return redirect(wa_chat_url(pesan))
 
     return render_template('pages/rekrutmen/daftar.html')
 

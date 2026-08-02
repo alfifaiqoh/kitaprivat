@@ -1,9 +1,11 @@
 from datetime import datetime
+import re
 from flask import Blueprint, render_template, request, redirect, url_for
 from flask_login import login_required, current_user
 from app import db
 from app.models.siswa import Siswa
 from app.utils.decorators import role_required
+from app.utils.helpers import wa_chat_url
 
 siswa_bp = Blueprint('siswa', __name__, url_prefix='/siswa')
 
@@ -104,26 +106,52 @@ def hapus(id):
 
 @siswa_bp.route('/daftar', methods=['GET', 'POST'])
 def daftar():
+    error = None
     if request.method == 'POST':
-        tgl = request.form.get('tanggal_lahir')
-        s = Siswa(
-            nama=request.form['nama'],
-            jenis_kelamin=request.form.get('jenis_kelamin'),
-            tanggal_lahir=datetime.strptime(tgl, '%Y-%m-%d') if tgl else None,
-            kelas=request.form.get('kelas'),
-            sekolah=request.form.get('sekolah'),
-            alamat=request.form.get('alamat'),
-            telepon=request.form.get('telepon'),
-            email=request.form.get('email'),
-            mata_pelajaran=request.form.get('mata_pelajaran'),
-            jadwal_diinginkan=request.form.get('jadwal_diinginkan'),
-            keterangan=request.form.get('keterangan'),
-            status='baru',
-        )
-        db.session.add(s)
-        db.session.commit()
-        return redirect(url_for('siswa.sukses'))
-    return render_template('pages/siswa/daftar.html')
+        telepon = request.form.get('telepon', '').strip()
+        if not re.fullmatch(r'\d{10,13}', telepon):
+            error = 'No HP wajib diisi angka minimal 10 dan maksimal 13 digit (contoh: 0812345678901).'
+        else:
+            mp1 = request.form.get('mata_pelajaran1', '').strip()
+            mp2 = request.form.get('mata_pelajaran2', '').strip()
+            mp = ', '.join(x for x in (mp1, mp2) if x)
+            tgl = request.form.get('tanggal_lahir')
+            jenjang = request.form.get('jenjang', '').strip()
+            kelas = request.form.get('kelas', '').strip()
+            kelas_lengkap = f"{jenjang} Kelas {kelas}" if kelas else jenjang
+            s = Siswa(
+                nama=request.form['nama'],
+                jenis_kelamin=request.form.get('jenis_kelamin'),
+                tanggal_lahir=datetime.strptime(tgl, '%Y-%m-%d') if tgl else None,
+                kelas=kelas_lengkap,
+                sekolah=request.form.get('sekolah'),
+                alamat=request.form.get('alamat'),
+                telepon=telepon,
+                email=request.form.get('email'),
+                mata_pelajaran=mp,
+                jadwal_diinginkan=request.form.get('jadwal_diinginkan'),
+                keterangan=request.form.get('keterangan'),
+                status='baru',
+            )
+            db.session.add(s)
+            db.session.commit()
+
+            pesan = f"""Halo Admin KITA PRIVAT, saya baru mendaftar les privat:
+
+Nama: {s.nama}
+Jenis Kelamin: {s.jenis_kelamin or '-'}
+Kelas: {s.kelas or '-'}
+Sekolah: {s.sekolah or '-'}
+Alamat: {s.alamat or '-'}
+Telepon: {s.telepon or '-'}
+Mata Pelajaran: {s.mata_pelajaran or '-'}
+Perkiraan Jadwal: {s.jadwal_diinginkan or '-'}
+Keterangan: {s.keterangan or '-'}
+
+Mohon info langkah selanjutnya. Terima kasih."""
+            return redirect(wa_chat_url(pesan))
+        return render_template('pages/siswa/daftar.html', error=error)
+    return render_template('pages/siswa/daftar.html', error=error)
 
 
 @siswa_bp.route('/daftar/sukses')

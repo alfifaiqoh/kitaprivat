@@ -4,11 +4,70 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login - KITA PRIVAT</title>
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/faviconkitaprivat.png') }}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
   <style>
+    * {
+      box-sizing: border-box;
+    }
+    .topbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 60px;
+      z-index: 30;
+      display: flex;
+      align-items: center;
+      background: #fff;
+      border-bottom: 1px solid #e2e8f0;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    }
+    .topbar .tb-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #0D3A81;
+      font-size: 16px;
+      font-weight: 700;
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: 10px;
+    }
+    .topbar .tb-back svg { width: 20px; height: 20px; flex-shrink: 0; }
+    .login-mobile { display: flex; justify-content: center; width: 100%; }
+    .login-card {
+      width: 100%;
+      max-width: 440px;
+      margin: 0 auto;
+      background: #fff;
+      border-radius: 24px;
+      padding: 44px 40px 38px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+      position: relative;
+      z-index: 1;
+    }
+    .login-card .logo-img {
+      display: block;
+      width: auto;
+      height: 92px;
+      object-fit: contain;
+      margin: 0 auto 16px;
+    }
+    .login-card h1 {
+      font-size: 23px;
+      font-weight: 800;
+      color: #0f172a;
+      text-align: center;
+      margin: 0 0 4px;
+    }
+    .login-card .form-sub {
+      text-align: center;
+      font-size: 14px;
+      color: #64748b;
+      margin-bottom: 26px;
+    }
     body {
       margin: 0;
       min-height: 100vh;
@@ -16,47 +75,38 @@
       align-items: center;
       justify-content: center;
       font-family: 'Inter', sans-serif;
-      background: linear-gradient(135deg, #3C2420, #0D3A81);
-      padding: 20px;
+      background: linear-gradient(135deg, #3C2420 0%, #0D3A81 50%, #0A2C61 100%);
+      padding: 76px 24px 40px;
+      position: relative;
     }
-    .login-card {
-      width: 100%;
-      max-width: 400px;
-      background: #fff;
-      border-radius: 16px;
-      padding: 40px 32px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    body::before,
+    body::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(90px);
+      opacity: 0.35;
     }
-    .login-logo {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 8px;
+    body::before {
+      width: 340px;
+      height: 340px;
+      background: #63A0FF;
+      top: -100px;
+      left: -80px;
     }
-    .login-logo img {
-      width: 72px;
-      height: 72px;
-      object-fit: contain;
-      margin-bottom: 16px;
-    }
-    .login-logo h1 {
-      font-size: 22px;
-      font-weight: 700;
-      color: #3C2420;
-      margin: 0 0 4px 0;
-    }
-    .login-logo p {
-      font-size: 14px;
-      color: #94a3b8;
-      margin: 0;
+    body::after {
+      width: 420px;
+      height: 420px;
+      background: #0A2C61;
+      bottom: -140px;
+      right: -100px;
     }
     .login-error {
       background: #fef2f2;
       border: 1px solid #fecaca;
       color: #dc2626;
       font-size: 13px;
-      padding: 10px 14px;
+      padding: 11px 14px;
       border-radius: 10px;
       margin-bottom: 16px;
     }
@@ -68,71 +118,119 @@
       font-size: 13px;
       font-weight: 600;
       color: #475569;
-      margin-bottom: 6px;
+      margin-bottom: 7px;
+    }
+    .input-wrap {
+      position: relative;
+    }
+    .input-wrap svg {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 17px;
+      height: 17px;
+      color: #94a3b8;
     }
     .form-group input {
       width: 100%;
-      padding: 11px 14px;
+      padding: 13px 14px 13px 42px;
       font-size: 14px;
+      font-family: 'Inter', sans-serif;
       border: 1.5px solid #e2e8f0;
-      border-radius: 10px;
+      border-radius: 12px;
       outline: none;
       box-sizing: border-box;
-      transition: border-color 0.2s;
+      background: #f8fafc;
+      transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+    }
+    .form-group input::placeholder {
+      color: #94a3b8;
     }
     .form-group input:focus {
+      background: #fff;
       border-color: #0D3A81;
-      box-shadow: 0 0 0 3px rgba(13,58,129,0.1);
+      box-shadow: 0 0 0 4px rgba(13,58,129,0.12);
     }
     .btn-login {
       width: 100%;
-      padding: 12px;
-      font-size: 14px;
-      font-weight: 600;
+      margin-top: 6px;
+      padding: 14px;
+      font-size: 14.5px;
+      font-weight: 700;
+      font-family: 'Inter', sans-serif;
       color: #fff;
-      background: #0D3A81;
+      background: linear-gradient(135deg, #0D3A81, #0A2C61);
       border: none;
-      border-radius: 10px;
+      border-radius: 12px;
       cursor: pointer;
-      transition: background 0.2s;
+      transition: transform 0.15s, box-shadow 0.2s, background 0.2s;
+      box-shadow: 0 10px 24px rgba(13,58,129,0.3);
     }
     .btn-login:hover {
-      background: #0A2C61;
+      transform: translateY(-2px);
+      box-shadow: 0 14px 30px rgba(13,58,129,0.4);
+      background: linear-gradient(135deg, #0A2C61, #06214B);
     }
-    .login-footer {
+    .btn-login:active {
+      transform: translateY(0);
+    }
+    .login-note {
       text-align: center;
-      margin-top: 24px;
       font-size: 12px;
       color: #94a3b8;
+      margin-top: 20px;
+      line-height: 1.5;
     }
+    @media (max-width: 760px) {
+      body { padding: 76px 12px 32px; }
+      .login-mobile { margin: auto; }
+      .login-card { padding: 34px 20px 28px; max-width: 420px; }
+      .login-card .logo-img { height: 80px; }
+      .login-card h1 { font-size: 21px; }
+      .form-group input { font-size: 16px; }
+      .btn-login { min-height: 52px; }
+    }
+    @media (max-width: 380px) { .login-card { padding: 28px 18px 26px; } }
   </style>
 </head>
 <body>
-  <div class="login-card">
-    <div class="login-logo">
-      <img src="{{ url_for('static', filename='images/logo-kita-privat.png') }}" alt="KITA PRIVAT">
-      <h1>KITA PRIVAT</h1>
-      <p>Sistem Manajemen Les Privat</p>
-    </div>
+  <header class="topbar">
+    <a href="/" class="tb-back" aria-label="Kembali ke Beranda">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+      Kembali
+    </a>
+  </header>
 
-    {% if error %}
-    <div class="login-error">{{ error }}</div>
-    {% endif %}
+  <div class="login-mobile">
+    <div class="login-card">
+      <a href="/"><img class="logo-img" src="{{ url_for('static', filename='images/logo.png') }}" alt="KITA PRIVAT"></a>
+      <h1>Silakan Masuk</h1>
+      <div class="form-sub">Gunakan akun yang diberikan oleh Admin Anda.</div>
 
-    <form method="POST">
-      <div class="form-group">
-        <label for="username">Username</label>
-        <input type="text" id="username" name="username" placeholder="Masukkan username" required>
-      </div>
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password" placeholder="Masukkan password" required>
-      </div>
-      <button type="submit" class="btn-login">Masuk</button>
-    </form>
+      {% if error %}
+      <div class="login-error">{{ error }}</div>
+      {% endif %}
 
-    <div class="login-footer">
-      <p>&copy; 2026 KITA PRIVAT</p>
+      <form method="POST">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <div class="input-wrap">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+            <input type="text" name="username" placeholder="Masukkan username" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <div class="input-wrap">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+            <input type="password" name="password" placeholder="Masukkan password" required>
+          </div>
+        </div>
+        <button type="submit" class="btn-login">Masuk</button>
+      </form>
+
+      <div class="login-note">Belum punya akun? Silakan hubungi Admin untuk mendapatkan akun login.</div>
     </div>
   </div>
 </body>

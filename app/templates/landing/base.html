@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{% block title %}KITA PRIVAT{% endblock %}</title>
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/faviconkitaprivat.png') }}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -97,6 +98,7 @@
       transform: translateY(-1px);
       box-shadow: 0 4px 15px rgba(13,58,129,0.35);
     }
+    .nav-actions-mobile { display: none; }
     .hamburger {
       display: none;
       flex-direction: column;
@@ -239,23 +241,116 @@
     }
 
     /* ─── RESPONSIVE ─── */
+    @media (min-width: 769px) and (max-width: 1050px) {
+      nav { padding: 0 32px; }
+      .nav-links { gap: 22px; }
+    }
     @media (max-width: 768px) {
-      nav { height: 56px; padding: 0 16px; }
-      .nav-logo .logo-icon { width: auto; height: 34px; margin: 0; background: transparent; border-radius: 0; }
+      nav {
+        height: 56px;
+        padding: 0 12px;
+        gap: 8px;
+      }
+      .nav-logo {
+        flex: 1 1 auto;
+        min-width: 0;
+      }
+      .nav-logo .logo-icon {
+        width: auto;
+        height: 30px;
+        margin: 0;
+        background: transparent;
+        border-radius: 0;
+        max-width: 160px;
+      }
+      .nav-logo .logo-icon img {
+        max-width: 100%;
+        height: 100%;
+        width: auto;
+      }
+      .nav-actions {
+        flex: 0 0 auto;
+        gap: 8px;
+        position: relative;
+        z-index: 11;
+      }
+      .nav-actions .btn-solid {
+        font-size: 12px;
+        padding: 8px 13px;
+        white-space: nowrap;
+        border-radius: 9px;
+      }
       .nav-links {
         position: fixed;
-        top: 70px; left: 0; right: 0;
+        top: 56px; left: 0; right: 0;
         background: #fff;
         flex-direction: column;
-        padding: 20px;
-        gap: 16px;
+        align-items: stretch;
+        padding: 18px 16px 24px;
+        gap: 6px;
         border-bottom: 1px solid #e2e8f0;
-        transform: translateY(-120%);
-        transition: transform 0.3s;
+        box-shadow: 0 20px 40px rgba(60,36,32,0.12);
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(14px);
+        transition: opacity 0.28s ease, transform 0.28s ease, visibility 0.28s;
       }
-      .nav-links.open { transform: translateY(0); }
-      .hamburger { display: flex; }
-      .nav-actions .btn-outline { display: none; }
+      .nav-links.open {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+      }
+      .nav-links a {
+        display: block;
+        padding: 12px 14px;
+        border-radius: 10px;
+        font-size: 15px;
+        font-weight: 600;
+        color: #3C2420;
+      }
+      .nav-links a:hover { background: #f1f5f9; color: #0D3A81; }
+      .nav-actions-mobile {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 12px;
+        padding: 14px 14px 4px;
+        border-top: 1px solid #e2e8f0;
+      }
+      .nav-actions-mobile a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        padding: 13px;
+        font-size: 15px;
+        font-weight: 700;
+        border-radius: 11px;
+      }
+      .nav-actions-mobile .btn-outline {
+        color: #0D3A81;
+        border: 1.5px solid #0D3A81;
+        background: #fff;
+      }
+      .nav-actions-mobile .btn-solid {
+        background: linear-gradient(135deg, #0D3A81, #0A2C61);
+        color: #fff;
+      }
+      .hamburger {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 5px;
+        width: 42px;
+        height: 42px;
+        align-items: center;
+        padding: 0;
+        border-radius: 10px;
+        flex-shrink: 0;
+      }
+      .hamburger span { width: 22px; }
+      .nav-actions .btn-outline,
+      .nav-actions .btn-solid { display: none; }
       .footer-grid {
         grid-template-columns: 1fr 1fr;
         gap: 32px;
@@ -278,6 +373,10 @@
     <li><a href="{{ url_for('landing.rekrutmen') }}">Jadi Tentor</a></li>
     <li><a href="{{ url_for('landing.tentang') }}">Tentang</a></li>
     <li><a href="{{ url_for('landing.kontak') }}">Kontak</a></li>
+    <li class="nav-actions-mobile">
+      <a href="{{ url_for('auth.login') }}" class="btn-outline">Masuk</a>
+      <a href="{{ url_for('siswa.daftar') }}" class="btn-solid">Daftar Les</a>
+    </li>
   </ul>
   <div class="nav-actions">
     <a href="{{ url_for('auth.login') }}" class="btn-outline">Masuk</a>
@@ -332,14 +431,15 @@
   const navLinks = document.getElementById('navLinks');
   if (hamburger) {
     hamburger.addEventListener('click', () => {
-      navLinks.classList.toggle('open');
+      const isOpen = navLinks.classList.toggle('open');
+      hamburger.setAttribute('aria-expanded', isOpen);
     });
   }
-  // Close menu on link click
-  document.querySelectorAll('.nav-links a').forEach(a => {
-    a.addEventListener('click', () => navLinks.classList.remove('open'));
+  function closeMenu() { navLinks.classList.remove('open'); hamburger.setAttribute('aria-expanded', 'false'); }
+  document.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', closeMenu));
+  document.addEventListener('click', (e) => {
+    if (navLinks.classList.contains('open') && !navLinks.contains(e.target) && !hamburger.contains(e.target)) closeMenu();
   });
-  // Navbar scroll shadow
   window.addEventListener('scroll', () => {
     document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 20);
   });
