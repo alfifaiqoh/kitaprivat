@@ -3,14 +3,22 @@ import base64
 from datetime import datetime
 from uuid import uuid4
 from urllib.parse import quote
-from flask import current_app
+from flask import current_app, request
 from werkzeug.utils import secure_filename
 
 WA_NUMBER = '6283877345020'
 
 
+def _is_mobile_ua():
+    ua = request.headers.get('User-Agent', '').lower()
+    return any(x in ua for x in ('android', 'iphone', 'ipad', 'windows phone', 'mobile'))
+
+
 def wa_chat_url(message):
-    return f"https://web.whatsapp.com/send?phone={WA_NUMBER}&text={quote(message)}"
+    text = quote(message)
+    if _is_mobile_ua():
+        return f"https://wa.me/{WA_NUMBER}?text={text}"
+    return f"https://web.whatsapp.com/send?phone={WA_NUMBER}&text={text}"
 
 
 def save_base64_image(data, subdir=''):
