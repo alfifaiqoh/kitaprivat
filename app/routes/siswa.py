@@ -1,6 +1,6 @@
 from datetime import datetime
 import re
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for, session
 from flask_login import login_required, current_user
 from app import db
 from app.models.siswa import Siswa
@@ -149,11 +149,16 @@ Perkiraan Jadwal: {s.jadwal_diinginkan or '-'}
 Keterangan: {s.keterangan or '-'}
 
 Mohon info langkah selanjutnya. Terima kasih."""
-            return redirect(wa_chat_url(pesan))
+            session['wa_pesan'] = pesan
+            return redirect(url_for('siswa.sukses'))
         return render_template('pages/siswa/daftar.html', error=error)
     return render_template('pages/siswa/daftar.html', error=error)
 
 
 @siswa_bp.route('/daftar/sukses')
 def sukses():
-    return render_template('pages/siswa/sukses.html')
+    pesan = session.pop('wa_pesan', None)
+    if not pesan:
+        pesan = 'Halo Admin KITA PRIVAT, saya ingin mendaftar les privat.'
+    wa_url = wa_chat_url(pesan)
+    return render_template('pages/siswa/sukses.html', wa_url=wa_url)

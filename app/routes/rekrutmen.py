@@ -1,6 +1,6 @@
 import os
 from datetime import datetime
-from flask import Blueprint, render_template, request, redirect, url_for, current_app
+from flask import Blueprint, render_template, request, redirect, url_for, current_app, session
 from flask_login import login_required, current_user
 from werkzeug.utils import secure_filename
 from app import db
@@ -70,14 +70,19 @@ Pendidikan: {r.pendidikan or '-'}
 Pengalaman: {r.pengalaman or '-'}
 
 Mohon info langkah selanjutnya. Terima kasih."""
-        return redirect(wa_chat_url(pesan))
+        session['wa_pesan'] = pesan
+        return redirect(url_for('rekrutmen.sukses'))
 
     return render_template('pages/rekrutmen/daftar.html')
 
 
 @rekrutmen_bp.route('/sukses')
 def sukses():
-    return render_template('pages/rekrutmen/sukses.html')
+    pesan = session.pop('wa_pesan', None)
+    if not pesan:
+        pesan = 'Halo Admin KITA PRIVAT, saya ingin mendaftar sebagai tentor.'
+    wa_url = wa_chat_url(pesan)
+    return render_template('pages/rekrutmen/sukses.html', wa_url=wa_url)
 
 
 @rekrutmen_bp.route('/list')
